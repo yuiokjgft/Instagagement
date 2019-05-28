@@ -55,9 +55,9 @@ Some groups have minimum follower requirement. Use with care as currently there 
 
 Known bugs:
 
-- After liking the posts that have been missed during first liking batch, it does not find the newly missed ones. Minor issue. Noticable in fast-pacing groups
-- Some useful features needed
-- Gets funny after midnight (dumb timing in run.py)
+- After liking the posts that have been missed during first liking batch, it does not find the newly missed ones. Minor issue. Noticable in fast-pacing groups.
+- Some useful features needed.
+- Gets funny after midnight (dumb timing in run.py) - e.g. do not use with timing from 23 to 4 (it does not like day switch).
 - Probably some other mess. Been stress-testing it for several days, no major issues.
 
 More details coming soon (maybe).
