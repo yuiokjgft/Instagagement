@@ -4,8 +4,8 @@ from datetime import datetime
 from datetime import timedelta
 
 # Settings
-sleep_time_loop_like = 10 * 60 		# x minutes between like loops
-sleep_time_loop_follow = 60 * 60 	# x minutes between follow loops
+sleep_time_loop_like = 20		# x minutes between like loops
+sleep_time_loop_follow = 60 	# x minutes between follow loops
 
 # Placeholders
 use_groups = []
@@ -38,8 +38,8 @@ with open(str(config['telegram_api_id']) + '_groups.json') as load_groups:
 
 # Run the progarm
 while 1:
-	update_config()
 	if datetime.now().hour >= config['time_from'] and datetime.now().hour < config['time_to']:
+		update_config()
 		# Check if time between loops is big enough
 		if (datetime.now() - like_end) / timedelta(minutes = 1) >= sleep_time_loop_like:
 			# Telegram engagement groups
@@ -53,14 +53,14 @@ while 1:
 						print('Something went wrong')
 				instagagement.disconnect_client()
 				like_end = datetime.now()
-				print('Like loop ended at ' + str(datetime.now()) + ', continuing after ' + str(sleep_time_loop_like/60) + 'minutes')
+				print('Like loop ended at ' + str(datetime.now()) + ', continuing after ' + str(sleep_time_loop_like) + ' minutes')
 
 		if (datetime.now() - follow_end) / timedelta(minutes = 1) >= sleep_time_loop_follow:
 			# Following competitor likers then unfollowing as FIFO after 24h
 			if config['follow'] == 1:
 				instagagement.start_follow()
 				follow_end = datetime.now()
-				print('Follow loop ended at ' + str(datetime.now()) + ', continuing after ' + str(sleep_time_loop_follow/60) + 'minutes')
+				print('Follow loop ended at ' + str(datetime.now()) + ', continuing after ' + str(sleep_time_loop_follow) + ' minutes')
 
 		# Wait for 1 min
 		time.sleep(60)
