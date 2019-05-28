@@ -11,8 +11,6 @@ sleep_time_loop_follow = 60 * 60 	# x minutes between follow loops
 use_groups = []
 group_list = []
 config = []
-
-# Get at white time programs ended
 like_end = datetime.now() - timedelta(minutes = sleep_time_loop_like)
 follow_end = datetime.now() - timedelta(minutes = sleep_time_loop_follow)
 
