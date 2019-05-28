@@ -25,6 +25,7 @@ instapy = InstaPy(
 
 ## Requirements
 
+- [Python](https://www.python.org/downloads/)
 - Telegram account with created [application](https://my.telegram.org/apps) from which API hash and ID will be used
 - [InstaPy](https://github.com/timgrossmann/InstaPy) for handling follow/unfollow
 - [Instabot.py](https://github.com/instabot-py/instabot.py) for handling likes and finding user feed last links (finds the links from specified profile which are needed in Telegram groups for posting)
