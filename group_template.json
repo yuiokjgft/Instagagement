@@ -1,0 +1,630 @@
+{
+    "50 Likes Pod": {
+        "group_id": "likex50",
+        "group_type": "fixed",
+        "joined": 0,
+        "like_count": 50,
+        "link_last": {
+            "link_id": 0,
+            "link_posted": 0,
+            "link_time": 0
+        },
+        "max_links": 1,
+        "private": 0,
+        "restrictions": {
+            "followers": 0,
+            "other": "follow 1 admin",
+            "post_amount": 50,
+            "time_interval": 0
+        },
+        "username_required": 0
+    },
+    "BoostGram Dx10": {
+        "group_id": "BoostGramDx10Like",
+        "group_type": "fixed",
+        "joined": 0,
+        "like_count": 10,
+        "link_last": {
+            "link_id": 0,
+            "link_posted": 0,
+            "link_time": 0
+        },
+        "max_links": 1,
+        "private": 0,
+        "restrictions": {
+            "followers": 0,
+            "other": 0,
+            "post_amount": 10,
+            "time_interval": 0
+        },
+        "username_required": 1
+    },
+    "BoostGram Dx20": {
+        "group_id": "BoostGramDx20",
+        "group_type": "fixed",
+        "joined": 0,
+        "like_count": 20,
+        "link_last": {
+            "link_id": 0,
+            "link_posted": 0,
+            "link_time": 0
+        },
+        "max_links": 1,
+        "private": 0,
+        "restrictions": {
+            "followers": 0,
+            "other": 0,
+            "post_amount": 20,
+            "time_interval": 0
+        },
+        "username_required": 1
+    },
+    "BoostGram Dx30": {
+        "group_id": "BoostGramDx30",
+        "group_type": "fixed",
+        "joined": 0,
+        "like_count": 30,
+        "link_last": {
+            "link_id": 0,
+            "link_posted": 0,
+            "link_time": 0
+        },
+        "max_links": 1,
+        "private": 0,
+        "restrictions": {
+            "followers": 0,
+            "other": 0,
+            "post_amount": 30,
+            "time_interval": 0
+        },
+        "username_required": 1
+    },
+    "Den DX20": {
+        "group_id": "DenDX20Likes",
+        "group_type": "fixed",
+        "joined": 0,
+        "like_count": 20,
+        "link_last": {
+            "link_id": 0,
+            "link_posted": 0,
+            "link_time": 0
+        },
+        "max_links": 1,
+        "private": 0,
+        "restrictions": {
+            "followers": 10000,
+            "other": 0,
+            "post_amount": 20,
+            "time_interval": 0
+        },
+        "username_required": 1
+    },
+    "Den DX50": {
+        "group_id": "DenDX50Likes",
+        "group_type": "fixed",
+        "joined": 0,
+        "like_count": 50,
+        "link_last": {
+            "link_id": 0,
+            "link_posted": 0,
+            "link_time": 0
+        },
+        "max_links": 1,
+        "private": 0,
+        "restrictions": {
+            "followers": 10000,
+            "other": 0,
+            "post_amount": 50,
+            "time_interval": 0
+        },
+        "username_required": 0
+    },
+    "Dx30 Engagement Group": {
+        "group_id": "EdplEFKn1M8iONjBGRz9xA",
+        "group_type": "fixed",
+        "joined": 0,
+        "like_count": 30,
+        "link_last": {
+            "link_id": 0,
+            "link_posted": 0,
+            "link_time": 0
+        },
+        "max_links": 1,
+        "private": 1,
+        "restrictions": {
+            "followers": 0,
+            "other": 0,
+            "post_amount": 30,
+            "time_interval": 0
+        },
+        "username_required": 0
+    },
+    "GainSpace | MASS Likes Dx5": {
+        "group_id": "igmasslikes",
+        "group_type": "fixed",
+        "joined": 0,
+        "like_count": 5,
+        "link_last": {
+            "link_id": 0,
+            "link_posted": 0,
+            "link_time": 0
+        },
+        "max_links": 1,
+        "private": 0,
+        "restrictions": {
+            "followers": 0,
+            "other": 0,
+            "post_amount": 5,
+            "time_interval": 0
+        },
+        "username_required": 1
+    },
+    "IGsocialboosterDX5": {
+        "group_id": "IGsocialboosterDX5",
+        "group_type": "fixed",
+        "joined": 0,
+        "like_count": 5,
+        "link_last": {
+            "link_id": 0,
+            "link_posted": 0,
+            "link_time": 0
+        },
+        "max_links": 1,
+        "private": 0,
+        "restrictions": {
+            "followers": 0,
+            "other": "have to interact with their bot first",
+            "post_amount": 5,
+            "time_interval": 0
+        },
+        "username_required": 1
+    },
+    "InstaPro Dx20": {
+        "group_id": "instapro20onlylikke",
+        "group_type": "fixed",
+        "joined": 0,
+        "like_count": 20,
+        "link_last": {
+            "link_id": 0,
+            "link_posted": 0,
+            "link_time": 0
+        },
+        "max_links": 1,
+        "private": 0,
+        "restrictions": {
+            "followers": 0,
+            "other": 0,
+            "post_amount": 20,
+            "time_interval": 0
+        },
+        "username_required": 1
+    },
+    "Like Dx30": {
+        "group_id": "J38wfkG6Zs01M_JkUVTbqg",
+        "group_type": "fixed",
+        "joined": 0,
+        "like_count": 30,
+        "link_last": {
+            "link_id": 0,
+            "link_posted": 0,
+            "link_time": 0
+        },
+        "max_links": 1,
+        "private": 1,
+        "restrictions": {
+            "followers": 0,
+            "other": "follow 2 admins",
+            "post_amount": 30,
+            "time_interval": 0
+        },
+        "username_required": 1
+    },
+    "LoMa's Like4Like": {
+        "group_id": "ET-Kq0QqulnA9Xctv4Gmiw",
+        "group_type": "fixed",
+        "joined": 0,
+        "like_count": 5,
+        "link_last": {
+            "link_id": 0,
+            "link_posted": 0,
+            "link_time": 0
+        },
+        "max_links": 1,
+        "private": 1,
+        "restrictions": {
+            "followers": 0,
+            "other": 0,
+            "post_amount": 5,
+            "time_interval": 0
+        },
+        "username_required": 1
+    },
+    "Monarch Dx20": {
+        "group_id": "JPnoU01nTndkRGeA318v3A",
+        "group_type": "fixed",
+        "joined": 0,
+        "like_count": 20,
+        "link_last": {
+            "link_id": 0,
+            "link_posted": 0,
+            "link_time": 0
+        },
+        "max_links": 1,
+        "private": 1,
+        "restrictions": {
+            "followers": 0,
+            "other": 0,
+            "post_amount": 20,
+            "time_interval": 0
+        },
+        "username_required": 1
+    },
+    "Nest DX20": {
+        "group_id": "NestDX20Likes",
+        "group_type": "fixed",
+        "joined": 0,
+        "like_count": 20,
+        "link_last": {
+            "link_id": 0,
+            "link_posted": 0,
+            "link_time": 0
+        },
+        "max_links": 1,
+        "private": 0,
+        "restrictions": {
+            "followers": 0,
+            "other": 0,
+            "post_amount": 20,
+            "time_interval": 0
+        },
+        "username_required": 0
+    },
+    "Push 24h": {
+        "group_id": "PUSHGROUPDX24LIKES",
+        "group_type": "24h",
+        "joined": 0,
+        "like_count": 0,
+        "link_last": {
+            "link_id": 0,
+            "link_posted": 0,
+            "link_time": 0
+        },
+        "max_links": 1,
+        "private": 0,
+        "restrictions": {
+            "followers": 0,
+            "other": "follow 3 admins",
+            "post_amount": 0,
+            "time_interval": 1440
+        },
+        "username_required": 1
+    },
+    "Select group": {
+        "group_id": "n/a",
+        "group_type": "n/a",
+        "joined": "n/a",
+        "like_count": "n/a",
+        "link_last": {
+            "link_id": "n/a",
+            "link_posted": "n/a",
+            "link_time": "n/a"
+        },
+        "max_links": "n/a",
+        "private": "n/a",
+        "restrictions": {
+            "followers": "n/a",
+            "other": "n/a",
+            "post_amount": "n/a",
+            "time_interval": "n/a"
+        },
+        "username_required": "n/a"
+    },
+    "Wizard Dx30": {
+        "group_id": "WizardDx30",
+        "group_type": "fixed",
+        "joined": 0,
+        "like_count": 30,
+        "link_last": {
+            "link_id": 0,
+            "link_posted": 0,
+            "link_time": 0
+        },
+        "max_links": 1,
+        "private": 0,
+        "restrictions": {
+            "followers": 0,
+            "other": 0,
+            "post_amount": 30,
+            "time_interval": 0
+        },
+        "username_required": 1
+    },
+    "Wolf 10K 24h": {
+        "group_id": "Fx4rwkg0O5LMxmDOnybBQw",
+        "group_type": "24h",
+        "joined": 0,
+        "like_count": 0,
+        "link_last": {
+            "link_id": 0,
+            "link_posted": 0,
+            "link_time": 0
+        },
+        "max_links": 2,
+        "private": 1,
+        "restrictions": {
+            "followers": 10000,
+            "other": 0,
+            "post_amount": 0,
+            "time_interval": 1440
+        },
+        "username_required": 0
+    },
+    "Wolf 15K 24h": {
+        "group_id": "Fx4rwk4jmykZjdL27YZdSQ",
+        "group_type": "24h",
+        "joined": 0,
+        "like_count": 0,
+        "link_last": {
+            "link_id": 0,
+            "link_posted": 0,
+            "link_time": 0
+        },
+        "max_links": 2,
+        "private": 1,
+        "restrictions": {
+            "followers": 15000,
+            "other": 0,
+            "post_amount": 0,
+            "time_interval": 1440
+        },
+        "username_required": 0
+    },
+    "Wolf 5K 24h": {
+        "group_id": "Fx4rwlIWBDtJIada1UdZqQ",
+        "group_type": "24h",
+        "joined": 0,
+        "like_count": 0,
+        "link_last": {
+            "link_id": 0,
+            "link_posted": 0,
+            "link_time": 0
+        },
+        "max_links": 2,
+        "private": 1,
+        "restrictions": {
+            "followers": 5000,
+            "other": 0,
+            "post_amount": 0,
+            "time_interval": 1440
+        },
+        "username_required": 0
+    },
+    "Wolf Amber 24h": {
+        "group_id": "Fx4rwkspmKhvndR_h6M6JQ",
+        "group_type": "24h",
+        "joined": 0,
+        "like_count": 0,
+        "link_last": {
+            "link_id": 0,
+            "link_posted": 0,
+            "link_time": 0
+        },
+        "max_links": 2,
+        "private": 1,
+        "restrictions": {
+            "followers": 0,
+            "other": 0,
+            "post_amount": 0,
+            "time_interval": 1440
+        },
+        "username_required": 0
+    },
+    "Wolf Emerald 24h": {
+        "group_id": "Fx4rwlM4eXuZA2Zjxk6v7w",
+        "group_type": "24h",
+        "joined": 0,
+        "like_count": 0,
+        "link_last": {
+            "link_id": 0,
+            "link_posted": 0,
+            "link_time": 0
+        },
+        "max_links": 2,
+        "private": 1,
+        "restrictions": {
+            "followers": 0,
+            "other": 0,
+            "post_amount": 0,
+            "time_interval": 1440
+        },
+        "username_required": 0
+    },
+    "Wolf Onyx 24h": {
+        "group_id": "Fx4rwj_zwv2ED0T5X6Pgfw",
+        "group_type": "24h",
+        "joined": 0,
+        "like_count": 0,
+        "link_last": {
+            "link_id": 0,
+            "link_posted": 0,
+            "link_time": 0
+        },
+        "max_links": 2,
+        "private": 1,
+        "restrictions": {
+            "followers": 0,
+            "other": 0,
+            "post_amount": 0,
+            "time_interval": 1440
+        },
+        "username_required": 0
+    },
+    "Wolf Quartz 24h": {
+        "group_id": "Fx4rwkT2qgxbyt0szQk5YA",
+        "group_type": "24h",
+        "joined": 0,
+        "like_count": 0,
+        "link_last": {
+            "link_id": 0,
+            "link_posted": 0,
+            "link_time": 0
+        },
+        "max_links": 2,
+        "private": 1,
+        "restrictions": {
+            "followers": 0,
+            "other": 0,
+            "post_amount": 0,
+            "time_interval": 1440
+        },
+        "username_required": 0
+    },
+    "Wolf Ruby 24h": {
+        "group_id": "Fx4rwkjfFsMn6si42mK8Fw",
+        "group_type": "24h",
+        "joined": 0,
+        "like_count": 0,
+        "link_last": {
+            "link_id": 0,
+            "link_posted": 0,
+            "link_time": 0
+        },
+        "max_links": 2,
+        "private": 1,
+        "restrictions": {
+            "followers": 0,
+            "other": 0,
+            "post_amount": 0,
+            "time_interval": 1440
+        },
+        "username_required": 0
+    },
+    "Wolf Saphire 24h": {
+        "group_id": "Fx4rwlDFRg32ICK8NbsYkQ",
+        "group_type": "24h",
+        "joined": 0,
+        "like_count": 0,
+        "link_last": {
+            "link_id": 0,
+            "link_posted": 0,
+            "link_time": 0
+        },
+        "max_links": 2,
+        "private": 1,
+        "restrictions": {
+            "followers": 0,
+            "other": 0,
+            "post_amount": 0,
+            "time_interval": 1440
+        },
+        "username_required": 0
+    },
+    "Wolf | 1K Powerlikes Dx10": {
+        "group_id": "Fx4rwlC_-N3DsgBLVM3P1g",
+        "group_type": "fixed",
+        "joined": 0,
+        "like_count": 10,
+        "link_last": {
+            "link_id": 0,
+            "link_posted": 0,
+            "link_time": 0
+        },
+        "max_links": 1,
+        "private": 1,
+        "restrictions": {
+            "followers": 1000,
+            "other": 0,
+            "post_amount": 10,
+            "time_interval": 0
+        },
+        "username_required": 0
+    },
+    "Wolf | 3K Turbo Likes Dx50": {
+        "group_id": "Fx4rwkp0qCY9GYPRAOnoUg",
+        "group_type": "fixed",
+        "joined": 0,
+        "like_count": 50,
+        "link_last": {
+            "link_id": 0,
+            "link_posted": 0,
+            "link_time": 0
+        },
+        "max_links": 1,
+        "private": 1,
+        "restrictions": {
+            "followers": 3000,
+            "other": 0,
+            "post_amount": 50,
+            "time_interval": 0
+        },
+        "username_required": 0
+    },
+    "Wolf | 5K Powerlikes Dx10": {
+        "group_id": "Fx4rwkvaUKuKD2owZAlS_g",
+        "group_type": "fixed",
+        "joined": 0,
+        "like_count": 10,
+        "link_last": {
+            "link_id": 0,
+            "link_posted": 0,
+            "link_time": 0
+        },
+        "max_links": 1,
+        "private": 1,
+        "restrictions": {
+            "followers": 5000,
+            "other": 0,
+            "post_amount": 10,
+            "time_interval": 0
+        },
+        "username_required": 0
+    },
+    "boostuppowerlikes": {
+        "group_id": "boostuppowerlikes",
+        "group_type": "fixed",
+        "joined": 0,
+        "like_count": 20,
+        "link_last": {
+            "link_id": 0,
+            "link_posted": 0,
+            "link_time": 0
+        },
+        "max_links": 1,
+        "private": 0,
+        "restrictions": {
+            "followers": 0,
+            "other": 0,
+            "post_amount": 20,
+            "time_interval": 0
+        },
+        "username_required": 1
+    },
+
+    "available_groups" : {
+        "1" : "Push 24h",
+        "2" : "GainSpace | MASS Likes Dx5",
+        "3" : "BoostGram Dx10",
+        "4" : "BoostGram Dx20",
+        "5" : "BoostGram Dx30",
+        "6" : "InstaPro Dx20",
+        "7" : "Wizard Dx30",
+        "8" : "Like Dx30",
+        "9" : "Wolf Onyx 24h",
+        "10" : "Wolf Saphire 24h",
+        "11" : "Wolf Emerald 24h",
+        "12" : "Wolf Ruby 24h",
+        "13" : "Wolf Amber 24h",
+        "14" : "Wolf Quartz 24h",
+        "15" : "Wolf 5K 24h",
+        "16" : "Wolf 10K 24h",
+        "17" : "Wolf 15K 24h",
+        "18" : "Wolf | 5K Powerlikes Dx10",
+        "19" : "Wolf | 1K Powerlikes Dx10",
+        "20" : "Wolf | 3K Turbo Likes Dx50",
+        "21" : "50 Likes Pod",
+        "22" : "Nest DX20",
+        "23" : "Dx30 Engagement Group",
+        "24" : "Den DX20",
+        "25" : "Den DX50"
+    }
+}
