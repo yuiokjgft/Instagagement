@@ -21,7 +21,6 @@ instapy = InstaPy(
 - Finds your latest posts, gets links from them, joins Telegram group, finds all the links to engage with, engages, posts yours. That simple.
 - Intended for constant use with limited hours during the day (e.g. 6.00 to 18.00).
 - Supports basic Telegram engagement groups - post amount based and time based. All the available groups are found in group_template.json, more can be added. Currently 25 groups listed. Request any missing, but it is quite easy to add them.
-- Takes latest links from specified Instagram profile - no intervention from user side (you) needed.
 
 ## Requirements
 
