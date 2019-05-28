@@ -21,6 +21,7 @@ instapy = InstaPy(
 - Intended for constant use with limited hours during the day (e.g. 6.00 to 18.00)
 - Supports basic Telegram engagement groups - post amount based and time based. All the available groups are found in group_template.json, more can be added
 - Takes latest links from specified Instagram profile
+- Currently 25 groups listed. Request any missing, but it is quite easy to add them
 
 ## Requirements
 
@@ -54,7 +55,8 @@ Some groups have minimum follower requirement. Use with care as currently there 
 
 Known bugs:
 
-- After liking the posts that have been missed during first liking batch, it does not find the newly missed ones. Minor issue. Noticable in fast-pacing groups.
+- After liking the posts that have been missed during first liking batch, it does not find the newly missed ones. Minor issue. Noticable in fast-pacing groups
+- Some useful features needed
 - Probably some other mess. Been stress-testing it for several days, no major issues.
 
 More details coming soon (maybe).
@@ -63,7 +65,7 @@ More details coming soon (maybe).
 
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
-Software is quite messy due to inexperience in Python and time constraints. Some features might be added.
+Software is quite messy due to inexperience with Python and time constraints. 
 
 ## License
 
