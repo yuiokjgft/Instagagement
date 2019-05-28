@@ -58,6 +58,7 @@ Known bugs:
 
 - After liking the posts that have been missed during first liking batch, it does not find the newly missed ones. Minor issue. Noticable in fast-pacing groups
 - Some useful features needed
+- Gets funny after midnight (dumb timing in run.py)
 - Probably some other mess. Been stress-testing it for several days, no major issues.
 
 More details coming soon (maybe).
