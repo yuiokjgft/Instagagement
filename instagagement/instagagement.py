@@ -7,29 +7,10 @@ from datetime import datetime as datenow
 from instabot_py import InstaBot
 from instabot_py.user_info import get_user_info
 from instabot_py.user_feed import get_media_id_user_feed
-# InstaPy by timgrossmann https://github.com/timgrossmann/InstaPy
-from instapy import InstaPy
 # Telethon Telegram API by LonamiWebs https://github.com/LonamiWebs/Telethon
 from telethon import TelegramClient, events, sync, errors, functions, types
 from telethon.tl.functions.channels import JoinChannelRequest,LeaveChannelRequest
 from telethon.tl.functions.messages import ImportChatInviteRequest  
-
-# Variables
-first_array_full = False
-new_message = False
-client_started = False
-compare_array = []
-first_array = []
-final_array = []
-liked = []
-liked_all = {}
-add_liked = []
-competitors = []
-data = {}
-group_name = ''
-selected_group = ''
-id_count = 0
-likes_given = 0
 
 # Settings
 group_template = 'group_template.json'
@@ -41,15 +22,30 @@ config = []
 client = []
 preset = ''
 
+# Variables
+first_array_full = False
+new_message = False
+client_started = False
+compare_array = []
+first_array = []
+final_array = []
+liked = []
+liked_all = {}
+add_liked = []
+data = {}
+group_name = ''
+selected_group = ''
+id_count = 0
+likes_given = 0
+
 # Instagram
 instabot = []
-instapy = []
 link1 = ''
 link2 = ''
 link3 = ''
 
 def init(preset_):
-	global config, group_list, competitors, liked_all, preset
+	global config, group_list, liked_all, preset
 	preset = preset_
 
 	# Print time after every print message
@@ -89,9 +85,6 @@ def init(preset_):
 				liked_all = json.load(json_file)
 	except FileNotFoundError:
 		print(config['ig_username'] + '_liked.json' + ' not found')
-
-	# Get competitors
-	competitors = config['competitors'].split(",")
 
 def update_config():
 	global preset, config
@@ -134,30 +127,15 @@ def get_last_posts():
 	link3 = 'https://www.instagram.com/p/' + str(last_posts[:findnth(last_posts, "'", 0)]) + '/'
 
 def login():
-	global instapy, instabot, client
+	global instabot, client
 
-	# Login using instabot.py
-	if config['telegram_groups'] == 1:
-		instabot = InstaBot(
-			like_per_day = config['max_likes'],
-			login = config['ig_username'],
-			password = config['ig_password'],
-			session_file = config['cookie_name'],
-			log_mod = 2
-			)
-
-	# Login using InstaPy
-	if config['follow'] == 1:
-		# Set login info with headless browser
-		instapy = InstaPy(
-			username = config['ig_username'], 
-			password = config['ig_password'], 
-			headless_browser = True,
-			nogui = False,
-			multi_logs = True
-			)
-		# Log in to the account
-		instapy.login()
+	instabot = InstaBot(
+		like_per_day = config['max_likes'],
+		login = config['ig_username'],
+		password = config['ig_password'],
+		session_file = config['cookie_name'],
+		log_mod = 2
+		)
 
 	# Telegram client
 	client = TelegramClient(config['session'], config['telegram_api_id'], config['telegram_api_hash'])
@@ -523,7 +501,7 @@ def post_link():
 
 # Start the program
 def start_groups(config_group):
-	global client, first_array_full, new_message, compare_array, first_array, final_array, group_name, likes_given, add_liked, selected_group, competitors
+	global client, first_array_full, new_message, compare_array, first_array, final_array, group_name, likes_given, add_liked, selected_group
 	update_config()
 	date = str(datenow.now().year)+'-'+str(datenow.now().month)+'-'+str(datenow.now().day) # returns e.g. 2019-1-29
 	# Load likes
@@ -624,53 +602,6 @@ def start_groups(config_group):
 					active = False
 	else:
 		print('Max like amount reached for today')
-
-def start_follow():
-	global instapy, competitors, config
-	update_config()
-	# InstaPy settings
-	# Set follow limits
-	instapy.set_relationship_bounds(
-		enabled = True,
-		potency_ratio = None,
-		delimit_by_numbers = True,
-		max_followers = 1500,
-		max_following = 500,
-		min_followers=50,
-		min_following=50,
-		min_posts=10,
-		max_posts=200
-		)
-
-	# Limits (pre hour, per day)
-	instapy.set_quota_supervisor(enabled=True, sleep_after=['unfollows_h', 'follows_h', 'server_calls_h'], sleepyhead=True, stochastic_flow=False, notify_me=False,
-		peak_follows=(35, config['max_follows']),
-		peak_unfollows=(None, config['max_unfollows']),
-		peak_server_calls=(490, None)
-		)
-
-	# Start follow procedure
-	instapy.follow_likers(
-		competitors, 
-		photos_grab_amount = 2, 
-		follow_likers_per_photo = 25, 
-		randomize = True, 
-		sleep_delay = 300, 
-		interact = False
-		)
-
-	# Start unfollow procedure
-	unfollow_amount = (config['max_unfollows']) / (config['time_to'] - config['time_from'])
-	instapy.unfollow_users(
-		amount = int(round(unfollow_amount)),
-	#	allFollowing = True,
-		InstapyFollowed=(True, "all"),
-		style = "FIFO",
-		unfollow_after=48*60*60,
-		sleep_delay = 300
-		)
-
-	active = False
 
 # Connect/start telegram client
 def start_client():
