@@ -1,20 +1,10 @@
 # Instagagement
 
-Python script that automates [Telegram engagement groups](https://medium.com/@violet.emily.xoxo/inside-instagram-pods-the-secret-trick-to-increase-your-engagement-55b0d9c3cee9) for Instagram such as Wolf Global by combining Instagram bots (InstaPy and Instabot.py) and Telegram API (Telethon). Optionally you can enable function to follow Instagram profiles that have liked your competitor latest posts after which unfollow function is used (unfollows after 48h).
+Python script that automates [Telegram engagement groups](https://medium.com/@violet.emily.xoxo/inside-instagram-pods-the-secret-trick-to-increase-your-engagement-55b0d9c3cee9) for Instagram such as Wolf Global by combining Instagram bot (Instabotpy) and Telegram API (Telethon).
 
 If you got fed up with manually engaging with posts through Telegram groups, then this is for you.
 
-This also runs on Raspberry Pi. If I recall correctly, then it needed Python 3.7, but some features have been removed, thus 3.5 might be enough. If you wish to run this on Pi, turn off GUI that InstaPy requires in instagagement.py login function:
-
-```
-instapy = InstaPy(
-  username = config['ig_username'], 
-  password = config['ig_password'], 
-  headless_browser = True,
-  nogui = True,
-  multi_logs = True
-  )
-```
+This also runs on Raspberry Pi. If I recall correctly, then it needed Python 3.7, but some features have been removed, thus 3.5 might be enough.
 
 ## Features
 
@@ -26,7 +16,6 @@ instapy = InstaPy(
 
 - [Python](https://www.python.org/downloads/)
 - Telegram account with created [application](https://my.telegram.org/apps) from which API hash and ID will be used
-- [InstaPy](https://github.com/timgrossmann/InstaPy) for handling follow/unfollow
 - [Instabot.py](https://github.com/instabot-py/instabot.py) for handling likes and finding user feed last links (finds the links from specified profile which are needed in Telegram groups for posting)
 - [Telethon](https://github.com/LonamiWebs/Telethon) for handling Telegram
 
@@ -35,7 +24,6 @@ instapy = InstaPy(
 Until proper package is made, download the files and install following:
 
 ```
-pip install instapy
 pip install instabot-py
 pip install telethon
 ```
