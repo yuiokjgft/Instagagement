@@ -8,7 +8,7 @@ This also runs on Raspberry Pi. If I recall correctly, then it needed Python 3.7
 
 ## Features
 
-- Finds your latest posts, gets links from them, joins Telegram group, finds all the links to engage with, engages, posts yours. That simple.
+- Finds your latest posts, gets links from them, joins Telegram group, finds all the links to engage with, engages, posts yours. That simple. Currently only supports likes.
 - Intended for constant use with limited hours during the day (e.g. 6.00 to 18.00).
 - Supports basic Telegram engagement groups - post amount based and time based. All the available groups are found in group_template.json, more can be added. Currently 25 groups listed. Request any missing, but it is quite easy to add them.
 
