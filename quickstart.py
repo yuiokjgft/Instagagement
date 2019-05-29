@@ -8,9 +8,7 @@ max_unfollows_default = 500
 delay_default = 5
 
 # Config
-telegram_groups = 0
 session = ''
-follow = 0
 time_from = 0
 time_to = 0
 ig_username = ''
@@ -21,21 +19,7 @@ telegram_api_hash = 0
 like_profile = ''
 use_groups = ''
 max_likes = 0
-max_follows = 0
-max_unfollows = 0
 delay = 0
-competitors = ''
-
-# CHECK VERSION OF TELEGRAM HERE! 
-
-# Features
-print('Enable/disable features ')
-print('Telegram engagement groups')
-telegram_groups = input('Choose (0 = disable, 1 = enable): ')
-
-print('Following competitor likers')
-follow = input('Choose (0 = disable, 1 = enable): ')
-print()
 
 print('When do you wish to use this script (e.g. from 8 to 16)? Machine time is used')
 time_from = input('From: ')
@@ -127,24 +111,8 @@ if int(telegram_groups) == 1:
 		delay = delay_default
 	print()
 
-if int(follow) == 1:
-	competitors = input('Enter your competitor usernames (separate with comma): ')
-	print()
-
-	max_follows = input('Set follow limit per day (default ' + str(max_follows_default) + '): ')
-	if len(max_follows) == 0:
-		max_follows = max_follows_default
-	print()
-
-	max_unfollows = input('Set unfollow limit per day (default ' + str(max_unfollows_default) + '): ')
-	if len(max_unfollows) == 0:
-		max_unfollows = max_unfollows_default
-	print()
-
 config = {
-	"telegram_groups" : int(telegram_groups),
 	"session" : str(session),
-	"follow" : int(follow),
 	"time_from" : int(time_from),
 	"time_to" : int(time_to),
 	"ig_username" : str(ig_username),
@@ -155,10 +123,7 @@ config = {
 	"like_profile" : str(like_profile),
 	"use_groups" : str(use_groups),
 	"max_likes" : int(max_likes),
-	"max_follows" : int(max_follows),
-	"max_unfollows" : int(max_unfollows),
-	"delay" : int(delay),
-	"competitors" : str(competitors)
+	"delay" : int(delay)
 }
 
 print()

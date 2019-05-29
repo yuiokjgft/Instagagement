@@ -12,7 +12,6 @@ use_groups = []
 group_list = []
 config = []
 like_end = datetime.now() - timedelta(minutes = sleep_time_loop_like)
-follow_end = datetime.now() - timedelta(minutes = sleep_time_loop_follow)
 
 # Get the name of preset
 preset = input('Enter preset name (instagram username): ')
@@ -42,27 +41,16 @@ while 1:
 		update_config()
 		# Check if time between loops is big enough
 		if (datetime.now() - like_end) / timedelta(minutes = 1) >= sleep_time_loop_like:
-			# Telegram engagement groups
-			if config['telegram_groups'] == 1:
-				instagagement.start_client()
-				for i in range(0, len(use_groups)):
-					try:
-						instagagement.start_groups(group_list['available_groups'][use_groups[i]])
-						time.sleep(60)
-					except:
-						print('Something went wrong')
-				instagagement.disconnect_client()
-				like_end = datetime.now()
-				print('Like loop ended at ' + str(datetime.now()) + ', continuing after ' + str(sleep_time_loop_like) + ' minutes')
-
-		if (datetime.now() - follow_end) / timedelta(minutes = 1) >= sleep_time_loop_follow:
-			# Following competitor likers then unfollowing as FIFO after 24h
-			if config['follow'] == 1:
-				instagagement.start_follow()
-				follow_end = datetime.now()
-				print('Follow loop ended at ' + str(datetime.now()) + ', continuing after ' + str(sleep_time_loop_follow) + ' minutes')
-
-		# Wait for 1 min
+			instagagement.start_client()
+			for i in range(0, len(use_groups)):
+				try:
+					instagagement.start_groups(group_list['available_groups'][use_groups[i]])
+					time.sleep(60)
+				except:
+					print('Something went wrong')
+			instagagement.disconnect_client()
+			like_end = datetime.now()
+			print('Like loop ended at ' + str(datetime.now()) + ', continuing after ' + str(sleep_time_loop_like) + ' minutes')
 		time.sleep(60)
 	else:
 		# Refresh values after every day
