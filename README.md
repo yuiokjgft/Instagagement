@@ -19,21 +19,21 @@ This also runs on Raspberry Pi (requires Python 3.6 or higher; tutorial will be 
 
 ## Installation
 
-Until proper package is made, download the files and install following:
+Until proper package is made, download the files (git clone https://github.com/Ewlbo/Instagagement/) and install following:
 
-```
+```elm
 pip install instabot-py==0.4.7
 pip install telethon
 ```
-Should be ready to run the script.
+Should be ready to run the program.
 
 ## Usage
 
 To get started and set everything up, run 'quickstart.py'. During quickstart you will be asked for your Instagram credentials and Telegram API keys which you can generate [here](https://my.telegram.org/apps). 
 
-There is premade script for simple operation - 'run.py'.
+There is premade program for simple operation - 'run.py'.
 
-If you exit python script while Telegram client is open, you will block Telegram's session file. To fix it, run 'create_session.py' and change the name of session file in config file of your account. Do not re-use old session name.
+If you exit python program while Telegram client is open, you will block Telegram's session file. To fix it, run 'create_session.py' and change the name of session file in config file of your account. Do not re-use old session name.
 
 The groups go into 2 main categories: those, who require you to engage with the account that you want likes on (e.g. Wolf Global) and those who dont (e.g. Boostgram). Quickstart will guide you.
 
