@@ -4,14 +4,13 @@ from datetime import datetime
 from datetime import timedelta
 
 # Settings
-sleep_time_loop_like = 20		# x minutes between like loops
-sleep_time_loop_follow = 60 	# x minutes between follow loops
+loop_sleep = 20		# Loop sleep time 20 min
 
 # Placeholders
 use_groups = []
 group_list = []
 config = []
-like_end = datetime.now() - timedelta(minutes = sleep_time_loop_like)
+like_end = datetime.now() - timedelta(minutes = loop_sleep)
 
 # Get the name of preset
 preset = input('Enter preset name (instagram username): ')
@@ -40,7 +39,7 @@ while 1:
 	if datetime.now().hour >= config['time_from'] and datetime.now().hour < config['time_to']:
 		update_config()
 		# Check if time between loops is big enough
-		if (datetime.now() - like_end) / timedelta(minutes = 1) >= sleep_time_loop_like:
+		if (datetime.now() - like_end) / timedelta(minutes = 1) >= loop_sleep:
 			instagagement.start_client()
 			for i in range(0, len(use_groups)):
 				try:
@@ -50,7 +49,7 @@ while 1:
 					print('Something went wrong')
 			instagagement.disconnect_client()
 			like_end = datetime.now()
-			print('Like loop ended at ' + str(datetime.now()) + ', continuing after ' + str(sleep_time_loop_like) + ' minutes')
+			print('Like loop ended at ' + str(datetime.now()) + ', continuing after ' + str(loop_sleep) + ' minutes')
 		time.sleep(60)
 	else:
 		# Refresh values after every day
