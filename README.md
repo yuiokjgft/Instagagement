@@ -35,7 +35,7 @@ There is premade program for simple operation - 'run.py'.
 
 If you exit python program while Telegram client is open, you will block Telegram's session file. To fix it, run 'create_session.py' and change the name of session file in config file of your account. Do not re-use old session name.
 
-The groups go into 2 main categories: those, who require you to engage with the account that you want likes on (e.g. Wolf Global) and those who dont (e.g. Boostgram). Quickstart will guide you.
+The groups go into 2 main categories: those, who require you to engage with the account that you want likes on (e.g. Wolf Global) and those who dont (e.g. Boostgram). Quickstart will guide you. In first scenario you would use your main account for engagement (groups 1-25), in second scenario you would have alt account which does the engagement and posts link from main account (groups 1-8 only).
 
 Some groups have minimum follower requirement. Use with care as currently there is nothing checking that (will add soon).
 
