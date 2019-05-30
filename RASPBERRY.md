@@ -1,7 +1,7 @@
-## Requirements
+## Tested on:
 
-- Raspbian Stretch (or Strech lite, might also work on older versions)
-- Tested on Raspberry Pi 3 Model A+ and Zero, will work on Model B/B+ as well, and might work for older ones as well
+- Raspbian Stretch Lite
+- Raspberry Pi 3 Model A+ and Zero, will work on Model B/B+ as well, and might work for older ones as well
 
 ## Install
 
@@ -38,3 +38,5 @@ git clone https://github.com/Ewlbo/Instagagement/
 cd Instagagement
 sudo python3.7 quickstart.py
 ```
+
+Optionally add 'screen' package to shutdown terminal if needed. Also 'dataplicity' could be useful for remote access.
