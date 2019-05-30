@@ -8,7 +8,7 @@ This also runs on Raspberry Pi (tutorial will be added).
 
 - Finds latest posts from profile you specify, gets links from them, joins Telegram group, finds all the links to engage with, engages, posts yours. That simple. Currently only supports likes.
 - Intended for 24/7 use with limited hours during the day (e.g. 6.00 to 18.00).
-- Supports basic Telegram engagement groups - post amount based and time based. All the available groups are found in group_template.json, more can be added. Currently 25 groups listed. Request any missing.
+- Supports basic Telegram engagement groups - post amount based (e.g. Dx10) and time based (24h). All the available groups are found in group_template.json, more can be added. Currently 25 groups listed. Request any missing.
 
 ## Requirements
 
