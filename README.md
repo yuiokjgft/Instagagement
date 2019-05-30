@@ -1,6 +1,6 @@
 # Instagagement
 
-Python program that automates [Telegram engagement groups](https://medium.com/@violet.emily.xoxo/inside-instagram-pods-the-secret-trick-to-increase-your-engagement-55b0d9c3cee9) for Instagram such as Wolf Global by combining Instagram bot (Instabotpy) and Telegram API (Telethon).
+Python program that automates [Telegram engagement groups](https://medium.com/@violet.emily.xoxo/inside-instagram-pods-the-secret-trick-to-increase-your-engagement-55b0d9c3cee9) for Instagram such as Wolf Global by combining Instagram bot (Instabot-py 0.4.7) and Telegram API (Telethon).
 
 This also runs on Raspberry Pi (requires Python 3.6 or higher; tutorial will be added).
 
@@ -14,7 +14,7 @@ This also runs on Raspberry Pi (requires Python 3.6 or higher; tutorial will be 
 
 - [Python](https://www.python.org/downloads/) 3.6 or higher
 - Telegram account with created [application](https://my.telegram.org/apps) from which API hash and ID will be used
-- [Instabot.py](https://github.com/instabot-py/instabot.py) for handling likes and finding user feed last links (finds the links from specified profile which are needed in Telegram groups for posting)
+- [Instabot.py 0.4.7](https://github.com/instabot-py/instabot.py) for handling likes and finding user feed last links (finds the links from specified profile which are needed in Telegram groups for posting)
 - [Telethon](https://github.com/LonamiWebs/Telethon) for handling Telegram
 
 ## Installation
@@ -22,7 +22,7 @@ This also runs on Raspberry Pi (requires Python 3.6 or higher; tutorial will be 
 Until proper package is made, download the files and install following:
 
 ```
-pip install instabot-py
+pip install instabot-py==0.4.7
 pip install telethon
 ```
 Should be ready to run the script.
