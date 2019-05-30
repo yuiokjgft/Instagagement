@@ -1,6 +1,6 @@
 # Instagagement
 
-Python script that automates [Telegram engagement groups](https://medium.com/@violet.emily.xoxo/inside-instagram-pods-the-secret-trick-to-increase-your-engagement-55b0d9c3cee9) for Instagram such as Wolf Global by combining Instagram bot (Instabotpy) and Telegram API (Telethon).
+Python program that automates [Telegram engagement groups](https://medium.com/@violet.emily.xoxo/inside-instagram-pods-the-secret-trick-to-increase-your-engagement-55b0d9c3cee9) for Instagram such as Wolf Global by combining Instagram bot (Instabotpy) and Telegram API (Telethon).
 
 If you got fed up with manually engaging with posts through Telegram groups, then this is for you.
 
