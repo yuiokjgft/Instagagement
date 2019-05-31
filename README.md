@@ -35,6 +35,18 @@ python quickstart.py
 python run.py
 ```
 
+#### Linux
+
+```elm
+pip install instabot-py==0.4.7
+pip install telethon
+cd ~/Desktop
+git clone https://github.com/Ewlbo/Instagagement/
+cd Instagagement
+python quickstart.py
+python run.py
+```
+
 ## Usage
 
 To get started and set everything up, run 'quickstart.py'. During quickstart you will be asked for your Instagram credentials and Telegram API keys which you can generate [here](https://my.telegram.org/apps). 
