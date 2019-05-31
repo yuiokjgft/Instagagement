@@ -24,14 +24,13 @@ Proper package will be made soon.
 #### Windows
 
 - Install [Python](https://www.python.org/downloads/)
+- Download Instagagement and extract it somewhere
 - Open Windows PowerShell or Command Prompt
 - Run the following:
 ```elm
 pip install instabot-py==0.4.7
 pip install telethon
-cd ~/Desktop
-git clone https://github.com/Ewlbo/Instagagement/
-cd Instagagement
+(cd to where you downloaded Instagagement)
 python quickstart.py
 python run.py
 ```
