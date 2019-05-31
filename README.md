@@ -19,13 +19,22 @@ This also runs on Raspberry Pi (requires Python 3.6 or higher; [here is a tutori
 
 ## Installation
 
-Until proper package is made, download the files (git clone https://github.com/Ewlbo/Instagagement/) and install following:
+Proper package will be made soon.
 
+### Windows
+
+- Install [Python](https://www.python.org/downloads/)
+- Open Windwos PowerShell or Command Prompt
+- Run the following:
 ```elm
 pip install instabot-py==0.4.7
 pip install telethon
+cd ~/Desktop
+git clone https://github.com/Ewlbo/Instagagement/
+cd Instagagement
+python quickstart.py
+python run.py
 ```
-Should be ready to run the program.
 
 ## Usage
 
