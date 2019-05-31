@@ -24,7 +24,7 @@ Proper package will be made soon.
 ### Windows
 
 - Install [Python](https://www.python.org/downloads/)
-- Open Windwos PowerShell or Command Prompt
+- Open Windows PowerShell or Command Prompt
 - Run the following:
 ```elm
 pip install instabot-py==0.4.7
