@@ -21,7 +21,7 @@ This also runs on Raspberry Pi (requires Python 3.6 or higher; [here is a tutori
 
 Proper package will be made soon.
 
-### Windows
+#### Windows
 
 - Install [Python](https://www.python.org/downloads/)
 - Open Windows PowerShell or Command Prompt
@@ -48,13 +48,13 @@ The groups go into 2 main categories: those, who require you to engage with the 
 
 Some groups have minimum follower requirement. Use with care as currently there is nothing checking that (will add soon).
 
-### Known bugs:
+#### Known bugs:
 - After liking the posts that have been missed during first liking batch, it does not find the newly missed ones. Minor issue. Noticable in fast-pacing groups.
 - Some useful features needed.
 - Gets funny after midnight (dumb timing in run.py) - e.g. do not use with timing from 23 to 4 (it does not like day switch).
 - Probably some other mess. Been stress-testing it for several weeks, no major issues.
 
-### If you run multiple bots on 1 Telegram account:
+#### If you run multiple bots on 1 Telegram account:
 - Do not overlap groups
 - Run them in same location/folder
 
