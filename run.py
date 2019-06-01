@@ -4,13 +4,23 @@ from datetime import datetime
 from datetime import timedelta
 
 # Settings
-loop_sleep = 20		# Loop sleep time 20 min
+group_waittime = 20 	# Seconds between groups
+loop_sleep = 20			# Minutes between loops (all groups)
 
 # Placeholders
 use_groups = []
 group_list = []
 config = []
 like_end = datetime.now() - timedelta(minutes = loop_sleep)
+
+print()
+print()
+print("|          |                                            |    ")
+print("|,---.,---.|--- ,---.,---.,---.,---.,---.,-.-.,---.,---.|--- ")
+print("||   |`---.|    ,---||   |,---||   ||---'| | ||---'|   ||    ")
+print("``   '`---'`---'`---^`---|`---^`---|`---'` ' '`---'`   '`---'")
+print("                     `---'     `---'                         ")
+print()
 
 # Get the name of preset
 preset = input('Enter preset name (instagram username): ')
@@ -43,7 +53,8 @@ while 1:
 			instagagement.start_client()
 			for i in range(0, len(use_groups)):
 				instagagement.start_groups(group_list['available_groups'][use_groups[i]])
-				time.sleep(60)
+				print('Waiting for ' + str(group_waittime) + ' seconds between groups')
+				time.sleep(group_waittime)
 			instagagement.disconnect_client()
 			like_end = datetime.now()
 			print('Like loop ended at ' + str(datetime.now()) + ', continuing after ' + str(loop_sleep) + ' minutes')
