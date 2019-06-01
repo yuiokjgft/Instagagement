@@ -550,9 +550,9 @@ def start_groups(config_group):
 			print('Link 1 not set or not properly formated (https://www.instagram.com/p/BtULbITlh7C/)')
 		else:
 			print()
-			print("----------------------------------------	")
-			print('Starting program: ' + str(selected_group) + "; Time started " + str(datetime.datetime.now().hour) + ":" + str(datetime.datetime.now().minute))
-			print("----------------------------------------")
+			print("----------------------------------------------------------------")
+			print('Starting group: ' + str(selected_group) + "; Time started " + str(datetime.datetime.now().hour) + ":" + str(datetime.datetime.now().minute))
+			print("----------------------------------------------------------------")
 			print()
 
 			# Join group and refresh it
