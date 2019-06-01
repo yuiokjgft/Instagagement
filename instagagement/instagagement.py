@@ -455,8 +455,11 @@ def post_link():
 			post_message = g_type + " @" + config['ig_username'] + " " + link1 + " " + link2
 		else:
 			post_message = g_type + " " + link1 + " " + link2
-	client.send_message(group_name, post_message, link_preview = False)
-	print('Sent: ' + post_message)
+	try:
+		client.send_message(group_name, post_message, link_preview = False)
+		print('Sent: ' + post_message)
+	except:
+		print("Can't send - might be banned from group or in general (check Telegram's Spam Info Bot)")
 	# Write new data to groups.json
 	try:
 		with open(str(config['telegram_api_id']) + '_groups.json') as json_file:  
@@ -538,19 +541,23 @@ def start_groups(config_group):
 			print('Starting program: ' + str(selected_group))
 			# Join group and refresh it
 			join_channel(selected_group)
-			result = client(functions.updates.GetChannelDifferenceRequest(
-		        channel=group_name,
-		        filter=types.ChannelMessagesFilter(
-		            ranges=[types.MessageRange(
-		                min_id=0,
-		                max_id=1
-		            )],
-		            exclude_new_messages=False
-		        ),
-		        pts=42,
-		        limit=100,
-		        force=True
-		    ))
+			try:
+				result = client(functions.updates.GetChannelDifferenceRequest(
+			        channel=group_name,
+			        filter=types.ChannelMessagesFilter(
+			            ranges=[types.MessageRange(
+			                min_id=0,
+			                max_id=1
+			            )],
+			            exclude_new_messages=False
+			        ),
+			        pts=42,
+			        limit=100,
+			        force=True
+			    ))
+			except:
+				print("Channel not accesible (might be banned)")
+				return None 
 			# Check the restriction
 			if group_list[selected_group]['restrictions']['post_amount'] is not 0:
 				#if group_list[selected_group]['link_last']['link_posted'] is 1 or 0:
