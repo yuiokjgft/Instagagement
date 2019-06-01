@@ -6,6 +6,7 @@
 - Catch the moment when there is no network (if network gets cut off mid operation, session file is blocked and program throws you out)
 - Add functionality for groups which are doing 'rounds'
 - Fix bugs stated in README..
+- Adding groups dynamically to 'group_template.json'
 
 ## Optional features
 
