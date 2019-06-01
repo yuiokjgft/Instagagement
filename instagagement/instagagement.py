@@ -21,6 +21,7 @@ settings = []
 config = []
 client = []
 preset = ''
+debug = 0						# Enables timing and other info
 
 # Variables
 first_array_full = False
@@ -49,11 +50,12 @@ def init(preset_):
 	preset = preset_
 
 	# Print time after every print message
-	old_f = sys.stdout
-	class F:
-		def write(self, x):
-			old_f.write(x.replace("\n", " [%s]\n" % str(datenow.now())))
-	sys.stdout = F()
+	if debug == 1:
+		old_f = sys.stdout
+		class F:
+			def write(self, x):
+				old_f.write(x.replace("\n", " [%s]\n" % str(datenow.now())))
+		sys.stdout = F()
 
 	# Load config
 	update_config()
@@ -194,7 +196,7 @@ def get_post_id(string):
 	try:
 		locate_end = min(int(s) for s in find_end if s > url_id_length_min)
 	except ValueError:
-		return "False"
+		return "Fail"
 	# Generate only the ID from Url
 	url_id = string[locate_start+offset:locate_start+locate_end+offset]
 
@@ -213,7 +215,7 @@ def get_post_id(string):
 			try:
 				locate_end = min(int(s) for s in find_end if s > url_id_length_min)
 			except ValueError:
-				return "False"
+				return "Fail"
 
 			# Generate only the ID from Url
 			url_id_2 = string[locate_start+offset:locate_start+locate_end+offset]
@@ -243,10 +245,12 @@ def check_group(group_to_check):
 	global client, group_list, client_started, client_started
 	message_count = 0
 
-	print('Checking if link can be dropped again: ' + str(group_to_check))
+	print('Checking if link can be dropped again')
 
 	# Join channel/group
-	join_channel(group_to_check)
+	joined = join_channel(group_to_check)
+	if joined == -1:
+		return "Fail"
 	# Check the restriction
 	if group_list[group_to_check]['restrictions']['post_amount'] is not 0:
 		# Check messages if posted before
@@ -261,10 +265,11 @@ def check_group(group_to_check):
 						message_count += 1
 					# If post is already over the restricted limit (e.g. 30 posts have to be in between posts, but in those 30 your post has not been found)
 					if message_count >= group_list[group_to_check]['restrictions']['post_amount']:
-						print('Could not find last link before set amount - it is safe to post')
+						print('Could not find last link before set amount; safe to post')
 						print('Group check ended: ' + str(group_to_check))
 						return message_count
 		else:
+			print('First entrance in this group; safe to post')
 			message_count = group_list[group_to_check]['restrictions']['post_amount'] * 2
 			return message_count	
 	else:
@@ -464,6 +469,7 @@ def post_link():
 		print('Sent: ' + post_message)
 	except:
 		print("Can't send - might be banned from group or in general (check Telegram's Spam Info Bot)")
+		return "Fail"
 	# Write new data to groups.json
 	try:
 		with open(str(config['telegram_api_id']) + '_groups.json') as json_file:  
@@ -478,6 +484,7 @@ def post_link():
 			json.dump(group_list, json_file, indent=4, separators=(',', ': '), sort_keys=True)
 	except FileNotFoundError:
 		print('File ' + str(config['telegram_api_id']) + '_groups.json' + ' does not exist')
+
 	# Write new data to liked.json
 	try:
 		with open(config['ig_username'] + '_liked.json', 'r') as json_file:  
@@ -542,9 +549,16 @@ def start_groups(config_group):
 		if str(link1).find(insta_string) is -1:
 			print('Link 1 not set or not properly formated (https://www.instagram.com/p/BtULbITlh7C/)')
 		else:
-			print('Starting program: ' + str(selected_group))
+			print()
+			print("----------------------------------------	")
+			print('Starting program: ' + str(selected_group) + "; Time started " + str(datetime.datetime.now().hour) + ":" + str(datetime.datetime.now().minute))
+			print("----------------------------------------")
+			print()
+
 			# Join group and refresh it
-			join_channel(selected_group)
+			joined = join_channel(selected_group)
+			if joined == -1:
+				return "Fail"
 			try:
 				result = client(functions.updates.GetChannelDifferenceRequest(
 			        channel=group_name,
@@ -560,8 +574,8 @@ def start_groups(config_group):
 			        force=True
 			    ))
 			except:
-				print("Channel not accesible (might be banned)")
-				return None 
+				print("Channel not accesible (might be banned from channel or it does not exist anymore)")
+				return "Fail" 
 			# Check the restriction
 			if group_list[selected_group]['restrictions']['post_amount'] is not 0:
 				#if group_list[selected_group]['link_last']['link_posted'] is 1 or 0:
@@ -674,4 +688,5 @@ def join_channel(channel_name):
 			else:
 				group_name = client.get_entity('telegram.me/joinchat/' + group_list[channel_name]['group_id'])
 	except:
-		print('Could not join ' + str(channel_name))
+		print('Cannot join group (perhaps does not exist/banned)')
+		return -1
