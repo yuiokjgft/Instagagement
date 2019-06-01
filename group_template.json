@@ -599,32 +599,75 @@
         },
         "username_required": 1
     },
+    "Fast likes Dx9": {
+        "group_id": "fastlikespod",
+        "group_type": "fixed",
+        "joined": 0,
+        "like_count": 9,
+        "link_last": {
+            "link_id": 0,
+            "link_posted": 0,
+            "link_time": 0
+        },
+        "max_links": 1,
+        "private": 0,
+        "restrictions": {
+            "followers": 0,
+            "other": 0,
+            "post_amount": 9,
+            "time_interval": 0
+        },
+        "username_required": 0
+    },
+    "GainSpace | MASS Likes Dx20": {
+        "group_id": "goldx20likes",
+        "group_type": "fixed",
+        "joined": 0,
+        "like_count": 20,
+        "link_last": {
+            "link_id": 0,
+            "link_posted": 0,
+            "link_time": 0
+        },
+        "max_links": 1,
+        "private": 0,
+        "restrictions": {
+            "followers": 500,
+            "other": 0,
+            "post_amount": 20,
+            "time_interval": 0
+        },
+        "username_required": 1
+    },
+
 
     "available_groups" : {
         "1" : "Push 24h",
         "2" : "GainSpace | MASS Likes Dx5",
-        "3" : "BoostGram Dx10",
-        "4" : "BoostGram Dx20",
-        "5" : "BoostGram Dx30",
-        "6" : "InstaPro Dx20",
-        "7" : "Wizard Dx30",
-        "8" : "Like Dx30",
-        "9" : "Wolf Onyx 24h",
-        "10" : "Wolf Saphire 24h",
-        "11" : "Wolf Emerald 24h",
-        "12" : "Wolf Ruby 24h",
-        "13" : "Wolf Amber 24h",
-        "14" : "Wolf Quartz 24h",
-        "15" : "Wolf 5K 24h",
-        "16" : "Wolf 10K 24h",
-        "17" : "Wolf 15K 24h",
-        "18" : "Wolf | 5K Powerlikes Dx10",
-        "19" : "Wolf | 1K Powerlikes Dx10",
-        "20" : "Wolf | 3K Turbo Likes Dx50",
-        "21" : "50 Likes Pod",
-        "22" : "Nest DX20",
-        "23" : "Dx30 Engagement Group",
-        "24" : "Den DX20",
-        "25" : "Den DX50"
+        "3" : "GainSpace | MASS Likes Dx20",
+        "4" : "BoostGram Dx10",
+        "5" : "BoostGram Dx20",
+        "6" : "BoostGram Dx30",
+        "7" : "InstaPro Dx20",
+        "8" : "Wizard Dx30",
+        "9" : "Like Dx30",
+        "10" : "Wolf Onyx 24h",
+        "11" : "Wolf Saphire 24h",
+        "12" : "Wolf Emerald 24h",
+        "13" : "Wolf Ruby 24h",
+        "14" : "Wolf Amber 24h",
+        "15" : "Wolf Quartz 24h",
+        "16" : "Wolf 5K 24h",
+        "17" : "Wolf 10K 24h",
+        "18" : "Wolf 15K 24h",
+        "19" : "Wolf | 5K Powerlikes Dx10",
+        "20" : "Wolf | 1K Powerlikes Dx10",
+        "21" : "Wolf | 3K Turbo Likes Dx50",
+        "22" : "50 Likes Pod",
+        "23" : "Nest DX20",
+        "24" : "Dx30 Engagement Group",
+        "25" : "Den DX20",
+        "26" : "Den DX50",
+        "27" : "Fast likes Dx9"
     }
 }
