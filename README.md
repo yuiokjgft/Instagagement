@@ -30,7 +30,7 @@ Proper package will be made soon.
 ```elm
 pip install instabot-py==0.4.7
 pip install telethon
-(cd to where you downloaded Instagagement)
+(cd to where you extracted Instagagement e.g. cd ~/Desktop/Instagagement)
 python quickstart.py
 python run.py
 ```
