@@ -11,4 +11,5 @@
 ## Optional features
 
 - Log follower count for analysis (alternative to Socialblade)
+- GUI? In first phase this program was set up using PySimpleGUI, might be useful for some
 
