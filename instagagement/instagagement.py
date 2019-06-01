@@ -194,9 +194,10 @@ def get_post_id(string):
 	try:
 		locate_end = min(int(s) for s in find_end if s > url_id_length_min)
 	except ValueError:
-		print('min() arg is an empty sequence (have to fix this); might be because locate_end returns -1')
+		return "False"
 	# Generate only the ID from Url
 	url_id = string[locate_start+offset:locate_start+locate_end+offset]
+
 	# Find second URL
 	if group_list[selected_group]['max_links'] is 2:
 		locate_start = findnth(string, insta_string, 1)
@@ -208,11 +209,11 @@ def get_post_id(string):
 			find_end.append(string[locate_start+offset:].find("/"))
 			find_end.append(string[locate_start+offset:].find("'"))
 			find_end.append(string[locate_start+offset:].find("\\"))
+			# Find the one that occurs earliest and use it as the end of link
 			try:
-				# Find the one that occurs earliest and use it as the end of link
 				locate_end = min(int(s) for s in find_end if s > url_id_length_min)
 			except ValueError:
-				print('min() arg is an empty sequence (have to fix this - occurs on last link in 24h groups); might be because find_end returns -1')
+				return "False"
 
 			# Generate only the ID from Url
 			url_id_2 = string[locate_start+offset:locate_start+locate_end+offset]
