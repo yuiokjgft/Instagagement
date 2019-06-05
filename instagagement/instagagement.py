@@ -288,33 +288,44 @@ def check_messages():
 	url_id = ""
 	url_id_2 = ""
 	# Get links from messages
-	for message in client.iter_messages(group_name):
-		if str(message).find('instagram.com') is not -1:
-			# Convert Telegram output to string
-			string = str(message)
-			# Url ID is 11 chars, just in case it changes, range is set [10:12]
-			url_id_length_min = 10
-			url_id_length_max = 12
-			# Check the type of group
-			if str(group_list[selected_group]['group_type']).find('fixed') is not -1:
-				# Fixed like groups
-				if id_count < int(group_list[selected_group]['like_count']):
-					# Get ID's
-					if group_list[selected_group]['max_links'] is 2:
-						url_id, url_id_2 = get_post_id(message)
-						# Check first ID
-						if len(url_id) >= url_id_length_min and len(url_id) <= url_id_length_max:
-							# Check second ID
-							if url_id_2 is not -1 and len(url_id_2) >= url_id_length_min and len(url_id_2) <= url_id_length_max:
-								# Add to array and increase stored id count
-								if first_array_full is False:
-									first_array.append(url_id)          # Array made on first run
-									first_array.append(url_id_2)          # Array made on first run
+	try:
+		for message in client.iter_messages(group_name):
+			if str(message).find('instagram.com') is not -1:
+				# Convert Telegram output to string
+				string = str(message)
+				# Url ID is 11 chars, just in case it changes, range is set [10:12]
+				url_id_length_min = 10
+				url_id_length_max = 12
+				# Check the type of group
+				if str(group_list[selected_group]['group_type']).find('fixed') is not -1:
+					# Fixed like groups
+					if id_count < int(group_list[selected_group]['like_count']):
+						# Get ID's
+						if group_list[selected_group]['max_links'] is 2:
+							url_id, url_id_2 = get_post_id(message)
+							# Check first ID
+							if len(url_id) >= url_id_length_min and len(url_id) <= url_id_length_max:
+								# Check second ID
+								if url_id_2 is not -1 and len(url_id_2) >= url_id_length_min and len(url_id_2) <= url_id_length_max:
+									# Add to array and increase stored id count
+									if first_array_full is False:
+										first_array.append(url_id)          # Array made on first run
+										first_array.append(url_id_2)          # Array made on first run
+									else:
+										compare_array.append(url_id)        # Array made on second run for comparison
+										compare_array.append(url_id_2)        # Array made on second run for comparison
+									id_count += 2
 								else:
-									compare_array.append(url_id)        # Array made on second run for comparison
-									compare_array.append(url_id_2)        # Array made on second run for comparison
-								id_count += 2
-							else:
+									# Add to array and increase stored id count
+									if first_array_full is False:
+										first_array.append(url_id)          # Array made on first run
+									else:
+										compare_array.append(url_id)        # Array made on second run for comparison
+									id_count += 1
+						else:
+							url_id = get_post_id(message)
+							# Check if ID fits (usually 11)
+							if len(url_id) >= url_id_length_min and len(url_id) <= url_id_length_max:
 								# Add to array and increase stored id count
 								if first_array_full is False:
 									first_array.append(url_id)          # Array made on first run
@@ -322,45 +333,50 @@ def check_messages():
 									compare_array.append(url_id)        # Array made on second run for comparison
 								id_count += 1
 					else:
-						url_id = get_post_id(message)
-						# Check if ID fits (usually 11)
-						if len(url_id) >= url_id_length_min and len(url_id) <= url_id_length_max:
-							# Add to array and increase stored id count
-							if first_array_full is False:
-								first_array.append(url_id)          # Array made on first run
-							else:
-								compare_array.append(url_id)        # Array made on second run for comparison
-							id_count += 1
+						first_array_full = True
+						print("Found " + str(id_count) + " links")
+						id_count = 0
+						break
 				else:
-					first_array_full = True
-					print("Found " + str(id_count) + " links")
-					id_count = 0
-					break
-			else:
-				# 24H groups 
-				# CHANGE IDS TO TIME
-				if int(time_limit) > time_24h:
-					# Get ID's
-					if group_list[selected_group]['max_links'] is 2:
-						url_id, url_id_2 = get_post_id(message)
-						# Check first ID
-						if len(url_id) >= url_id_length_min and len(url_id) <= url_id_length_max:
-							# Check second ID
-							if url_id_2 is not -1 and len(url_id_2) >= url_id_length_min and len(url_id_2) <= url_id_length_max:
-								# Add to array and increase stored id count
-								if first_array_full is False:
-									first_array.append(url_id)          # Array made on first run
-									first_array.append(url_id_2)          # Array made on first run
+					# 24H groups 
+					# CHANGE IDS TO TIME
+					if int(time_limit) > time_24h:
+						# Get ID's
+						if group_list[selected_group]['max_links'] is 2:
+							url_id, url_id_2 = get_post_id(message)
+							# Check first ID
+							if len(url_id) >= url_id_length_min and len(url_id) <= url_id_length_max:
+								# Check second ID
+								if url_id_2 is not -1 and len(url_id_2) >= url_id_length_min and len(url_id_2) <= url_id_length_max:
+									# Add to array and increase stored id count
+									if first_array_full is False:
+										first_array.append(url_id)          # Array made on first run
+										first_array.append(url_id_2)          # Array made on first run
+									else:
+										compare_array.append(url_id)        # Array made on second run for comparison
+										compare_array.append(url_id_2)        # Array made on second run for comparison
+									# Find date of post
+									start = findnth(string, 'date',0)
+									start = string[start:].find('(') + start + 1
+									end = findnth(string[start:], ',',4)
+									time_limit = time.mktime(datetime.datetime.strptime(string[start:end+start], "%Y, %m, %d, %H, %M").timetuple())
+									id_count += 2
 								else:
-									compare_array.append(url_id)        # Array made on second run for comparison
-									compare_array.append(url_id_2)        # Array made on second run for comparison
-								# Find date of post
-								start = findnth(string, 'date',0)
-								start = string[start:].find('(') + start + 1
-								end = findnth(string[start:], ',',4)
-								time_limit = time.mktime(datetime.datetime.strptime(string[start:end+start], "%Y, %m, %d, %H, %M").timetuple())
-								id_count += 2
-							else:
+									# Add to array and increase stored id count
+									if first_array_full is False:
+										first_array.append(url_id)          # Array made on first run
+									else:
+										compare_array.append(url_id)        # Array made on second run for comparison
+									# Find date of post
+									start = findnth(string, 'date',0)
+									start = string[start:].find('(') + start + 1
+									end = findnth(string[start:], ',',4)
+									time_limit = time.mktime(datetime.datetime.strptime(string[start:end+start], "%Y, %m, %d, %H, %M").timetuple())
+									id_count += 1
+						else:
+							url_id = get_post_id(message)
+							# Check if ID fits (usually 11)
+							if len(url_id) >= url_id_length_min and len(url_id) <= url_id_length_max:
 								# Add to array and increase stored id count
 								if first_array_full is False:
 									first_array.append(url_id)          # Array made on first run
@@ -373,25 +389,12 @@ def check_messages():
 								time_limit = time.mktime(datetime.datetime.strptime(string[start:end+start], "%Y, %m, %d, %H, %M").timetuple())
 								id_count += 1
 					else:
-						url_id = get_post_id(message)
-						# Check if ID fits (usually 11)
-						if len(url_id) >= url_id_length_min and len(url_id) <= url_id_length_max:
-							# Add to array and increase stored id count
-							if first_array_full is False:
-								first_array.append(url_id)          # Array made on first run
-							else:
-								compare_array.append(url_id)        # Array made on second run for comparison
-							# Find date of post
-							start = findnth(string, 'date',0)
-							start = string[start:].find('(') + start + 1
-							end = findnth(string[start:], ',',4)
-							time_limit = time.mktime(datetime.datetime.strptime(string[start:end+start], "%Y, %m, %d, %H, %M").timetuple())
-							id_count += 1
-				else:
-					first_array_full = True
-					print("Found " + str(id_count) + " links")
-					id_count = 0
-					break
+						first_array_full = True
+						print("Found " + str(id_count) + " links")
+						id_count = 0
+						break
+	except ValueError:
+		print('Group does not exist')
 
 # Check if new messages have been posted while liking pictures
 def check_new_messages():
