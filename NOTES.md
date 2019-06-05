@@ -7,6 +7,7 @@
 - Add functionality for groups which are doing 'rounds'
 - Fix bugs stated in README..
 - Adding groups dynamically to 'group_template.json'
+- Arguments (silent mode, account, session name etc.)
 
 ## Optional features
 
