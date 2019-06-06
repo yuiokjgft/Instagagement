@@ -1,13 +1,22 @@
 ## Features to be added
 
-- Start/stop by sending message in Telegram (either from another account or in 'Saved Messages')
-- Daily report - how many times each group was taken, which group failed etc.
+#### General
 - Check follower limit before joining group
-- Catch the moment when there is no network (if network gets cut off mid operation, session file is blocked and program throws you out)
-- Add functionality for groups which are doing 'rounds'
+- Adding groups dynamically to 'group_template.json' and 'quickstart.py'
 - Fix bugs stated in README..
-- Adding groups dynamically to 'group_template.json'
+
+#### Reporting/control
+- Start/stop by sending message in Telegram (either from another account or in 'Saved Messages')
+- Daily report (sent to Telegram) - how many times each group was taken, which group failed etc.
+
+#### Functionality/failsafes
+- Catch the moment when there is no network (if network gets cut off mid program, session file is blocked and program throws you out)
 - Arguments (silent mode, account, session name etc.)
+
+#### Groups
+- Comment groups. Example program: read comments from the post, pick one, check if it is not spam (links and spam phrases), add something and post comment (so it does not appear as spammy with pre-defined comments)
+- Add functionality for groups which are doing 'rounds'
+
 
 ## Optional features
 
