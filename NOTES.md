@@ -1,6 +1,7 @@
 ## Features to be added
 
 #### General
+- Telethon auto-update!
 - Check follower limit before joining group
 - Adding groups dynamically to 'group_template.json' and 'quickstart.py'
 - Fix bugs stated in README..
