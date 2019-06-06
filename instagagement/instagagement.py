@@ -196,7 +196,8 @@ def get_post_id(string):
 	try:
 		locate_end = min(int(s) for s in find_end if s > url_id_length_min)
 	except ValueError:
-		return "Fail"
+		print('Broken Instagram link; end not found; ValueError (0)')
+		return 'Fail'
 	# Generate only the ID from Url
 	url_id = string[locate_start+offset:locate_start+locate_end+offset]
 
@@ -215,7 +216,8 @@ def get_post_id(string):
 			try:
 				locate_end = min(int(s) for s in find_end if s > url_id_length_min)
 			except ValueError:
-				return "Fail"
+				print('Broken Instagram link; end not found; ValueError (1)')
+				return 'Fail'
 
 			# Generate only the ID from Url
 			url_id_2 = string[locate_start+offset:locate_start+locate_end+offset]
@@ -250,7 +252,7 @@ def check_group(group_to_check):
 	# Join channel/group
 	joined = join_channel(group_to_check)
 	if joined == -1:
-		return "Fail"
+		return 'Fail'
 	# Check the restriction
 	if group_list[group_to_check]['restrictions']['post_amount'] is not 0:
 		# Check messages if posted before
@@ -540,7 +542,11 @@ def start_groups(config_group):
 		active = True
 
 		# Get last links from posts
-		get_last_posts()
+		try:
+			get_last_posts()
+		except AttributeError:
+			print('Tried getting posts; AttributeError; Instabot.py')
+			return 'Fail'
 
 		# Check the conditions before starting
 
@@ -561,7 +567,8 @@ def start_groups(config_group):
 			# Join group and refresh it
 			joined = join_channel(selected_group)
 			if joined == -1:
-				return "Fail"
+				print("Could not join channel; Telethon")
+				return 'Fail'
 			try:
 				result = client(functions.updates.GetChannelDifferenceRequest(
 			        channel=group_name,
@@ -577,8 +584,8 @@ def start_groups(config_group):
 			        force=True
 			    ))
 			except:
-				print("Channel not accesible (might be banned from channel or it does not exist anymore)")
-				return "Fail" 
+				print("Channel not accesible; Telethon")
+				return 'Fail'
 			# Check the restriction
 			if group_list[selected_group]['restrictions']['post_amount'] is not 0:
 				#if group_list[selected_group]['link_last']['link_posted'] is 1 or 0:
