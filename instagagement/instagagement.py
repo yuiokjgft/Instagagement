@@ -423,21 +423,26 @@ def like_posts():
 		post_array = first_array
 	else:
 		post_array = final_array
+
+	# Create progressbar
+	progress = 0
+	printProgressBar(0, len(post_array), prefix = 'Progress:', suffix = '[' + str(likes_given+1) + '/' + str(len(post_array)) + ']', bar_length = 25)
 	# Like all posts in array
 	for post in post_array:
 		# Check if already liked
 		if str(liked_all).find(str(post)) is -1:
 			instabot.like(get_media_id(post))
 			add_liked.append(post)
-			print('[' + str(likes_given+1) + '/' + str(len(post_array)) + '] Liked ' + post)
+			printProgressBar(likes_given+1, len(post_array), prefix = 'Progress:', suffix = '[' + str(likes_given+1) + '/' + str(len(post_array)) + ']' + post, bar_length = 25)
+			#print('[' + str(likes_given+1) + '/' + str(len(post_array)) + '] Liked ' + post)
 			# Delay
 			if likes_given != len(post_array):
 				if config['delay'] <= 0:
 					time.sleep(1)
 				else:
 					time.sleep(random.randint(config['delay']-1,config['delay']+1))
-		else:
-			print('[' + str(likes_given+1) + '/' + str(len(post_array)) + '] Already liked, skipping ' + post)
+		#else:
+			#print('[' + str(likes_given+1) + '/' + str(len(post_array)) + '] Already liked, skipping ' + post)
 		likes_given += 1
 	likes_given = 0
 
@@ -700,3 +705,26 @@ def join_channel(channel_name):
 	except:
 		print('Cannot join group (perhaps does not exist/banned)')
 		return -1
+
+# Print iterations progress
+def printProgressBar(iteration, total, prefix='', suffix='', decimals=1, bar_length=100):
+    """
+    Call in a loop to create terminal progress bar
+    @params:
+        iteration   - Required  : current iteration (Int)
+        total       - Required  : total iterations (Int)
+        prefix      - Optional  : prefix string (Str)
+        suffix      - Optional  : suffix string (Str)
+        decimals    - Optional  : positive number of decimals in percent complete (Int)
+        bar_length  - Optional  : character length of bar (Int)
+    """
+    str_format = "{0:." + str(decimals) + "f}"
+    percents = str_format.format(100 * (iteration / float(total)))
+    filled_length = int(round(bar_length * iteration / float(total)))
+    bar = '█' * filled_length + '-' * (bar_length - filled_length)
+
+    sys.stdout.write('\r%s |%s| %s' % (prefix, bar, suffix)),
+
+    if iteration >= total:
+        sys.stdout.write('\n')
+    sys.stdout.flush()
