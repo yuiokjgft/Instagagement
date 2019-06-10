@@ -426,14 +426,14 @@ def like_posts():
 
 	# Create progressbar
 	progress = 0
-	printProgressBar(0, len(post_array), prefix = 'Progress:', suffix = '[' + str(likes_given+1) + '/' + str(len(post_array)) + ']', bar_length = 25)
+	printProgressBar(0, len(post_array), prefix = 'Progress:', suffix = '[' + str(likes_given+1) + '/' + str(len(post_array)) + '] ', bar_length = 25)
 	# Like all posts in array
 	for post in post_array:
 		# Check if already liked
 		if str(liked_all).find(str(post)) is -1:
 			instabot.like(get_media_id(post))
 			add_liked.append(post)
-			printProgressBar(likes_given+1, len(post_array), prefix = 'Progress:', suffix = '[' + str(likes_given+1) + '/' + str(len(post_array)) + ']' + post, bar_length = 25)
+			printProgressBar(likes_given + 1, len(post_array), prefix = 'Progress:', suffix = '[' + str(likes_given+1) + '/' + str(len(post_array)) + '] ' + post, bar_length = 25)
 			#print('[' + str(likes_given+1) + '/' + str(len(post_array)) + '] Liked ' + post)
 			# Delay
 			if likes_given != len(post_array):
@@ -726,5 +726,5 @@ def printProgressBar(iteration, total, prefix='', suffix='', decimals=1, bar_len
     sys.stdout.write('\r%s |%s| %s' % (prefix, bar, suffix)),
 
     if iteration >= total:
-        sys.stdout.write('\n')
+        sys.stdout.write('\r\n')
     sys.stdout.flush()
