@@ -24,6 +24,7 @@ print()
 
 # Get the name of preset
 preset = input('Enter preset name (instagram username): ')
+print()
 
 # Initialize and login
 instagagement.init(preset)
