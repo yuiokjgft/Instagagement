@@ -430,20 +430,20 @@ def like_posts():
 	# Like all posts in array
 	for post in post_array:
 		# Check if already liked
-		if str(liked_all).find(str(post)) is -1:
+		if str(liked_all).find(str(post)) is -1:\
+			likes_given += 1
+			printProgressBar(likes_given, len(post_array), prefix = 'Progress:', suffix = '[' + str(likes_given+1) + '/' + str(len(post_array)) + '] ' + post, bar_length = 25)
 			instabot.like(get_media_id(post))
 			add_liked.append(post)
-			printProgressBar(likes_given + 1, len(post_array), prefix = 'Progress:', suffix = '[' + str(likes_given+1) + '/' + str(len(post_array)) + '] ' + post, bar_length = 25)
-			#print('[' + str(likes_given+1) + '/' + str(len(post_array)) + '] Liked ' + post)
 			# Delay
 			if likes_given != len(post_array):
 				if config['delay'] <= 0:
 					time.sleep(1)
 				else:
 					time.sleep(random.randint(config['delay']-1,config['delay']+1))
-		#else:
-			#print('[' + str(likes_given+1) + '/' + str(len(post_array)) + '] Already liked, skipping ' + post)
-		likes_given += 1
+		else:
+			likes_given += 1
+			printProgressBar(likes_given, len(post_array), prefix = 'Progress:', suffix = '[' + str(likes_given+1) + '/' + str(len(post_array)) + '] Skipping ' + post, bar_length = 25)
 	likes_given = 0
 
 # Post the link in telegram group
