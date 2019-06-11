@@ -432,7 +432,7 @@ def like_posts():
 		# Check if already liked
 		if str(liked_all).find(str(post)) is -1:
 			likes_given += 1
-			printProgressBar(likes_given, len(post_array), prefix = 'Progress:', suffix = '[' + str(likes_given+1) + '/' + str(len(post_array)) + '] ' + post, bar_length = 25)
+			printProgressBar(likes_given, len(post_array), prefix = 'Progress:', suffix = '[' + str(likes_given) + '/' + str(len(post_array)) + '] ' + post, bar_length = 25)
 			instabot.like(get_media_id(post))
 			add_liked.append(post)
 			# Delay
@@ -443,7 +443,7 @@ def like_posts():
 					time.sleep(random.randint(config['delay']-1,config['delay']+1))
 		else:
 			likes_given += 1
-			printProgressBar(likes_given, len(post_array), prefix = 'Progress:', suffix = '[' + str(likes_given+1) + '/' + str(len(post_array)) + '] Skipping ' + post, bar_length = 25)
+			printProgressBar(likes_given, len(post_array), prefix = 'Progress:', suffix = '[' + str(likes_given) + '/' + str(len(post_array)) + '] Skipping ' + post, bar_length = 25)
 	likes_given = 0
 
 # Post the link in telegram group
