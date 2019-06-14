@@ -64,7 +64,8 @@ def init(preset_):
 	try:
 		with open(str(config['telegram_api_id']) + '_groups.json', 'r') as load_groups:  
 			group_list = json.load(load_groups)
-		print('Group list loaded from ' + str(config['telegram_api_id']) + '_groups.json')
+		if debug == 1:
+			print('Group list loaded from ' + str(config['telegram_api_id']) + '_groups.json')
 	except FileNotFoundError:
 		print('File ' + str(config['telegram_api_id']) + '_groups.json' + ' does not exist, making for ' + config['ig_username'])
 		try:
@@ -94,7 +95,8 @@ def update_config():
 	try:
 		with open(preset + '_config.json') as json_file:  
 			config = json.load(json_file)
-		print('Config loaded from ' + preset + '_config.json')
+		if debug == 1:
+			print('Config loaded from ' + preset + '_config.json')
 	except FileNotFoundError:
 		print('File ' + preset + '_config.json' + ' does not exist, run quickstart.py!')
 		print()
@@ -247,7 +249,7 @@ def check_group(group_to_check):
 	global client, group_list, client_started, client_started
 	message_count = 0
 
-	print('Checking if link can be dropped again')
+	#print('Checking if link can be dropped again')
 
 	# Join channel/group
 	joined = join_channel(group_to_check)
@@ -260,18 +262,18 @@ def check_group(group_to_check):
 			for message in client.iter_messages(group_name):
 				if str(message).find('instagram.com') is not -1:
 					if str(get_post_id(message)).find(str(group_list[group_to_check]['link_last']['link_id'])) is not -1:
-						print('Found last dropped link; links dropped in between: ' + str(message_count))
-						print('Group check ended: ' + str(group_to_check))
+						print('Links dropped in between: ' + str(message_count) + ' - skipping group')
+						#print('Group check ended: ' + str(group_to_check))
 						return message_count
 					else:
 						message_count += 1
 					# If post is already over the restricted limit (e.g. 30 posts have to be in between posts, but in those 30 your post has not been found)
 					if message_count >= group_list[group_to_check]['restrictions']['post_amount']:
-						print('Could not find last link before set amount; safe to post')
-						print('Group check ended: ' + str(group_to_check))
+						print('Could not find last link before set amount - safe to post')
+						#print('Group check ended: ' + str(group_to_check))
 						return message_count
 		else:
-			print('First entrance in this group; safe to post')
+			print('First entrance in this group - safe to post')
 			message_count = group_list[group_to_check]['restrictions']['post_amount'] * 2
 			return message_count	
 	else:
@@ -336,7 +338,7 @@ def check_messages():
 								id_count += 1
 					else:
 						first_array_full = True
-						print("Found " + str(id_count) + " links")
+						#print("Found " + str(id_count) + " links")
 						id_count = 0
 						break
 				else:
@@ -392,7 +394,7 @@ def check_messages():
 								id_count += 1
 					else:
 						first_array_full = True
-						print("Found " + str(id_count) + " links")
+						#print("Found " + str(id_count) + " links")
 						id_count = 0
 						break
 	except ValueError:
@@ -434,7 +436,7 @@ def like_posts():
 			likes_given += 1
 			printProgressBar(likes_given, len(post_array), prefix = 'Progress:', suffix = '[' + str(likes_given) + '/' + str(len(post_array)) + '] ' + post, bar_length = 25)
 			instabot.like(get_media_id(post))
-			add_liked.append(post)
+			add_liked.append(post)	
 			# Delay
 			if likes_given != len(post_array):
 				if config['delay'] <= 0:
@@ -443,7 +445,7 @@ def like_posts():
 					time.sleep(random.randint(config['delay']-1,config['delay']+1))
 		else:
 			likes_given += 1
-			printProgressBar(likes_given, len(post_array), prefix = 'Progress:', suffix = '[' + str(likes_given) + '/' + str(len(post_array)) + '] Skipping ' + post, bar_length = 25)
+			printProgressBar(likes_given, len(post_array), prefix = 'Progress:', suffix = '[' + str(likes_given) + '/' + str(len(post_array)) + '] ' + post, bar_length = 25)
 	likes_given = 0
 
 # Post the link in telegram group
@@ -535,9 +537,9 @@ def start_groups(config_group):
 			try:
 				liked_today = json.load(json_file)
 				liked_today = len(liked_today[date])
-				print('Already liked ' + str(liked_today) + ' posts today; max ' + str(config['max_likes']))
 			except KeyError:
-				print('No likes found for ' + str(date))
+				if debug == 1:
+					print('No likes found for ' + str(date))
 				liked_today = 0
 	except FileNotFoundError:
 		print(config['ig_username'] + '_liked.json' + ' not found')
@@ -551,7 +553,7 @@ def start_groups(config_group):
 			get_last_posts()
 		except AttributeError:
 			print('Tried getting posts; AttributeError; Instabot.py')
-			return 'Fail'
+			return -1
 
 		# Check the conditions before starting
 
@@ -561,19 +563,26 @@ def start_groups(config_group):
 		#if group_list[selected_group]['username_required'] is 1:
 		selected_group = config_group
 		if str(link1).find(insta_string) is -1:
-			print('Link 1 not set or not properly formated (https://www.instagram.com/p/BtULbITlh7C/)')
+			print('Link not set or not properly formated (https://www.instagram.com/p/BtULbITlh7C/)')
 		else:
+			start_message = ('[' + config['ig_username'] + "] Starting group '" + str(selected_group) + "' [" + str(datetime.datetime.now().hour) 
+				+ ':' + str(datetime.datetime.now().minute) + '] ['
+				+ str(liked_today) + '/' + str(config['max_likes'])+ ']')
 			print()
-			print("----------------------------------------------------------------")
-			print('Starting group: ' + str(selected_group) + "; Time started " + str(datetime.datetime.now().hour) + ":" + str(datetime.datetime.now().minute))
-			print("----------------------------------------------------------------")
+			for x in range(1,len(start_message)+2):
+				print('-', end = '')
+			print()
+			print(start_message)
+			for x in range(1,len(start_message)+2):
+				print('-', end = '')
+			print()
 			print()
 
 			# Join group and refresh it
 			joined = join_channel(selected_group)
 			if joined == -1:
-				print("Could not join channel; Telethon")
-				return 'Fail'
+				print("Could not join channel - Telethon")
+				return -1
 			try:
 				result = client(functions.updates.GetChannelDifferenceRequest(
 			        channel=group_name,
@@ -589,8 +598,8 @@ def start_groups(config_group):
 			        force=True
 			    ))
 			except:
-				print("Channel not accesible; Telethon")
-				return 'Fail'
+				print("Channel not accesible - Telethon")
+				return -1
 			# Check the restriction
 			if group_list[selected_group]['restrictions']['post_amount'] is not 0:
 				#if group_list[selected_group]['link_last']['link_posted'] is 1 or 0:
@@ -611,15 +620,17 @@ def start_groups(config_group):
 					final_array = []
 					add_liked = []
 					likes_given = 0				
-					print('Program ended: ' + str(selected_group))
+					print('Program ended')
 					active = False
 				else:
-					print('Cant post; either too fast or post gap not reached (check restrictions)')
+					#print('Cant post - either too fast or post gap not reached (check restrictions)')
+					return -1
 			else:
 				time_difference = check_group(selected_group)
 				if group_list[selected_group]['restrictions']['time_interval'] > time_difference:
 					difference = group_list[selected_group]['restrictions']['time_interval'] - int(time_difference)
 					print('Time interval is not met, wait ' + str(difference) + ' minutes (' + str(int(difference/60)) + ' hours)' ) 
+					return -1
 				else:
 					# Check messages - find links
 					check_messages()
