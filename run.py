@@ -53,11 +53,13 @@ while 1:
 		if (datetime.now() - like_end) / timedelta(minutes = 1) >= loop_sleep:
 			instagagement.start_client()
 			for i in range(0, len(use_groups)):
-				instagagement.start_groups(group_list['available_groups'][use_groups[i]])
-				print('Waiting for ' + str(group_waittime) + ' seconds between groups')
-				time.sleep(group_waittime)
+				status = instagagement.start_groups(group_list['available_groups'][use_groups[i]])
+				if status != -1:
+					print('Waiting for ' + str(group_waittime) + ' seconds between groups')
+					time.sleep(group_waittime)
 			instagagement.disconnect_client()
 			like_end = datetime.now()
+			print()
 			print('Like loop ended at ' + str(datetime.now()) + ', continuing after ' + str(loop_sleep) + ' minutes')
 		time.sleep(60)
 	else:
