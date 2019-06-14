@@ -689,7 +689,8 @@ def join_channel(channel_name):
 	try:
 		# Check if client has joined this group
 		if group_list[channel_name]['joined'] is 0:
-			print('Joining group ' + str(channel_name))
+			if debug == 1:
+				print('Joining group ' + str(channel_name))
 			# Check if the channel is private
 			if group_list[channel_name]['private'] is 0:
 				client(JoinChannelRequest(group_list[channel_name]['group_id']))
