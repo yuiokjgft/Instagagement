@@ -504,7 +504,8 @@ def post_link():
 				liked = json.load(json_file)
 				liked = liked[date]				
 			except KeyError:
-				print('No likes found for ' + str(date))
+				if debug == 1:
+					print('No likes found for ' + str(date))
 			json_file.close()
 		with open(config['ig_username'] + '_liked.json', 'w+') as json_file:
 			
