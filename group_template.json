@@ -117,7 +117,7 @@
             "post_amount": 30,
             "time_interval": 0
         },
-        "username_required": 0
+        "username_required": 1
     },
     "GainSpace | MASS Likes Dx5": {
         "group_id": "igmasslikes",
@@ -522,7 +522,7 @@
 
 
     "available_groups" : {
-        "1" : "Boost Up Powerlikes Dx20",
+        "1" : "Dx30 Engagement Group",
         "2" : "GainSpace | MASS Likes Dx5",
         "3" : "GainSpace | MASS Likes Dx20",
         "4" : "BoostGram Dx10",
@@ -543,9 +543,8 @@
         "19" : "Wolf | 1K Powerlikes Dx10",
         "20" : "Wolf | 3K Turbo Likes Dx50",
         "21" : "Nest DX20",
-        "22" : "Dx30 Engagement Group",
-        "23" : "Den DX20",
-        "24" : "Den DX50",
-        "25" : "Fast likes Dx9"
+        "22" : "Den DX20",
+        "23" : "Den DX50",
+        "24" : "Fast likes Dx9"
     }
 }
