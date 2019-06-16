@@ -7,6 +7,7 @@ from datetime import datetime as datenow
 from instabot_py import InstaBot
 from instabot_py.user_info import get_user_info
 from instabot_py.user_feed import get_media_id_user_feed
+from instabot_py.recent_feed import get_media_id_recent_feed
 # Telethon Telegram API by LonamiWebs https://github.com/LonamiWebs/Telethon
 from telethon import TelegramClient, events, sync, errors, functions, types
 from telethon.tl.functions.channels import JoinChannelRequest,LeaveChannelRequest
@@ -44,6 +45,8 @@ instabot = []
 link1 = ''
 link2 = ''
 link3 = ''
+
+like_amount_feed = 10
 
 def init(preset_):
 	global config, group_list, liked_all, preset
@@ -138,6 +141,7 @@ def login():
 		login = config['ig_username'],
 		password = config['ig_password'],
 		session_file = config['cookie_name'],
+		unfollow_recent_feed = False,
 		log_mod = 2
 		)
 
@@ -531,6 +535,7 @@ def start_groups(config_group):
 	global client, first_array_full, new_message, compare_array, first_array, final_array, group_name, likes_given, add_liked, selected_group
 	update_config()
 	date = str(datenow.now().year)+'-'+str(datenow.now().month)+'-'+str(datenow.now().day) # returns e.g. 2019-1-29
+
 	# Load likes
 	liked_today = 0
 	try:
@@ -566,7 +571,7 @@ def start_groups(config_group):
 		if str(link1).find(insta_string) is -1:
 			print('Link not set or not properly formated (https://www.instagram.com/p/BtULbITlh7C/)')
 		else:
-			start_message = ('[' + config['ig_username'] + "] Starting group '" + str(selected_group) + "' [" + str(datetime.datetime.now().hour) 
+			start_message = ('[' + config['ig_username'] + "] Starting '" + str(selected_group) + "' [" + str(datetime.datetime.now().hour) 
 				+ ':' + str(datetime.datetime.now().minute) + '] ['
 				+ str(liked_today) + '/' + str(config['max_likes'])+ ']')
 			print()
@@ -718,6 +723,91 @@ def join_channel(channel_name):
 	except:
 		print('Cannot join group (perhaps does not exist/banned)')
 		return -1
+
+# Like recent feed
+def like_feed():
+	global add_liked
+
+	# For updating liked.json with date
+	date = str(datenow.now().year)+'-'+str(datenow.now().month)+'-'+str(datenow.now().day)
+
+	# Load likes
+	liked_today = 0
+	try:
+		with open(config['ig_username'] + '_liked.json', 'r') as json_file:  
+			try:
+				liked_today = json.load(json_file)
+				liked_today = len(liked_today[date])
+			except KeyError:
+				if debug == 1:
+					print('No likes found for ' + str(date))
+				liked_today = 0
+	except FileNotFoundError:
+		print(config['ig_username'] + '_liked.json' + ' not found')
+
+	start_message = ('[' + config['ig_username'] + "] Starting feed like [" + str(datetime.datetime.now().hour) 
+				+ ':' + str(datetime.datetime.now().minute) + '] ['
+				+ str(liked_today) + '/' + str(config['max_likes'])+ ']')
+	print()
+	for x in range(1,len(start_message)+2):
+		print('-', end = '')
+	print()
+	print(start_message)
+	for x in range(1,len(start_message)+2):
+		print('-', end = '')
+	print()
+	print()
+
+	if int(liked_today) <= int(config['max_likes']):
+
+		feed_liked = 0
+		add_liked = []
+
+		printProgressBar(0, config['like_amount_feed'], prefix = 'Progress:', suffix = '[' + str(feed_liked) + '/' + str(config['like_amount_feed']) + '] ', bar_length = 25)
+
+		get_media_id_recent_feed(instabot)
+		recent_feed = instabot.media_on_feed
+		for i in range(len(recent_feed)):
+			post = recent_feed[i]['node']['shortcode']
+			instabot.like(get_media_id(post))
+			add_liked.append(post)
+			feed_liked += 1
+			printProgressBar(feed_liked, config['like_amount_feed'], prefix = 'Progress:', suffix = '[' + str(feed_liked) + '/' + str(config['like_amount_feed']) + '] ' + post, bar_length = 25)
+			if feed_liked >= config['like_amount_feed']:
+				break
+			time.sleep(config['delay'])
+
+		# Write new data to liked.json
+		try:
+			with open(config['ig_username'] + '_liked.json', 'r') as json_file:  
+				try:
+					liked = json.load(json_file)
+					liked = liked[date]				
+				except KeyError:
+					if debug == 1:
+						print('No likes found for ' + str(date))
+				json_file.close()
+			with open(config['ig_username'] + '_liked.json', 'w+') as json_file:
+				
+				if len(liked) > 4:
+					data[date] = liked + add_liked
+				else:
+					data[date] = add_liked
+				json.dump(data, json_file, indent=4, separators=(',', ': '), sort_keys=True)
+				json_file.close()
+			with open(config['ig_username'] + '_liked.json', 'r') as json_file:  
+				liked_all = json.load(json_file)
+				json_file.close()
+
+		except FileNotFoundError:
+			with open(config['ig_username'] + '_liked.json', 'w+') as json_file:
+				data[date] = add_liked 
+				json.dump(data, json_file, indent=4, separators=(',', ': '), sort_keys=True)
+				liked_all = add_liked
+				json_file.close()
+		add_liked = []
+	else:
+		print('Max like amount reached for today')
 
 # Print iterations progress
 def printProgressBar(iteration, total, prefix='', suffix='', decimals=1, bar_length=100):
