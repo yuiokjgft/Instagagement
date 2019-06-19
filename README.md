@@ -4,6 +4,8 @@ Python program that automates [Telegram engagement groups](https://medium.com/@v
 
 This also runs on Raspberry Pi (requires Python 3.6 or higher; [here is a tutorial](https://github.com/Ewlbo/Instagagement/blob/master/RASPBERRY.md)).
 
+GUI coming soon.
+
 ## Features
 
 - Finds latest posts from profile you specify, gets links from the posts, joins Telegram group, finds all the links to engage with, engages, posts yours. That simple. Currently only supports likes.
