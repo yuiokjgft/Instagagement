@@ -3,6 +3,7 @@ import instagagement
 from datetime import datetime
 from datetime import timedelta
 from telethon import errors
+import requests
 
 # Settings
 group_waittime = 20 	# Seconds between groups
@@ -27,10 +28,6 @@ print()
 preset = input('Enter preset name or instagram username: ')
 print()
 
-# Initialize and login
-instagagement.init(preset)
-instagagement.login()
-
 def update_config():
 	global config
 	# Update config
@@ -38,15 +35,20 @@ def update_config():
 		config = json.load(config_file)
 
 # Process config
-# Get groups which will be used
 update_config()
-use_groups = config['use_groups'].split (",")
+
+# Initialize and login
+instagagement.init(preset)
+user_info = instagagement.login()
+print('Logged in as ' + config['ig_username'])
+print('Followers: ' + str(user_info[0]))
+print('Following: ' + str(user_info[1]))
+print('Media count: ' + str(user_info[2]))
+print()
 
 # Get Telegram group list
 with open(str(config['telegram_api_id']) + '_groups.json') as load_groups:  
 	group_list = json.load(load_groups)
-
-
 
 # Run the progarm
 while 1:
@@ -54,26 +56,34 @@ while 1:
 		update_config()
 		# Check if time between loops is big enough
 		if (datetime.now() - like_end) / timedelta(minutes = 1) >= loop_sleep:
+			# Engagement pods
 			try:
-				instagagement.start_client()
-				for i in range(0, len(use_groups)):
-					status = instagagement.start_groups(group_list['available_groups'][use_groups[i]])
-					if status != -1:
-						print('Waiting for ' + str(group_waittime) + ' seconds between groups')
-						time.sleep(group_waittime)
-					else:
-						time.sleep(2)
-				instagagement.disconnect_client()
-				like_end = datetime.now()
-
-				print()
+				if config['use_groups'] != 0:
+					use_groups = config['use_groups'].split (",")
+					instagagement.start_client()
+					for i in range(0, len(use_groups)):
+						status = instagagement.start_groups(group_list['available_groups'][use_groups[i]])
+						if status != -1:
+							print('Waiting for ' + str(group_waittime) + ' seconds between groups')
+							print()
+							time.sleep(group_waittime)
+						else:
+							print()
+							time.sleep(2)
+					instagagement.disconnect_client()
+					like_end = datetime.now()
 			except ConnectionError:
 				print('ConnectionError - check your internet connection')
-				print()
+			except requests.ConnectionError:
+				print('requests ConnectionError - check your internet connection')
+
+			# Like feed
 			if config['like_feed'] == 1:
 				instagagement.like_feed()
+				print()
+
+			print('Like loop ended at ' + str(datetime.now().strftime("%H:%M")) + ', continuing after ' + str(loop_sleep) + ' minutes')
 			print()
-			print('Like loop ended at ' + str(datetime.now()) + ', continuing after ' + str(loop_sleep) + ' minutes')
 		time.sleep(60)
 	else:
 		# Refresh values after every day
