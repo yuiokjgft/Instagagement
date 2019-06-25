@@ -1,7 +1,7 @@
 # General
 import os, sys
-import json, time, math, datetime, random
-import webbrowser, requests, pip
+import json, time, datetime, random
+import webbrowser, requests
 from datetime import datetime as datenow
 # Instabot.py https://github.com/instabot-py/instabot.py
 from instabot_py import InstaBot
@@ -18,7 +18,6 @@ group_template = 'group_template.json'
 insta_string = '/p/' 			# To find instagram link in telegram message
 insta_shortcode = 'shortcode'	# To find instagram link in user feed
 group_list = []
-settings = []
 config = []
 client = []
 preset = ''
@@ -31,22 +30,11 @@ client_started = False
 compare_array = []
 first_array = []
 final_array = []
-liked = []
-liked_all = {}
-add_liked = []
-data = {}
 group_name = ''
 selected_group = ''
-id_count = 0
-likes_given = 0
 
 # Instagram
 instabot = []
-link1 = ''
-link2 = ''
-link3 = ''
-
-like_amount_feed = 10
 
 def init(preset_):
 	global config, group_list, liked_all, preset
@@ -70,7 +58,8 @@ def init(preset_):
 		if debug == 1:
 			print('Group list loaded from ' + str(config['telegram_api_id']) + '_groups.json')
 	except FileNotFoundError:
-		print('File ' + str(config['telegram_api_id']) + '_groups.json' + ' does not exist, making for ' + config['ig_username'])
+		if debug == 1:
+			print('File ' + str(config['telegram_api_id']) + '_groups.json' + ' does not exist, making for ' + config['ig_username'])
 		try:
 			groups = []
 			with open(group_template, 'r') as from_temp:  
@@ -90,10 +79,12 @@ def init(preset_):
 			else:
 				liked_all = json.load(json_file)
 	except FileNotFoundError:
-		print(config['ig_username'] + '_liked.json' + ' not found')
+		if debug == 1:
+			print(config['ig_username'] + '_liked.json' + ' not found')
 
 def update_config():
-	global preset, config
+	global preset, config, date
+	date = str(datenow.now().year)+'-'+str(datenow.now().month)+'-'+str(datenow.now().day)
 	# Load config file
 	try:
 		with open(preset + '_config.json') as json_file:  
@@ -106,35 +97,28 @@ def update_config():
 		sys.exit()
 
 def get_last_posts():
-	global instabot, link1, link2, link3
+	global instabot
 	# Get the posts from specified profile in config
+	# Stores links in user_links in range from 0 to 11 (12 posts)
 	instabot.current_user = config['like_profile']
 	get_media_id_user_feed(instabot)
 	post_list = instabot.current_user_info["edge_owner_to_timeline_media"]["edges"]
-	last_posts = str(post_list)
-	# Find post 1
-	post_start = findnth(last_posts, insta_shortcode, 0) + len(insta_shortcode)
-	last_posts = last_posts[post_start:]
-	post_start = findnth(last_posts, "'", 1) + 1
-	last_posts = last_posts[post_start:]
-	link1 = 'https://www.instagram.com/p/' + str(last_posts[:findnth(last_posts, "'", 0)]) + '/'
-	# Find post 2
-	last_posts = str(post_list)
-	post_start = findnth(last_posts, insta_shortcode, 1) + len(insta_shortcode)
-	last_posts = last_posts[post_start:]
-	post_start = findnth(last_posts, "'", 1) + 1
-	last_posts = last_posts[post_start:]
-	link2 = 'https://www.instagram.com/p/' + str(last_posts[:findnth(last_posts, "'", 0)]) + '/'
-	# Find post 3 (if ever needed?) If more needed, change 2nd line
-	last_posts = str(post_list)
-	post_start = findnth(last_posts, insta_shortcode, 2) + len(insta_shortcode) # change 2 to n+1 if more posts needed to be found (max 12 posts - n(max) = 11)
-	last_posts = last_posts[post_start:]
-	post_start = findnth(last_posts, "'", 1) + 1
-	last_posts = last_posts[post_start:]
-	link3 = 'https://www.instagram.com/p/' + str(last_posts[:findnth(last_posts, "'", 0)]) + '/'
+
+	user_links = []
+
+	# Find links from user feed
+	for i in range(0, 11):
+		last_posts = str(post_list)
+		post_start = findnth(last_posts, insta_shortcode, i) + len(insta_shortcode)
+		last_posts = last_posts[post_start:]
+		post_start = findnth(last_posts, "'", 1) + 1
+		last_posts = last_posts[post_start:]
+		user_links.append('https://www.instagram.com/p/' + str(last_posts[:findnth(last_posts, "'", 0)]) + '/')
+
+	return user_links
 
 def login():
-	global instabot, client
+	global instabot, client, user_followers, user_following, user_media
 
 	instabot = InstaBot(
 		like_per_day = config['max_likes'],
@@ -147,7 +131,14 @@ def login():
 
 	# Telegram client
 	client = TelegramClient(config['session'], config['telegram_api_id'], config['telegram_api_hash'])
-	client.flood_sleep_threshold = 24 * 60 * 60  # Sleep always
+	client.flood_sleep_threshold = 24 * 60 * 60
+
+	get_user_info(instabot, config['ig_username'])
+	user_followers = instabot.current_user_info["edge_followed_by"]["count"]
+	user_following = instabot.current_user_info["edge_follow"]["count"]
+	user_media = instabot.current_user_info["edge_owner_to_timeline_media"]["count"]
+
+	return [user_followers, user_following, user_media]
 
 # Get json from URL and get Media ID
 def get_media_id(media_url):
@@ -253,7 +244,8 @@ def check_group(group_to_check):
 	global client, group_list, client_started, client_started
 	message_count = 0
 
-	#print('Checking if link can be dropped again')
+	if debug == 1:
+		print('Checking if link can be dropped again')
 
 	# Join channel/group
 	joined = join_channel(group_to_check)
@@ -267,14 +259,16 @@ def check_group(group_to_check):
 				if str(message).find('instagram.com') is not -1:
 					if str(get_post_id(message)).find(str(group_list[group_to_check]['link_last']['link_id'])) is not -1:
 						print('Links dropped in between: ' + str(message_count) + ' - skipping group')
-						#print('Group check ended: ' + str(group_to_check))
+						if debug == 1:
+							print('Group check ended: ' + str(group_to_check))
 						return message_count
 					else:
 						message_count += 1
 					# If post is already over the restricted limit (e.g. 30 posts have to be in between posts, but in those 30 your post has not been found)
 					if message_count >= group_list[group_to_check]['restrictions']['post_amount']:
 						print('Could not find last link before set amount - safe to post')
-						#print('Group check ended: ' + str(group_to_check))
+						if debug == 1:
+							print('Group check ended: ' + str(group_to_check))
 						return message_count
 		else:
 			print('First entrance in this group - safe to post')
@@ -289,12 +283,13 @@ def check_group(group_to_check):
 # Get all messages
 def check_messages():
 	# Global variables
-	global id_count, first_array_full, group_name, group_list
+	global first_array_full, group_name, group_list
 	# 24h ago (+30min for safety)
 	time_24h = int(time.time()) - (24*60*60 + 30*60)
 	time_limit = int(time.time())
 	url_id = ""
 	url_id_2 = ""
+	link_count = 0
 	# Get links from messages
 	try:
 		for message in client.iter_messages(group_name):
@@ -307,7 +302,7 @@ def check_messages():
 				# Check the type of group
 				if str(group_list[selected_group]['group_type']).find('fixed') is not -1:
 					# Fixed like groups
-					if id_count < int(group_list[selected_group]['like_count']):
+					if link_count < int(group_list[selected_group]['like_count']):
 						# Get ID's
 						if group_list[selected_group]['max_links'] is 2:
 							url_id, url_id_2 = get_post_id(message)
@@ -322,14 +317,14 @@ def check_messages():
 									else:
 										compare_array.append(url_id)        # Array made on second run for comparison
 										compare_array.append(url_id_2)        # Array made on second run for comparison
-									id_count += 2
+									link_count += 2
 								else:
 									# Add to array and increase stored id count
 									if first_array_full is False:
 										first_array.append(url_id)          # Array made on first run
 									else:
 										compare_array.append(url_id)        # Array made on second run for comparison
-									id_count += 1
+									link_count += 1
 						else:
 							url_id = get_post_id(message)
 							# Check if ID fits (usually 11)
@@ -339,11 +334,12 @@ def check_messages():
 									first_array.append(url_id)          # Array made on first run
 								else:
 									compare_array.append(url_id)        # Array made on second run for comparison
-								id_count += 1
+								link_count += 1
 					else:
 						first_array_full = True
-						#print("Found " + str(id_count) + " links")
-						id_count = 0
+						if debug == 1:
+							print("Found " + str(link_count) + " links")
+						link_count = 0
 						break
 				else:
 					# 24H groups 
@@ -368,7 +364,7 @@ def check_messages():
 									start = string[start:].find('(') + start + 1
 									end = findnth(string[start:], ',',4)
 									time_limit = time.mktime(datetime.datetime.strptime(string[start:end+start], "%Y, %m, %d, %H, %M").timetuple())
-									id_count += 2
+									link_count += 2
 								else:
 									# Add to array and increase stored id count
 									if first_array_full is False:
@@ -380,7 +376,7 @@ def check_messages():
 									start = string[start:].find('(') + start + 1
 									end = findnth(string[start:], ',',4)
 									time_limit = time.mktime(datetime.datetime.strptime(string[start:end+start], "%Y, %m, %d, %H, %M").timetuple())
-									id_count += 1
+									link_count += 1
 						else:
 							url_id = get_post_id(message)
 							# Check if ID fits (usually 11)
@@ -395,11 +391,12 @@ def check_messages():
 								start = string[start:].find('(') + start + 1
 								end = findnth(string[start:], ',',4)
 								time_limit = time.mktime(datetime.datetime.strptime(string[start:end+start], "%Y, %m, %d, %H, %M").timetuple())
-								id_count += 1
+								link_count += 1
 					else:
 						first_array_full = True
-						#print("Found " + str(id_count) + " links")
-						id_count = 0
+						if debug == 1:
+							print("Found " + str(link_count) + " links")
+						link_count = 0
 						break
 	except ValueError:
 		print('Group does not exist')
@@ -423,7 +420,8 @@ def check_new_messages():
 
 # Likes posts from array
 def like_posts():
-	global likes_given, group_list, liked
+	global group_list
+	add_liked = []
 	# Check from which array to take posts
 	if new_message is False:
 		post_array = first_array
@@ -432,6 +430,7 @@ def like_posts():
 
 	# Create progressbar
 	progress = 0
+	likes_given = 0
 	printProgressBar(0, len(post_array), prefix = 'Progress:', suffix = '[' + str(likes_given+1) + '/' + str(len(post_array)) + '] ', bar_length = 25)
 	# Like all posts in array
 	for post in post_array:
@@ -441,16 +440,16 @@ def like_posts():
 			printProgressBar(likes_given, len(post_array), prefix = 'Progress:', suffix = '[' + str(likes_given) + '/' + str(len(post_array)) + '] ' + post, bar_length = 25)
 			instabot.like(get_media_id(post))
 			add_liked.append(post)	
-			# Delay
 			if likes_given != len(post_array):
-				if config['delay'] <= 0:
-					time.sleep(1)
+				if config['delay'] <= 2:
+					time.sleep(1 + random.randint(0, 5))
 				else:
-					time.sleep(random.randint(config['delay']-1,config['delay']+1))
+					time.sleep(random.randint(config['delay']-2,config['delay']+2))
 		else:
 			likes_given += 1
 			printProgressBar(likes_given, len(post_array), prefix = 'Progress:', suffix = '[' + str(likes_given) + '/' + str(len(post_array)) + '] ' + post, bar_length = 25)
-	likes_given = 0
+	
+	update_liked(add_liked)
 
 # Post the link in telegram group
 def post_link():
@@ -458,6 +457,14 @@ def post_link():
 	
 	# For updating liked.json with date
 	date = str(datenow.now().year)+'-'+str(datenow.now().month)+'-'+str(datenow.now().day)
+
+	# Get last links from selected user
+	try:
+		user_links = get_last_posts()
+	except AttributeError:
+		print('Tried getting posts; AttributeError; Instabot.py')
+		return -1
+	
 
 	# Get the array ready
 	post_message = ""
@@ -468,99 +475,52 @@ def post_link():
 	else:
 		g_type = 'D24h'
 	# Check how many links to post
-	if group_list[selected_group]['max_links'] is 1 or str(link2).find(insta_string) is -1:
+	if group_list[selected_group]['max_links'] is 1 or str(user_links[1]).find(insta_string) is -1:
 		# Check if the group requires username
 		if group_list[selected_group]['username_required'] is 1:
-			post_message = g_type + " @" + config['ig_username'] + " " + link1
+			post_message = g_type + " @" + config['ig_username'] + " " + user_links[0]
 		else:
-			post_message = g_type + " " + link1
+			post_message = g_type + " " + user_links[0]
 	else:
 		# Check if the group requires username
 		if group_list[selected_group]['username_required'] is 1:
-			post_message = g_type + " @" + config['ig_username'] + " " + link1 + " " + link2
+			post_message = g_type + " @" + config['ig_username'] + " " + user_links[0] + " " + user_links[1]
 		else:
-			post_message = g_type + " " + link1 + " " + link2
+			post_message = g_type + " " + user_links[0] + "\n" + user_links[1]
 	try:
 		client.send_message(group_name, post_message, link_preview = False)
 		print('Sent: ' + post_message)
 	except:
 		print("Can't send - might be banned from group or in general (check Telegram's Spam Info Bot)")
 		return "Fail"
+
 	# Write new data to groups.json
 	try:
 		with open(str(config['telegram_api_id']) + '_groups.json') as json_file:  
 			group_list = json.load(json_file)
 		with open(str(config['telegram_api_id']) + '_groups.json', 'w') as json_file:
 			if str(group_list[selected_group]['group_type']).find('fixed') is -1:
-				group_list[selected_group]['link_last']['link_id'] = get_post_id(link1)
+				group_list[selected_group]['link_last']['link_id'] = get_post_id(user_links[0])
 			else:
-				group_list[selected_group]['link_last']['link_id'] = get_post_id(link1)
+				group_list[selected_group]['link_last']['link_id'] = get_post_id(user_links[0])
 			group_list[selected_group]['link_last']['link_time'] = int(time.time())
 			group_list[selected_group]['link_last']['link_posted'] = 1
 			json.dump(group_list, json_file, indent=4, separators=(',', ': '), sort_keys=True)
 	except FileNotFoundError:
 		print('File ' + str(config['telegram_api_id']) + '_groups.json' + ' does not exist')
 
-	# Write new data to liked.json
-	try:
-		with open(config['ig_username'] + '_liked.json', 'r') as json_file:  
-			try:
-				liked = json.load(json_file)
-				liked = liked[date]				
-			except KeyError:
-				if debug == 1:
-					print('No likes found for ' + str(date))
-			json_file.close()
-		with open(config['ig_username'] + '_liked.json', 'w+') as json_file:
-			
-			if len(liked) > 4:
-				data[date] = liked + add_liked
-			else:
-				data[date] = add_liked
-			json.dump(data, json_file, indent=4, separators=(',', ': '), sort_keys=True)
-			json_file.close()
-		with open(config['ig_username'] + '_liked.json', 'r') as json_file:  
-			liked_all = json.load(json_file)
-			json_file.close()
-
-	except FileNotFoundError:
-		with open(config['ig_username'] + '_liked.json', 'w+') as json_file:
-			data[date] = add_liked 
-			json.dump(data, json_file, indent=4, separators=(',', ': '), sort_keys=True)
-			liked_all = add_liked
-			json_file.close()
-
 # Start the program
 def start_groups(config_group):
 	global client, first_array_full, new_message, compare_array, first_array, final_array, group_name, likes_given, add_liked, selected_group
 	update_config()
-	date = str(datenow.now().year)+'-'+str(datenow.now().month)+'-'+str(datenow.now().day) # returns e.g. 2019-1-29
 
-	# Load likes
-	liked_today = 0
+	# Get todays liked post amount
 	try:
-		with open(config['ig_username'] + '_liked.json', 'r') as json_file:  
-			try:
-				liked_today = json.load(json_file)
-				liked_today = len(liked_today[date])
-			except KeyError:
-				if debug == 1:
-					print('No likes found for ' + str(date))
-				liked_today = 0
-	except FileNotFoundError:
-		print(config['ig_username'] + '_liked.json' + ' not found')
-
+		liked_today = len(get_liked()[date])
+	except:
+		liked_today = 0
 
 	if int(liked_today) <= config['max_likes']:
-		active = True
-
-		# Get last links from posts
-		try:
-			get_last_posts()
-		except AttributeError:
-			print('Tried getting posts; AttributeError; Instabot.py')
-			return -1
-
 		# Check the conditions before starting
 
 		# Check if your profile has enough followers
@@ -568,21 +528,9 @@ def start_groups(config_group):
 		# If group has no username requirement, user_id of selected post has to match Instagram user_id
 		#if group_list[selected_group]['username_required'] is 1:
 		selected_group = config_group
-		if str(link1).find(insta_string) is -1:
-			print('Link not set or not properly formated (https://www.instagram.com/p/BtULbITlh7C/)')
-		else:
-			start_message = ('[' + config['ig_username'] + "] Starting '" + str(selected_group) + "' [" + str(datetime.datetime.now().hour) 
-				+ ':' + str(datetime.datetime.now().minute) + '] ['
-				+ str(liked_today) + '/' + str(config['max_likes'])+ ']')
-			print()
-			for x in range(1,len(start_message)+2):
-				print('-', end = '')
-			print()
-			print(start_message)
-			for x in range(1,len(start_message)+2):
-				print('-', end = '')
-			print()
-			print()
+		print_header(config_group)
+
+		if group_list[selected_group]['restrictions']['followers'] < user_followers:
 
 			# Join group and refresh it
 			joined = join_channel(selected_group)
@@ -624,12 +572,10 @@ def start_groups(config_group):
 					first_array = []
 					compare_array = []
 					final_array = []
-					add_liked = []
-					likes_given = 0				
-					print('Program ended')
-					active = False
+					if debug == 1:			
+						print('Program ended')
 				else:
-					#print('Cant post - either too fast or post gap not reached (check restrictions)')
+					print('Cant post - post gap not reached')
 					return -1
 			else:
 				time_difference = check_group(selected_group)
@@ -651,12 +597,11 @@ def start_groups(config_group):
 					first_array = []
 					compare_array = []
 					final_array = []
-					add_liked = []
-					likes_given = 0
-					# Make pop-up when done
-					#sg.PopupOK('Done')
-					print('Program ended: ' + str(selected_group))
-					active = False
+					if debug == 1:
+						print('Program ended: ' + str(selected_group))
+		else:
+			print(str(group_list[selected_group]['restrictions']['followers']) + ' followers needed, skipping group')
+			return -1
 	else:
 		print('Max like amount reached for today')
 
@@ -724,31 +669,52 @@ def join_channel(channel_name):
 		print('Cannot join group (perhaps does not exist/banned)')
 		return -1
 
-# Like recent feed
-def like_feed():
-	global add_liked
-
-	# For updating liked.json with date
-	date = str(datenow.now().year)+'-'+str(datenow.now().month)+'-'+str(datenow.now().day)
-
-	# Load likes
-	liked_today = 0
+def get_liked():
 	try:
 		with open(config['ig_username'] + '_liked.json', 'r') as json_file:  
+			liked_all = json.load(json_file)
+			json_file.close()
+			return liked_all
+	except FileNotFoundError:
+		return 0
+
+def update_liked(new_likes):
+	# Write new data to liked.json
+	liked_all = {}
+	liked_today = []
+	data = {}
+	try:
+		with open(config['ig_username'] + '_liked.json', 'r') as json_file:  
+			liked_all = json.load(json_file)
 			try:
-				liked_today = json.load(json_file)
-				liked_today = len(liked_today[date])
+				liked_today = liked_all[date]	
 			except KeyError:
 				if debug == 1:
 					print('No likes found for ' + str(date))
-				liked_today = 0
-	except FileNotFoundError:
-		print(config['ig_username'] + '_liked.json' + ' not found')
+			json_file.close()
+		with open(config['ig_username'] + '_liked.json', 'w+') as json_file:
+			liked_all[date] = liked_today + new_likes
+			json.dump(liked_all, json_file, indent=4, separators=(',', ': '), sort_keys=True)
+			json_file.close()
 
-	start_message = ('[' + config['ig_username'] + "] Starting feed like [" + str(datetime.datetime.now().hour) 
-				+ ':' + str(datetime.datetime.now().minute) + '] ['
-				+ str(liked_today) + '/' + str(config['max_likes'])+ ']')
-	print()
+	except FileNotFoundError:
+		with open(config['ig_username'] + '_liked.json', 'w+') as json_file:
+			data[date] = new_likes 
+			json.dump(data, json_file, indent=4, separators=(',', ': '), sort_keys=True)
+			liked_all = new_likes
+			json_file.close()
+
+	return liked_all
+
+def print_header(name):
+	# Get todays liked post amount
+	try:
+		liked_today = len(get_liked()[date])
+	except:
+		liked_today = 0
+
+	start_message = ('[' + config['ig_username'] + "] '" + name + "' [" + str(datetime.datetime.now().strftime("%H:%M")) + '] ['
+			+ str(liked_today) + '/' + str(config['max_likes'])+ ']')
 	for x in range(1,len(start_message)+2):
 		print('-', end = '')
 	print()
@@ -758,54 +724,38 @@ def like_feed():
 	print()
 	print()
 
+# Like recent feed
+def like_feed():
+	update_config()
+	add_liked = []
+	# Print header
+	print_header('Feed like')
+
+	# Get todays liked post amount
+	try:
+		liked_today = len(get_liked()[date])
+	except:
+		liked_today = 0
+
 	if int(liked_today) <= int(config['max_likes']):
-
 		feed_liked = 0
-		add_liked = []
-
 		printProgressBar(0, config['like_amount_feed'], prefix = 'Progress:', suffix = '[' + str(feed_liked) + '/' + str(config['like_amount_feed']) + '] ', bar_length = 25)
-
 		get_media_id_recent_feed(instabot)
 		recent_feed = instabot.media_on_feed
 		for i in range(len(recent_feed)):
 			post = recent_feed[i]['node']['shortcode']
-			instabot.like(get_media_id(post))
-			add_liked.append(post)
+			# Check if its not own post
+			if recent_feed[i]['node']['owner']['username'] != config['ig_username']:
+				# Check if already liked
+				if str(get_liked()).find(str(post)) is -1:
+					instabot.like(get_media_id(post))
+					add_liked.append(post)
+					time.sleep(config['delay'])
 			feed_liked += 1
-			printProgressBar(feed_liked, config['like_amount_feed'], prefix = 'Progress:', suffix = '[' + str(feed_liked) + '/' + str(config['like_amount_feed']) + '] ' + post, bar_length = 25)
+			printProgressBar(feed_liked, config['like_amount_feed'], prefix = 'Progress:', suffix = '[' + str(feed_liked) + '/' + str(config['like_amount_feed']) + '] ', bar_length = 25)
 			if feed_liked >= config['like_amount_feed']:
 				break
-			time.sleep(config['delay'])
-
-		# Write new data to liked.json
-		try:
-			with open(config['ig_username'] + '_liked.json', 'r') as json_file:  
-				try:
-					liked = json.load(json_file)
-					liked = liked[date]				
-				except KeyError:
-					if debug == 1:
-						print('No likes found for ' + str(date))
-				json_file.close()
-			with open(config['ig_username'] + '_liked.json', 'w+') as json_file:
-				
-				if len(liked) > 4:
-					data[date] = liked + add_liked
-				else:
-					data[date] = add_liked
-				json.dump(data, json_file, indent=4, separators=(',', ': '), sort_keys=True)
-				json_file.close()
-			with open(config['ig_username'] + '_liked.json', 'r') as json_file:  
-				liked_all = json.load(json_file)
-				json_file.close()
-
-		except FileNotFoundError:
-			with open(config['ig_username'] + '_liked.json', 'w+') as json_file:
-				data[date] = add_liked 
-				json.dump(data, json_file, indent=4, separators=(',', ': '), sort_keys=True)
-				liked_all = add_liked
-				json_file.close()
-		add_liked = []
+		update_liked(add_liked)
 	else:
 		print('Max like amount reached for today')
 
