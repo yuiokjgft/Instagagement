@@ -2,7 +2,7 @@
 
 #### General
 - Telethon auto-update!
-- Check follower limit before joining group
+- ~~Check follower limit before joining group~~
 - Adding groups dynamically to 'group_template.json' and 'quickstart.py'
 - Fix bugs stated in README..
 
@@ -28,5 +28,5 @@
 ## Other
 
 - ~~Like feed posts~~
--- Restrict from liking own post
+-- ~~Restrict from liking own post~~
 
