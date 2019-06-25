@@ -13,7 +13,7 @@
 #### Functionality/failsafes
 - Catch the moment when there is no network (if network gets cut off mid program, session file is blocked and program throws you out)
 - Arguments (silent mode, account, session name etc.)
-- Check if login has been made on Instagram
+- ~~Check if login has been made on Instagram~~
 
 #### Groups
 - Comment groups. Example program: read comments from the post, pick one, check if it is not spam (links and spam phrases), add something and post comment (so it does not appear as spammy with pre-defined comments)
