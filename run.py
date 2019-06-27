@@ -44,6 +44,7 @@ print('Logged in as ' + config['ig_username'])
 print('Followers: ' + str(user_info[0]))
 print('Following: ' + str(user_info[1]))
 print('Media count: ' + str(user_info[2]))
+print('Getting likes for: ' + config['like_profile'])
 print()
 
 # Get Telegram group list

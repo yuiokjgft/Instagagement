@@ -1,5 +1,6 @@
 {
     "BoostGram Dx10": {
+        "blocked" : 0,
         "group_id": "BoostGramDx10Like",
         "group_type": "fixed",
         "joined": 0,
@@ -20,6 +21,7 @@
         "username_required": 1
     },
     "BoostGram Dx20": {
+        "blocked" : 0,
         "group_id": "BoostGramDx20",
         "group_type": "fixed",
         "joined": 0,
@@ -40,6 +42,7 @@
         "username_required": 1
     },
     "BoostGram Dx30": {
+        "blocked" : 0,
         "group_id": "BoostGramDx30",
         "group_type": "fixed",
         "joined": 0,
@@ -60,6 +63,7 @@
         "username_required": 1
     },
     "Den DX20": {
+        "blocked" : 0,
         "group_id": "DenDX20Likes",
         "group_type": "fixed",
         "joined": 0,
@@ -80,6 +84,7 @@
         "username_required": 1
     },
     "Den DX50": {
+        "blocked" : 0,
         "group_id": "DenDX50Likes",
         "group_type": "fixed",
         "joined": 0,
@@ -100,6 +105,7 @@
         "username_required": 0
     },
     "Dx30 Engagement Group": {
+        "blocked" : 0,
         "group_id": "EdplEFKn1M8iONjBGRz9xA",
         "group_type": "fixed",
         "joined": 0,
@@ -120,6 +126,7 @@
         "username_required": 1
     },
     "GainSpace | MASS Likes Dx5": {
+        "blocked" : 0,
         "group_id": "igmasslikes",
         "group_type": "fixed",
         "joined": 0,
@@ -140,6 +147,7 @@
         "username_required": 1
     },
     "InstaPro Dx20": {
+        "blocked" : 0,
         "group_id": "instapro20onlylikke",
         "group_type": "fixed",
         "joined": 0,
@@ -160,6 +168,7 @@
         "username_required": 1
     },
     "Nest DX20": {
+        "blocked" : 0,
         "group_id": "NestDX20Likes",
         "group_type": "fixed",
         "joined": 0,
@@ -180,6 +189,7 @@
         "username_required": 0
     },
     "Select group": {
+        "blocked" : "n/a",
         "group_id": "n/a",
         "group_type": "n/a",
         "joined": "n/a",
@@ -200,6 +210,7 @@
         "username_required": "n/a"
     },
     "Wizard Dx30": {
+        "blocked" : 0,
         "group_id": "WizardDx30",
         "group_type": "fixed",
         "joined": 0,
@@ -220,6 +231,7 @@
         "username_required": 1
     },
     "Wolf 10K 24h": {
+        "blocked" : 0,
         "group_id": "Fx4rwkg0O5LMxmDOnybBQw",
         "group_type": "24h",
         "joined": 0,
@@ -240,6 +252,7 @@
         "username_required": 0
     },
     "Wolf 15K 24h": {
+        "blocked" : 0,
         "group_id": "Fx4rwk4jmykZjdL27YZdSQ",
         "group_type": "24h",
         "joined": 0,
@@ -260,6 +273,7 @@
         "username_required": 0
     },
     "Wolf 5K 24h": {
+        "blocked" : 0,
         "group_id": "Fx4rwlIWBDtJIada1UdZqQ",
         "group_type": "24h",
         "joined": 0,
@@ -280,6 +294,7 @@
         "username_required": 0
     },
     "Wolf Amber 24h": {
+        "blocked" : 0,
         "group_id": "Fx4rwkspmKhvndR_h6M6JQ",
         "group_type": "24h",
         "joined": 0,
@@ -300,6 +315,7 @@
         "username_required": 0
     },
     "Wolf Emerald 24h": {
+        "blocked" : 0,
         "group_id": "Fx4rwlM4eXuZA2Zjxk6v7w",
         "group_type": "24h",
         "joined": 0,
@@ -320,6 +336,7 @@
         "username_required": 0
     },
     "Wolf Onyx 24h": {
+        "blocked" : 0,
         "group_id": "Fx4rwj_zwv2ED0T5X6Pgfw",
         "group_type": "24h",
         "joined": 0,
@@ -340,6 +357,7 @@
         "username_required": 0
     },
     "Wolf Quartz 24h": {
+        "blocked" : 0,
         "group_id": "Fx4rwkT2qgxbyt0szQk5YA",
         "group_type": "24h",
         "joined": 0,
@@ -360,6 +378,7 @@
         "username_required": 0
     },
     "Wolf Ruby 24h": {
+        "blocked" : 0,
         "group_id": "Fx4rwkjfFsMn6si42mK8Fw",
         "group_type": "24h",
         "joined": 0,
@@ -380,6 +399,7 @@
         "username_required": 0
     },
     "Wolf Saphire 24h": {
+        "blocked" : 0,
         "group_id": "Fx4rwlDFRg32ICK8NbsYkQ",
         "group_type": "24h",
         "joined": 0,
@@ -400,6 +420,7 @@
         "username_required": 0
     },
     "Wolf | 1K Powerlikes Dx10": {
+        "blocked" : 0,
         "group_id": "Fx4rwlC_-N3DsgBLVM3P1g",
         "group_type": "fixed",
         "joined": 0,
@@ -420,6 +441,7 @@
         "username_required": 0
     },
     "Wolf | 3K Turbo Likes Dx50": {
+        "blocked" : 0,
         "group_id": "Fx4rwkp0qCY9GYPRAOnoUg",
         "group_type": "fixed",
         "joined": 0,
@@ -440,6 +462,7 @@
         "username_required": 0
     },
     "Wolf | 5K Powerlikes Dx10": {
+        "blocked" : 0,
         "group_id": "Fx4rwkvaUKuKD2owZAlS_g",
         "group_type": "fixed",
         "joined": 0,
@@ -460,6 +483,7 @@
         "username_required": 0
     },
     "Boost Up Powerlikes Dx20": {
+        "blocked" : 0,
         "group_id": "boostuppowerlikes",
         "group_type": "fixed",
         "joined": 0,
@@ -480,6 +504,7 @@
         "username_required": 1
     },
     "Fast likes Dx9": {
+        "blocked" : 0,
         "group_id": "fastlikespod",
         "group_type": "fixed",
         "joined": 0,
@@ -500,6 +525,7 @@
         "username_required": 0
     },
     "GainSpace | MASS Likes Dx20": {
+        "blocked" : 0,
         "group_id": "goldx20likes",
         "group_type": "fixed",
         "joined": 0,

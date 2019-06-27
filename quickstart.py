@@ -21,7 +21,6 @@ use_groups = ''
 max_likes = 0
 delay = 0
 like_feed = 0
-like_amount_feed = 0
 
 print('When do you wish to use this script (e.g. from 8 to 16)? Machine time is used')
 time_from = input('From: ')
@@ -111,19 +110,13 @@ if len(delay) == 0:
 	delay = delay_default
 print()
 
-print('Like recent feed?')
+print('Like recent feed (10-12 latest posts)?')
 print('[0] Disable')
 print('[1] Enable')
 like_feed = input('Choose: ')
 if len(like_feed) == 0:
 	like_feed = 0
-	like_amount_feed = 0
 print()
-
-if int(like_feed) == 1:
-	like_amount_feed = input('How many posts to like from feed (default 10): ')
-	if len(like_amount_feed) == 0:
-		like_amount_feed = 10
 
 config = {
 	"session" : str(session),
@@ -138,8 +131,7 @@ config = {
 	"use_groups" : str(use_groups),
 	"max_likes" : int(max_likes),
 	"delay" : int(delay),
-	"like_feed" : int(like_feed),
-	"like_amount_feed" : int(like_amount_feed)
+	"like_feed" : int(like_feed)
 }
 
 print()
