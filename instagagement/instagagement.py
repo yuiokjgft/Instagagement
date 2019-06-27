@@ -422,6 +422,9 @@ def check_new_messages():
 def like_posts():
 	global group_list
 	add_liked = []
+
+	liked_all = get_liked()
+
 	# Check from which array to take posts
 	if new_message is False:
 		post_array = first_array
@@ -492,13 +495,14 @@ def post_link():
 		print('Sent: ' + post_message)
 	except:
 		print("Can't send - might be banned from group or in general (check Telegram's Spam Info Bot)")
+		flag_group(selected_group)
 		return "Fail"
 
 	# Write new data to groups.json
 	try:
 		with open(str(config['telegram_api_id']) + '_groups.json') as json_file:  
 			group_list = json.load(json_file)
-		with open(str(config['telegram_api_id']) + '_groups.json', 'w') as json_file:
+		with open(str(config['telegram_api_id']) + '_groups.json', 'w+') as json_file:
 			if str(group_list[selected_group]['group_type']).find('fixed') is -1:
 				group_list[selected_group]['link_last']['link_id'] = get_post_id(user_links[0])
 			else:
@@ -513,6 +517,7 @@ def post_link():
 def start_groups(config_group):
 	global client, first_array_full, new_message, compare_array, first_array, final_array, group_name, likes_given, add_liked, selected_group
 	update_config()
+	selected_group = config_group
 
 	# Get todays liked post amount
 	try:
@@ -520,90 +525,93 @@ def start_groups(config_group):
 	except:
 		liked_today = 0
 
-	if int(liked_today) <= config['max_likes']:
-		# Check the conditions before starting
+	print_header(config_group)
 
-		# Check if your profile has enough followers
-		#if group_list[selected_group]['restrictions']['followers'] < followers:
-		# If group has no username requirement, user_id of selected post has to match Instagram user_id
-		#if group_list[selected_group]['username_required'] is 1:
-		selected_group = config_group
-		print_header(config_group)
+	if group_list[config_group]['blocked'] == 0:
+		if int(liked_today) <= config['max_likes']:
+			# Check this:
+			# If group has no username requirement, user_id of selected post has to match Instagram user_id
+			#if group_list[selected_group]['username_required'] is 1:
 
-		if group_list[selected_group]['restrictions']['followers'] < user_followers:
+			if group_list[selected_group]['restrictions']['followers'] < user_followers:
 
-			# Join group and refresh it
-			joined = join_channel(selected_group)
-			if joined == -1:
-				print("Could not join channel - Telethon")
-				return -1
-			try:
-				result = client(functions.updates.GetChannelDifferenceRequest(
-			        channel=group_name,
-			        filter=types.ChannelMessagesFilter(
-			            ranges=[types.MessageRange(
-			                min_id=0,
-			                max_id=1
-			            )],
-			            exclude_new_messages=False
-			        ),
-			        pts=42,
-			        limit=100,
-			        force=True
-			    ))
-			except:
-				print("Channel not accesible - Telethon")
-				return -1
-			# Check the restriction
-			if group_list[selected_group]['restrictions']['post_amount'] is not 0:
-				#if group_list[selected_group]['link_last']['link_posted'] is 1 or 0:
-				message_count = check_group(selected_group)
-				if message_count >= group_list[selected_group]['restrictions']['post_amount']:
-					# Check messages - find links
-					check_messages()
-					# Like posts from first_array and check new messages after
-					like_posts()
-					check_new_messages()
-					# Post link to Telegram group
-					post_link()
-					# Reset all variables for next use
-					first_array_full = False
-					new_message = False
-					first_array = []
-					compare_array = []
-					final_array = []
-					if debug == 1:			
-						print('Program ended')
-				else:
-					print('Cant post - post gap not reached')
+				# Join group and refresh it
+				joined = join_channel(selected_group)
+				if joined == -1:
+					print("Could not join channel - Telethon")
 					return -1
+				try:
+					result = client(functions.updates.GetChannelDifferenceRequest(
+				        channel=group_name,
+				        filter=types.ChannelMessagesFilter(
+				            ranges=[types.MessageRange(
+				                min_id=0,
+				                max_id=1
+				            )],
+				            exclude_new_messages=False
+				        ),
+				        pts=42,
+				        limit=100,
+				        force=True
+				    ))
+				except:
+					print("Channel not accesible - Telethon")
+					return -1
+				# Check the restriction
+				if group_list[selected_group]['restrictions']['post_amount'] is not 0:
+					#if group_list[selected_group]['link_last']['link_posted'] is 1 or 0:
+					message_count = check_group(selected_group)
+					if message_count >= group_list[selected_group]['restrictions']['post_amount']:
+						# Check messages - find links
+						check_messages()
+						# Like posts from first_array and check new messages after
+						like_posts()
+						check_new_messages()
+						# Post link to Telegram group
+						post_link()
+						# Reset all variables for next use
+						first_array_full = False
+						new_message = False
+						first_array = []
+						compare_array = []
+						final_array = []
+						if debug == 1:			
+							print('Program ended')
+					else:
+						print('Cant post - post gap not reached')
+						return -1
+				else:
+					time_difference = check_group(selected_group)
+					if group_list[selected_group]['restrictions']['time_interval'] > time_difference:
+						difference = group_list[selected_group]['restrictions']['time_interval'] - int(time_difference)
+						print('Time interval is not met, wait ' + str(difference) + ' minutes (' + str(int(difference/60)) + ' hours)' ) 
+						return -1
+					else:
+						# Check messages - find links
+						check_messages()
+						# Like posts from first_array and check new messages after
+						like_posts()
+						check_new_messages()
+						# Post link to Telegram group
+						post_link()
+						# Reset all variables for next use
+						first_array_full = False
+						new_message = False
+						first_array = []
+						compare_array = []
+						final_array = []
+						if debug == 1:
+							print('Program ended: ' + str(selected_group))
 			else:
-				time_difference = check_group(selected_group)
-				if group_list[selected_group]['restrictions']['time_interval'] > time_difference:
-					difference = group_list[selected_group]['restrictions']['time_interval'] - int(time_difference)
-					print('Time interval is not met, wait ' + str(difference) + ' minutes (' + str(int(difference/60)) + ' hours)' ) 
-					return -1
-				else:
-					# Check messages - find links
-					check_messages()
-					# Like posts from first_array and check new messages after
-					like_posts()
-					check_new_messages()
-					# Post link to Telegram group
-					post_link()
-					# Reset all variables for next use
-					first_array_full = False
-					new_message = False
-					first_array = []
-					compare_array = []
-					final_array = []
-					if debug == 1:
-						print('Program ended: ' + str(selected_group))
+				print(str(group_list[selected_group]['restrictions']['followers']) + ' followers needed, skipping group')
+				return -1
 		else:
-			print(str(group_list[selected_group]['restrictions']['followers']) + ' followers needed, skipping group')
+			print('Max like amount reached for today')
 			return -1
 	else:
-		print('Max like amount reached for today')
+		print('This group has been flagged, skipping')
+		print('(could not post in group previously)')
+		return -1
 
 # Connect/start telegram client
 def start_client():
@@ -628,7 +636,7 @@ def leave_channel(channel_name):
 			try:
 				with open(str(config['telegram_api_id']) + '_groups.json') as json_file:  
 					group_list = json.load(json_file)
-				with open(str(config['telegram_api_id']) + '_groups.json', 'w') as json_file:
+				with open(str(config['telegram_api_id']) + '_groups.json', 'w+') as json_file:
 					group_list[channel_name]['joined'] = 0
 					json.dump(group_list, json_file, indent=4, separators=(',', ': '), sort_keys=True)
 			except FileNotFoundError:
@@ -655,7 +663,7 @@ def join_channel(channel_name):
 			try:
 				with open(str(config['telegram_api_id']) + '_groups.json') as json_file:  
 					group_list = json.load(json_file)
-				with open(str(config['telegram_api_id']) + '_groups.json', 'w') as json_file:
+				with open(str(config['telegram_api_id']) + '_groups.json', 'w+') as json_file:
 					group_list[channel_name]['joined'] = 1
 					json.dump(group_list, json_file, indent=4, separators=(',', ': '), sort_keys=True)
 			except FileNotFoundError:
@@ -668,6 +676,14 @@ def join_channel(channel_name):
 	except:
 		print('Cannot join group (perhaps does not exist/banned)')
 		return -1
+
+def flag_group(channel_name):
+	# If it was not possible to send message in group, you might be banned/blocked, therefore should be skipped next time
+	with open(str(config['telegram_api_id']) + '_groups.json') as json_file:  
+		group_list = json.load(json_file)
+	with open(str(config['telegram_api_id']) + '_groups.json', 'w+') as json_file:
+		group_list[channel_name]['blocked'] = 1
+		json.dump(group_list, json_file, indent=4, separators=(',', ': '), sort_keys=True)
 
 def get_liked():
 	try:
@@ -739,9 +755,9 @@ def like_feed():
 
 	if int(liked_today) <= int(config['max_likes']):
 		feed_liked = 0
-		printProgressBar(0, config['like_amount_feed'], prefix = 'Progress:', suffix = '[' + str(feed_liked) + '/' + str(config['like_amount_feed']) + '] ', bar_length = 25)
 		get_media_id_recent_feed(instabot)
 		recent_feed = instabot.media_on_feed
+		printProgressBar(0, len(recent_feed), prefix = 'Progress:', suffix = '[' + str(feed_liked) + '/' + str(len(recent_feed)) + '] ', bar_length = 25)
 		for i in range(len(recent_feed)):
 			post = recent_feed[i]['node']['shortcode']
 			# Check if its not own post
@@ -752,9 +768,7 @@ def like_feed():
 					add_liked.append(post)
 					time.sleep(config['delay'])
 			feed_liked += 1
-			printProgressBar(feed_liked, config['like_amount_feed'], prefix = 'Progress:', suffix = '[' + str(feed_liked) + '/' + str(config['like_amount_feed']) + '] ', bar_length = 25)
-			if feed_liked >= config['like_amount_feed']:
-				break
+			printProgressBar(feed_liked, len(recent_feed), prefix = 'Progress:', suffix = '[' + str(feed_liked) + '/' + str(len(recent_feed)) + '] ', bar_length = 25)
 		update_liked(add_liked)
 	else:
 		print('Max like amount reached for today')
