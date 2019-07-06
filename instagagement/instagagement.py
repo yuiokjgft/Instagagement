@@ -11,7 +11,8 @@ from instabot_py.recent_feed import get_media_id_recent_feed
 # Telethon Telegram API by LonamiWebs https://github.com/LonamiWebs/Telethon
 from telethon import TelegramClient, events, sync, errors, functions, types
 from telethon.tl.functions.channels import JoinChannelRequest,LeaveChannelRequest
-from telethon.tl.functions.messages import ImportChatInviteRequest  
+from telethon.tl.functions.messages import ImportChatInviteRequest
+from telethon.tl.functions.users import GetFullUserRequest
 
 # Settings
 group_template = 'group_template.json'
@@ -441,7 +442,16 @@ def like_posts():
 		if str(liked_all).find(str(post)) is -1:
 			likes_given += 1
 			printProgressBar(likes_given, len(post_array), prefix = 'Progress:', suffix = '[' + str(likes_given) + '/' + str(len(post_array)) + '] ' + post, bar_length = 25)
-			instabot.like(get_media_id(post))
+			is_liked = str(instabot.like(get_media_id(post)))
+			if is_liked.find('[200]') == -1:
+				print()
+				print('Post not liked, try changing cookie name in ' + config['ig_username'] + '_config.json')
+				print()
+				if len(str(config['telegram_username'])) >= 5:
+					if client_started == False:
+						start_client()
+					client.send_message(config['telegram_username'], "Program stopped with error: 'Post not liked, try changing cookie name in " + config['ig_username'] + "_config.json'")
+				sys.exit()
 			add_liked.append(post)	
 			if likes_given != len(post_array):
 				if config['delay'] <= 2:
@@ -785,6 +795,8 @@ def printProgressBar(iteration, total, prefix='', suffix='', decimals=1, bar_len
         decimals    - Optional  : positive number of decimals in percent complete (Int)
         bar_length  - Optional  : character length of bar (Int)
     """
+    if total <= 0:
+    	total = 1
     str_format = "{0:." + str(decimals) + "f}"
     percents = str_format.format(100 * (iteration / float(total)))
     filled_length = int(round(bar_length * iteration / float(total)))
