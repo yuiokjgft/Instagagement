@@ -11,7 +11,8 @@ GUI coming soon.
 - Finds latest posts from profile you specify, gets links from the posts, joins Telegram group, finds all the links to engage with, engages, posts yours. That simple. Currently only supports likes.
 - Intended for 24/7 use with limited hours during the day (e.g. 6.00 to 18.00).
 - Supports basic Telegram engagement groups - post amount based (e.g. Dx10) and 24h groups. Currently 25 groups are available and can be seen in 'group_template.json' (choosable during quickstart), more can be easily added. Request any missing.
-- Optional: like latest posts from feed
+- Optional: like latest posts from feed\
+- Optional: send errors/updates to your telegram
 
 ## Requirements
 
