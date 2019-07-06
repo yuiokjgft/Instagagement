@@ -118,6 +118,16 @@ if len(like_feed) == 0:
 	like_feed = 0
 print()
 
+print('Send errors/updates to your telegram (telegram username required)?')
+print('[0] Disable')
+print('[1] Enable')
+telegram_username = int(input('Choose: '))
+print()
+
+if int(telegram_username) == 1:
+	telegram_username = input('Telegram username: ')
+	print()
+
 config = {
 	"session" : str(session),
 	"time_from" : int(time_from),
@@ -131,7 +141,8 @@ config = {
 	"use_groups" : str(use_groups),
 	"max_likes" : int(max_likes),
 	"delay" : int(delay),
-	"like_feed" : int(like_feed)
+	"like_feed" : int(like_feed),
+	"telegram_username" : telegram_username
 }
 
 print()

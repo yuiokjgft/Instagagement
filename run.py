@@ -60,8 +60,8 @@ while 1:
 			# Engagement pods
 			try:
 				if config['use_groups'] != 0:
-					use_groups = config['use_groups'].split (",")
 					instagagement.start_client()
+					use_groups = config['use_groups'].split (",")
 					for i in range(0, len(use_groups)):
 						status = instagagement.start_groups(group_list['available_groups'][use_groups[i]])
 						if status != -1:
@@ -81,6 +81,7 @@ while 1:
 			# Like feed
 			if config['like_feed'] == 1:
 				instagagement.like_feed()
+				like_end = datetime.now()
 				print()
 
 			print('Like loop ended at ' + str(datetime.now().strftime("%H:%M")) + ', continuing after ' + str(loop_sleep) + ' minutes')
