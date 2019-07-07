@@ -6,6 +6,8 @@ This also runs on Raspberry Pi (requires Python 3.6 or higher; [here is a tutori
 
 GUI coming soon.
 
+Instagram has put counter-measure for liking with Instabot-py, therefore do not be aggressive. Will add hourly like limit soon.
+
 ## Features
 
 - Finds latest posts from profile you specify, gets links from the posts, joins Telegram group, finds all the links to engage with, engages, posts yours. That simple. Currently only supports likes.
