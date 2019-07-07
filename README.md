@@ -6,7 +6,7 @@ This also runs on Raspberry Pi (requires Python 3.6 or higher; [here is a tutori
 
 GUI coming soon.
 
-#### NOTE: Web-based bot [InstaBot-Py 0.4.7](https://github.com/instabot-py/instabot.py) has been changed to mobile-based [Instabot](https://github.com/instagrambot/instabot). [Release 0.1W](https://github.com/Ewlbo/Instagagement/releases/tag/0.1W) is the old version with InstaBot-Py 0.4.7
+#### NOTE: Web-based bot [InstaBot-Py 0.4.7](https://github.com/instabot-py/instabot.py) has been changed to mobile-based [Instabot](https://github.com/instagrambot/instabot). Release [0.1W](https://github.com/Ewlbo/Instagagement/releases/tag/0.1W) is the old version with InstaBot-Py 0.4.7 while release [0.1M](https://github.com/Ewlbo/Instagagement/releases/tag/0.1M) is the new release with Instabot.
 
 ## Features
 
