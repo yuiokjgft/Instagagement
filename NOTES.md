@@ -1,7 +1,8 @@
 ## Features to be added
 
 #### General
-- Telethon auto-update!
+- Proxy support
+- Telethon auto-update
 - ~~Check follower limit before joining group~~
 - Adding groups dynamically to 'group_template.json' and 'quickstart.py'
 - After liking the posts that have been missed during first liking batch, it does not find the newly missed ones. Minor issue. Noticable in fast-pacing groups
@@ -16,7 +17,7 @@
 #### Functionality/failsafes
 - Catch the moment when there is no network (if network gets cut off mid program, session file is blocked and program throws you out)
 - Arguments (silent mode, account, session name etc.)
-- If blocked/banned from group - add to 'groups.json' to avoid entering the group
+- ~~If blocked/banned from group - add to 'groups.json' to avoid entering the group~~
 - ~~Check if login has been made on Instagram~~
 
 #### Groups
