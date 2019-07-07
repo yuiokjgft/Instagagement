@@ -1,4 +1,4 @@
-import os, time, json, random
+import os, time, json, random, traceback
 import instagagement
 from datetime import datetime
 from datetime import timedelta
@@ -40,7 +40,7 @@ update_config()
 # Initialize and login
 instagagement.init(preset)
 user_info = instagagement.login()
-print('Logged in as ' + config['ig_username'])
+print()
 print('Followers: ' + str(user_info[0]))
 print('Following: ' + str(user_info[1]))
 print('Media count: ' + str(user_info[2]))
@@ -57,8 +57,8 @@ while 1:
 		update_config()
 		# Check if time between loops is big enough
 		if (datetime.now() - like_end) / timedelta(minutes = 1) >= loop_sleep:
-			# Engagement pods
 			try:
+				# Engagement pods
 				if config['use_groups'] != 0:
 					instagagement.start_client()
 					use_groups = config['use_groups'].split (",")
@@ -73,16 +73,14 @@ while 1:
 							time.sleep(2)
 					instagagement.disconnect_client()
 					like_end = datetime.now()
-			except ConnectionError:
-				print('ConnectionError - check your internet connection')
-			except requests.ConnectionError:
-				print('requests ConnectionError - check your internet connection')
-
-			# Like feed
-			if config['like_feed'] == 1:
-				instagagement.like_feed()
-				like_end = datetime.now()
+				# Like feed
+				if config['like_feed'] == 1:
+					instagagement.like_feed()
+					like_end = datetime.now()
+					print()
+			except Exception:
 				print()
+				instagagement.send_error(traceback.format_exc())
 
 			print('Like loop ended at ' + str(datetime.now().strftime("%H:%M")) + ', continuing after ' + str(loop_sleep) + ' minutes')
 			print()
