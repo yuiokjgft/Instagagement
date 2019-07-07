@@ -65,12 +65,6 @@ The groups go into 2 main categories: those, who require you to engage with the 
 
 Some groups have minimum follower requirement. Use with care as currently there is nothing checking that (will add soon).
 
-#### Known bugs:
-- After liking the posts that have been missed during first liking batch, it does not find the newly missed ones. Minor issue. Noticable in fast-pacing groups.
-- Some useful features needed.
-- Gets funny after midnight (dumb timing in run.py) - e.g. do not use with timing from 23 to 4 (it does not like day switch).
-- Probably some other mess. Been stress-testing it for several weeks, no major issues.
-
 #### If you run multiple bots on 1 Telegram account:
 - Do not overlap groups
 - Run them in same location/folder
@@ -80,8 +74,6 @@ More details coming soon (maybe).
 ## Contributing
 
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
-
-Software is quite messy due to inexperience with Python and time constraints. 
 
 ## License
 
