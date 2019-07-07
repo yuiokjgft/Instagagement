@@ -1,12 +1,12 @@
 # Instagagement
 
-Python program that automates [Telegram engagement groups](https://medium.com/@violet.emily.xoxo/inside-instagram-pods-the-secret-trick-to-increase-your-engagement-55b0d9c3cee9) for Instagram such as Wolf Global by combining Instagram bot (Instabot-py 0.4.7) and Telegram API (Telethon).
+Python program that automates [Telegram engagement groups](https://medium.com/@violet.emily.xoxo/inside-instagram-pods-the-secret-trick-to-increase-your-engagement-55b0d9c3cee9) for Instagram such as Wolf Global by combining Instagram bot ([Instabot](https://github.com/instagrambot/instabot)) and Telegram API ([Telethon](https://github.com/LonamiWebs/Telethon)).
 
 This also runs on Raspberry Pi (requires Python 3.6 or higher; [here is a tutorial](https://github.com/Ewlbo/Instagagement/blob/master/RASPBERRY.md)).
 
 GUI coming soon.
 
-Instagram has put counter-measure for liking with Instabot-py, therefore do not be aggressive. Will add hourly like limit soon.
+#### NOTE: Web-based bot [InstaBot-Py 0.4.7](https://github.com/instabot-py/instabot.py) has been changed to mobile-based [Instabot](https://github.com/instagrambot/instabot). [Release 0.1W](https://github.com/Ewlbo/Instagagement/releases/tag/0.1W) is the old version with InstaBot-Py 0.4.7
 
 ## Features
 
@@ -20,7 +20,7 @@ Instagram has put counter-measure for liking with Instabot-py, therefore do not 
 
 - [Python](https://www.python.org/downloads/) 3.6 or higher
 - Telegram account with created [application](https://my.telegram.org/apps) from which API hash and ID will be used
-- [Instabot.py 0.4.7](https://github.com/instabot-py/instabot.py) for handling likes and finding user feed last links (finds the links from specified profile which are needed in Telegram groups for posting)
+- [Instabot](https://github.com/instagrambot/instabot) for handling likes and finding user feed last links (finds the links from specified profile which are needed in Telegram groups for posting)
 - [Telethon](https://github.com/LonamiWebs/Telethon) for handling Telegram
 
 ## Installation
@@ -34,7 +34,7 @@ Proper package will be made soon.
 - Open Windows PowerShell or Command Prompt
 - Run the following:
 ```elm
-pip install instabot-py==0.4.7
+pip install instabot
 pip install telethon
 (cd to where you extracted Instagagement e.g. cd ~/Desktop/Instagagement)
 python quickstart.py
@@ -44,7 +44,7 @@ python run.py
 #### Linux
 
 ```elm
-pip install instabot-py==0.4.7
+pip install instabot
 pip install telethon
 cd ~/Desktop
 git clone https://github.com/Ewlbo/Instagagement/
