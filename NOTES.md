@@ -4,7 +4,10 @@
 - Telethon auto-update!
 - ~~Check follower limit before joining group~~
 - Adding groups dynamically to 'group_template.json' and 'quickstart.py'
-- Fix bugs stated in README..
+- After liking the posts that have been missed during first liking batch, it does not find the newly missed ones. Minor issue. Noticable in fast-pacing groups
+- Some useful features needed
+- Gets funny after midnight (dumb timing in run.py) - e.g. do not use with timing from 23 to 4 (it does not like day switch)
+- Probably some other mess. Been stress-testing it for several weeks, no major issues
 
 #### Reporting/control
 - Start/stop by sending message in Telegram (either from another account or in 'Saved Messages')
