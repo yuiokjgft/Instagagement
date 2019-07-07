@@ -3,11 +3,8 @@ import os, sys
 import json, time, datetime, random
 import webbrowser, requests
 from datetime import datetime as datenow
-# Instabot.py https://github.com/instabot-py/instabot.py
-from instabot_py import InstaBot
-from instabot_py.user_info import get_user_info
-from instabot_py.user_feed import get_media_id_user_feed
-from instabot_py.recent_feed import get_media_id_recent_feed
+# 
+from instabot import API
 # Telethon Telegram API by LonamiWebs https://github.com/LonamiWebs/Telethon
 from telethon import TelegramClient, events, sync, errors, functions, types
 from telethon.tl.functions.channels import JoinChannelRequest,LeaveChannelRequest
@@ -23,6 +20,7 @@ config = []
 client = []
 preset = ''
 debug = 0						# Enables timing and other info
+hourly_like_limit = 60
 
 # Variables
 first_array_full = False
@@ -101,43 +99,34 @@ def get_last_posts():
 	global instabot
 	# Get the posts from specified profile in config
 	# Stores links in user_links in range from 0 to 11 (12 posts)
-	instabot.current_user = config['like_profile']
-	get_media_id_user_feed(instabot)
-	post_list = instabot.current_user_info["edge_owner_to_timeline_media"]["edges"]
-
 	user_links = []
 
-	# Find links from user feed
-	for i in range(0, 11):
-		last_posts = str(post_list)
-		post_start = findnth(last_posts, insta_shortcode, i) + len(insta_shortcode)
-		last_posts = last_posts[post_start:]
-		post_start = findnth(last_posts, "'", 1) + 1
-		last_posts = last_posts[post_start:]
-		user_links.append('https://www.instagram.com/p/' + str(last_posts[:findnth(last_posts, "'", 0)]) + '/')
+	instabot.search_username(config['like_profile']) 
+	instabot.get_user_feed(instabot.last_json["user"]["pk"])
+	for i in range(0, len(instabot.last_json['items'])):
+		user_links.append(instabot.last_json['items'][i]['code'])
 
 	return user_links
 
 def login():
-	global instabot, client, user_followers, user_following, user_media
+	global instabot, client, user_followers, user_following, user_media, user_id
 
-	instabot = InstaBot(
-		like_per_day = config['max_likes'],
-		login = config['ig_username'],
-		password = config['ig_password'],
-		session_file = config['cookie_name'],
-		unfollow_recent_feed = False,
-		log_mod = 2
-		)
+	instabot = API()
+	instabot.login(	username = config['ig_username'],
+					password = config['ig_password'], 
+					use_cookie = True, 
+					cookie_fname = config['cookie_name'])
 
 	# Telegram client
 	client = TelegramClient(config['session'], config['telegram_api_id'], config['telegram_api_hash'])
 	client.flood_sleep_threshold = 24 * 60 * 60
 
-	get_user_info(instabot, config['ig_username'])
-	user_followers = instabot.current_user_info["edge_followed_by"]["count"]
-	user_following = instabot.current_user_info["edge_follow"]["count"]
-	user_media = instabot.current_user_info["edge_owner_to_timeline_media"]["count"]
+	# Get user info
+	instabot.get_username_info(instabot.user_id)
+	user_followers = instabot.last_json['user']['follower_count']
+	user_following = instabot.last_json['user']['following_count']
+	user_media = instabot.last_json['user']['media_count']
+	user_id = instabot.user_id
 
 	return [user_followers, user_following, user_media]
 
@@ -445,14 +434,10 @@ def like_posts():
 			post_id = get_media_id(post)
 			if post_id != -1:
 				is_liked = str(instabot.like(post_id))
-				if is_liked.find('[200]') == -1:
+				if is_liked == 0:
+					print()					
+					send_error('Post not liked, try changing cookie name in ' + config['ig_username'] + '_config.json')
 					print()
-					print('Post not liked, try changing cookie name in ' + config['ig_username'] + '_config.json')
-					print()
-					if len(str(config['telegram_username'])) >= 5:
-						if client_started == False:
-							start_client()
-						client.send_message(config['telegram_username'], "Program stopped with error: 'Post not liked, try changing cookie name in " + config['ig_username'] + "_config.json'")
 					sys.exit()
 			add_liked.append(post)	
 			if likes_given != len(post_array):
@@ -464,6 +449,7 @@ def like_posts():
 			likes_given += 1
 			printProgressBar(likes_given, len(post_array), prefix = 'Progress:', suffix = '[' + str(likes_given) + '/' + str(len(post_array)) + '] ' + post, bar_length = 25)
 	
+	# Update liked posts (both .json and temporary hour counter)
 	update_liked(add_liked)
 
 # Post the link in telegram group
@@ -493,15 +479,15 @@ def post_link():
 	if group_list[selected_group]['max_links'] is 1 or str(user_links[1]).find(insta_string) is -1:
 		# Check if the group requires username
 		if group_list[selected_group]['username_required'] is 1:
-			post_message = g_type + " @" + config['ig_username'] + " " + user_links[0]
+			post_message = g_type + " @" + config['ig_username'] + " " + 'https://instagram.com/p/' + user_links[0] + '/'
 		else:
-			post_message = g_type + " " + user_links[0]
+			post_message = g_type + " " + 'https://instagram.com/p/' + user_links[0] + '/'
 	else:
 		# Check if the group requires username
 		if group_list[selected_group]['username_required'] is 1:
-			post_message = g_type + " @" + config['ig_username'] + " " + user_links[0] + " " + user_links[1]
+			post_message = g_type + " @" + config['ig_username'] + " " + 'https://instagram.com/p/' +  user_links[0] + "/\n" + 'https://instagram.com/p/' + user_links[1] + '/'
 		else:
-			post_message = g_type + " " + user_links[0] + "\n" + user_links[1]
+			post_message = g_type + " " + 'https://instagram.com/p/' + user_links[0] + "/\n" + 'https://instagram.com/p/' + user_links[1] + '/'
 	try:
 		client.send_message(group_name, post_message, link_preview = False)
 		print('Sent: ' + post_message)
@@ -516,9 +502,9 @@ def post_link():
 			group_list = json.load(json_file)
 		with open(str(config['telegram_api_id']) + '_groups.json', 'w+') as json_file:
 			if str(group_list[selected_group]['group_type']).find('fixed') is -1:
-				group_list[selected_group]['link_last']['link_id'] = get_post_id(user_links[0])
+				group_list[selected_group]['link_last']['link_id'] = user_links[0]
 			else:
-				group_list[selected_group]['link_last']['link_id'] = get_post_id(user_links[0])
+				group_list[selected_group]['link_last']['link_id'] = user_links[0]
 			group_list[selected_group]['link_last']['link_time'] = int(time.time())
 			group_list[selected_group]['link_last']['link_posted'] = 1
 			json.dump(group_list, json_file, indent=4, separators=(',', ': '), sort_keys=True)
@@ -765,25 +751,43 @@ def like_feed():
 	except:
 		liked_today = 0
 
+	instabot.get_timeline_feed()
+
 	if int(liked_today) <= int(config['max_likes']):
 		feed_liked = 0
-		get_media_id_recent_feed(instabot)
-		recent_feed = instabot.media_on_feed
-		printProgressBar(0, len(recent_feed), prefix = 'Progress:', suffix = '[' + str(feed_liked) + '/' + str(len(recent_feed)) + '] ', bar_length = 25)
-		for i in range(len(recent_feed)):
-			post = recent_feed[i]['node']['shortcode']
-			# Check if its not own post
-			if recent_feed[i]['node']['owner']['username'] != config['ig_username']:
-				# Check if already liked
-				if str(get_liked()).find(str(post)) is -1:
-					instabot.like(get_media_id(post))
-					add_liked.append(post)
-					time.sleep(config['delay'])
+		try:
+			timeline_posts = instabot.last_json['num_results']
+		except:
+			print('Could not get feed posts, trying again')
+			feed_tries += 1
+			like_feed()
+		printProgressBar(0, timeline_posts, prefix = 'Progress:', suffix = '[' + str(feed_liked) + '/' + str(timeline_posts) + '] ', bar_length = 25)
+		for i in range(0, timeline_posts):
+			try:
+				post = instabot.last_json['feed_items'][i]['media_or_ad']['code']
+				# Check if its not own post
+				if instabot.last_json['feed_items'][i]['media_or_ad']['id'].split('_')[1] != user_id:
+					# Check if already liked
+					if str(get_liked()).find(str(post)) is -1:
+						instabot.like(get_media_id(post))
+						add_liked.append(post)
+						time.sleep(config['delay'])
+						instabot.get_timeline_feed()
+			except:
+				# Ad found
+				pass
 			feed_liked += 1
-			printProgressBar(feed_liked, len(recent_feed), prefix = 'Progress:', suffix = '[' + str(feed_liked) + '/' + str(len(recent_feed)) + '] ', bar_length = 25)
+			printProgressBar(feed_liked, timeline_posts, prefix = 'Progress:', suffix = '[' + str(feed_liked) + '/' + str(timeline_posts) + '] ', bar_length = 25)
 		update_liked(add_liked)
 	else:
 		print('Max like amount reached for today')
+
+def send_error(error_message):
+	print(error_message)
+	if len(str(config['telegram_username'])) >= 4:
+		if client_started == False:
+			start_client()
+		client.send_message(config['telegram_username'], "[" + config['ig_username'] + "] program error ocurred: \n\n" + error_message)
 
 # Print iterations progress
 def printProgressBar(iteration, total, prefix='', suffix='', decimals=1, bar_length=100):

@@ -4,3 +4,4 @@ from .instagagement import start_groups
 from .instagagement import start_client
 from .instagagement import disconnect_client
 from .instagagement import like_feed
+from .instagagement import send_error
