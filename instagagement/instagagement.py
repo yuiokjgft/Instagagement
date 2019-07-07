@@ -442,16 +442,18 @@ def like_posts():
 		if str(liked_all).find(str(post)) is -1:
 			likes_given += 1
 			printProgressBar(likes_given, len(post_array), prefix = 'Progress:', suffix = '[' + str(likes_given) + '/' + str(len(post_array)) + '] ' + post, bar_length = 25)
-			is_liked = str(instabot.like(get_media_id(post)))
-			if is_liked.find('[200]') == -1:
-				print()
-				print('Post not liked, try changing cookie name in ' + config['ig_username'] + '_config.json')
-				print()
-				if len(str(config['telegram_username'])) >= 5:
-					if client_started == False:
-						start_client()
-					client.send_message(config['telegram_username'], "Program stopped with error: 'Post not liked, try changing cookie name in " + config['ig_username'] + "_config.json'")
-				sys.exit()
+			post_id = get_media_id(post)
+			if post_id != -1:
+				is_liked = str(instabot.like(post_id))
+				if is_liked.find('[200]') == -1:
+					print()
+					print('Post not liked, try changing cookie name in ' + config['ig_username'] + '_config.json')
+					print()
+					if len(str(config['telegram_username'])) >= 5:
+						if client_started == False:
+							start_client()
+						client.send_message(config['telegram_username'], "Program stopped with error: 'Post not liked, try changing cookie name in " + config['ig_username'] + "_config.json'")
+					sys.exit()
 			add_liked.append(post)	
 			if likes_given != len(post_array):
 				if config['delay'] <= 2:
