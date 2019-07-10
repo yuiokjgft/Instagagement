@@ -16,7 +16,7 @@
 
 #### Functionality/failsafes
 - Catch the moment when there is no network (if network gets cut off mid program, session file is blocked and program throws you out)
-- Arguments (silent mode, account, session name etc.)
+- Arguments (targeted link, random link, silent mode, account, session name etc.)
 - ~~If blocked/banned from group - add to 'groups.json' to avoid entering the group~~
 - ~~Check if login has been made on Instagram~~
 
