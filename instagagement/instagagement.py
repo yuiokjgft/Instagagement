@@ -3,7 +3,7 @@ import os, sys
 import json, time, datetime, random
 import webbrowser, requests
 from datetime import datetime as datenow
-# 
+# Instabot https://github.com/instagrambot/instabot/
 from instabot import API
 # Telethon Telegram API by LonamiWebs https://github.com/LonamiWebs/Telethon
 from telethon import TelegramClient, events, sync, errors, functions, types
@@ -20,7 +20,12 @@ config = []
 client = []
 preset = ''
 debug = 0						# Enables timing and other info
-hourly_like_limit = 60
+log_en = 1					# Logs data to .json
+# For commenting
+add_phrase = ['Keep posting!', 'Love it!', 'Keep it up!']
+banned_phrases = ['check', 'Check', 'me', 'bio', 'follow', 'Follow', 'like', 'Like', 'profile', 'sale', 
+					'discount', 'off', 'youtube', 'DM', 'hot', '#', '@', 'cheap']
+min_comment_length = 10
 
 # Variables
 first_array_full = False
@@ -183,7 +188,7 @@ def get_post_id(string):
 	try:
 		locate_end = min(int(s) for s in find_end if s > url_id_length_min)
 	except ValueError:
-		print('Broken Instagram link; end not found; ValueError (0)')
+		print('Broken Instagram link; end not found; ValueError (0). Given string: ' + string)
 		return 'Fail'
 	# Generate only the ID from Url
 	url_id = string[locate_start+offset:locate_start+locate_end+offset]
@@ -203,7 +208,7 @@ def get_post_id(string):
 			try:
 				locate_end = min(int(s) for s in find_end if s > url_id_length_min)
 			except ValueError:
-				print('Broken Instagram link; end not found; ValueError (1)')
+				print('Broken Instagram link; end not found; ValueError (1) Given string: ' + string)
 				return 'Fail'
 
 			# Generate only the ID from Url
@@ -405,12 +410,12 @@ def check_new_messages():
         new_message = True
         first_array_full = True      
         print("New message count: " + str(len(final_array)))
-        like_posts()
+        engage_with_posts()
         check_new_messages()
 
 # Likes posts from array
-def like_posts():
-	global group_list
+def engage_with_posts():
+	global group_list, instabot, current_post
 	add_liked = []
 
 	liked_all = get_liked()
@@ -427,12 +432,14 @@ def like_posts():
 	printProgressBar(0, len(post_array), prefix = 'Progress:', suffix = '[' + str(likes_given+1) + '/' + str(len(post_array)) + '] ', bar_length = 25)
 	# Like all posts in array
 	for post in post_array:
+		post_id = get_media_id(post)
+		current_post = post
 		# Check if already liked
 		if str(liked_all).find(str(post)) is -1:
 			likes_given += 1
 			printProgressBar(likes_given, len(post_array), prefix = 'Progress:', suffix = '[' + str(likes_given) + '/' + str(len(post_array)) + '] ' + post, bar_length = 25)
-			post_id = get_media_id(post)
 			if post_id != -1:
+				# Like post
 				is_liked = str(instabot.like(post_id))
 				if is_liked == 0:
 					print()					
@@ -448,6 +455,63 @@ def like_posts():
 		else:
 			likes_given += 1
 			printProgressBar(likes_given, len(post_array), prefix = 'Progress:', suffix = '[' + str(likes_given) + '/' + str(len(post_array)) + '] ' + post, bar_length = 25)
+		# Post a comment
+		if group_list[selected_group]['comment'] == 1 and post_id != -1:
+			bad_comments = []
+			good_comments = []
+			comment = ' '
+			instabot.get_media_comments(post_id)
+			comment_json = instabot.last_json
+			comments_disabled = False
+			already_commented = False
+			try:
+				if comment_json['comments_disabled'] == True:
+					comments_disabled = True
+				else:
+					comments_disabled = False
+			except:
+				comments_disabled = False
+
+			if comments_disabled == False:
+				# Find unwanted comments
+				for i in range(0, len(instabot.last_json['comments'])):
+					if int(instabot.last_json['comments'][i]['user_id']) == int(user_id):
+						already_commented = True
+					# Get all comments here
+					good_comments.append(i)
+					comment = instabot.last_json['comments'][i]['text']
+					for phrase in banned_phrases:
+						if phrase in comment or len(comment) < min_comment_length or instabot.last_json['comments'][i]['type'] != 0:
+							bad_comments.append(int(i))
+							break
+				if already_commented == False:
+					# Remove unwanted comments from found comments
+					for i in range(0, len(bad_comments)):
+						good_comments = list(filter(lambda a: a != bad_comments[i], good_comments))
+					# Remove duplicates (if any)
+					good_comments = list(set(good_comments))
+					if len(good_comments) >= 1:
+						random_comment = int(random.randint(0, len(good_comments)-1))
+						comment = instabot.last_json['comments'][good_comments[random_comment]]['text'] + '! ' + add_phrase[random.randint(0, len(add_phrase)-1)]
+						result = instabot.comment(post_id, comment)
+						if 'feedback_required' in str(result):
+							send_error('Could not comment, this feature might be blocked temporary; reduce commenting groups')
+							sys.exit()
+						# This is to check if comments are good enough and to find phrases to ban
+						if log_en == 1:
+							log_data(comment)
+					else:
+						result = instabot.comment(post_id, add_phrase[random.randint(0, len(add_phrase)-1)])
+						if 'feedback_required' in str(result):
+							send_error('Could not comment, this feature might be blocked temporary; reduce commenting groups')
+							sys.exit()
+			else:
+				# Still try to comment
+				result = instabot.comment(post_id, add_phrase[random.randint(0, len(add_phrase)-1)])
+				if 'feedback_required' in str(result):
+					send_error('Could not comment, this feature might be blocked temporary; reduce commenting groups')
+					sys.exit()
+
 	
 	# Update liked posts (both .json and temporary hour counter)
 	update_liked(add_liked)
@@ -563,7 +627,7 @@ def start_groups(config_group):
 						# Check messages - find links
 						check_messages()
 						# Like posts from first_array and check new messages after
-						like_posts()
+						engage_with_posts()
 						check_new_messages()
 						# Post link to Telegram group
 						post_link()
@@ -588,7 +652,7 @@ def start_groups(config_group):
 						# Check messages - find links
 						check_messages()
 						# Like posts from first_array and check new messages after
-						like_posts()
+						engage_with_posts()
 						check_new_messages()
 						# Post link to Telegram group
 						post_link()
@@ -720,6 +784,22 @@ def update_liked(new_likes):
 
 	return liked_all
 
+def log_data(data):
+	logged_data = {}
+	try:
+		with open(config['ig_username'] + '_log.json', 'r') as json_file:  
+			logged_data = json.load(json_file)
+			json_file.close()
+		with open(config['ig_username'] + '_log.json', 'w+') as json_file:
+			logged_data[current_post] = data
+			json.dump(logged_data, json_file, indent=4, separators=(',', ': '), sort_keys=True)
+			json_file.close()
+	except FileNotFoundError:
+		with open(config['ig_username'] + '_log.json', 'w+') as json_file:
+			logged_data[current_post] = data
+			json.dump(logged_data, json_file, indent=4, separators=(',', ': '), sort_keys=True)
+			json_file.close()
+
 def print_header(name):
 	# Get todays liked post amount
 	try:
@@ -729,11 +809,11 @@ def print_header(name):
 
 	start_message = ('[' + config['ig_username'] + "] '" + name + "' [" + str(datetime.datetime.now().strftime("%H:%M")) + '] ['
 			+ str(liked_today) + '/' + str(config['max_likes'])+ ']')
-	for x in range(1,len(start_message)+2):
+	for x in range(1,len(start_message)+1):
 		print('-', end = '')
 	print()
 	print(start_message)
-	for x in range(1,len(start_message)+2):
+	for x in range(1,len(start_message)+1):
 		print('-', end = '')
 	print()
 	print()
@@ -784,6 +864,14 @@ def like_feed():
 
 def send_error(error_message):
 	print(error_message)
+	try:
+		error_message = error_message + '\n Group error ocurred: ' + selected_group
+	except:
+		pass
+	try:
+		error_message = error_message + '\n Post ID left on: ' + current_post
+	except:
+		pass
 	if len(str(config['telegram_username'])) >= 4:
 		if client_started == False:
 			start_client()
