@@ -4,7 +4,7 @@
 - Proxy support
 - Telethon auto-update
 - ~~Check follower limit before joining group~~
-- Adding groups dynamically to 'group_template.json' and 'quickstart.py'
+- ~~Adding groups dynamically to 'group_template.json' and 'quickstart.py'~~
 - After liking the posts that have been missed during first liking batch, it does not find the newly missed ones. Minor issue. Noticable in fast-pacing groups
 - Some useful features needed
 - Gets funny after midnight (dumb timing in run.py) - e.g. do not use with timing from 23 to 4 (it does not like day switch)
@@ -21,7 +21,7 @@
 - ~~Check if login has been made on Instagram~~
 
 #### Groups
-- Comment groups. Example program: read comments from the post, pick one, check if it is not spam (links and spam phrases), add something and post comment (so it does not appear as spammy with pre-defined comments)
+- ~~Comment groups. Example program: read comments from the post, pick one, check if it is not spam (links and spam phrases), add something and post comment (so it does not appear as spammy with pre-defined comments)~~
 - Add functionality for groups which are doing 'rounds'
 
 
