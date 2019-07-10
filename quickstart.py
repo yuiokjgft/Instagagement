@@ -22,6 +22,14 @@ max_likes = 0
 delay = 0
 like_feed = 0
 
+# Def. group range
+username_req = [1, 12]
+username_not_req = [13, 40]
+
+# Get Telegram group list
+with open('group_template.json') as load_groups:  
+	group_list = json.load(load_groups)
+
 print('When do you wish to use this script (e.g. from 8 to 16)? Machine time is used')
 time_from = input('From: ')
 time_to = input('To: ')
@@ -39,9 +47,6 @@ telegram_api_hash = input('Telegram API hash: ')
 session = 'telegram_'+ig_username+'_'+str(telegram_api_id)+'_'+str(random.randint(1,99))
 client = TelegramClient(session, int(telegram_api_id), str(telegram_api_hash))
 client.start()
-#print('Closing connection, please wait')
-#time.sleep(5)
-#client.disconnect()
 print()
 
 # Engagement profile
@@ -55,14 +60,8 @@ if int(choice) != 0:
 	like_profile = input('Enter profile username: ')
 	print()
 	print('Select what engagement groups you want to use (some groups have follower restrictions - check documentation):')
-	print('[1] Dx30 Engagement Group')
-	print('[2] GainSpace | MASS Likes Dx5')
-	print('[3] GainSpace | MASS Likes Dx20')
-	print('[4] BoostGram Dx10')
-	print('[5] BoostGram Dx20')
-	print('[6] BoostGram Dx30')
-	print('[7] InstaPro Dx20')
-	print('[8] Wizard Dx30')
+	for i in range(username_req[0], username_req[1]+1):
+		print('[' + str(i) + '] ' + group_list['available_groups'][str(i)])
 	use_groups = input('Select groups (separate with comma): ')
 	print()
 else:
@@ -71,32 +70,12 @@ else:
 	print('Select what engagement groups you want to use (some groups have follower restrictions - check documentation)')
 	print()
 	print('These groups require username:')
-	print('[1] Dx30 Engagement Group')
-	print('[2] GainSpace | MASS Likes Dx5')
-	print('[3] GainSpace | MASS Likes Dx20')
-	print('[4] BoostGram Dx10')
-	print('[5] BoostGram Dx20')
-	print('[6] BoostGram Dx30')
-	print('[7] InstaPro Dx20')
-	print('[8] Wizard Dx30')
+	for i in range(username_req[0], username_req[1]+1):
+		print('[' + str(i) + '] ' + group_list['available_groups'][str(i)])
 	print()
 	print('These groups do not require username:')
-	print('[9] Wolf Onyx 24h')
-	print('[10] Wolf Saphire 24h')
-	print('[11] Wolf Emerald 24h')
-	print('[12] Wolf Ruby 24h')
-	print('[13] Wolf Amber 24h')
-	print('[14] Wolf Quartz 24h')
-	print('[15] Wolf 5K 24h')
-	print('[16] Wolf 10K 24h')
-	print('[17] Wolf 15K 24h')
-	print('[18] Wolf | 5K Powerlikes Dx10')
-	print('[19] Wolf | 1K Powerlikes Dx10')
-	print('[20] Wolf | 3K Turbo Likes Dx50')
-	print('[21] Nest DX20')
-	print('[22] Den DX20 (10k)')
-	print('[23] Den DX50 (10k)')
-	print('[24] Fast likes Dx9')
+	for i in range(username_not_req[0], username_not_req[1]+1):
+		print('[' + str(i) + '] ' + group_list['available_groups'][str(i)])
 	use_groups = input('Select groups (separate with comma): ')
 	print()
 
