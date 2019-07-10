@@ -23,8 +23,8 @@ delay = 0
 like_feed = 0
 
 # Def. group range
-username_req = [1, 12]
-username_not_req = [13, 40]
+username_req = [1, 13]
+username_not_req = [14, 41]
 
 # Get Telegram group list
 with open('group_template.json') as load_groups:  
