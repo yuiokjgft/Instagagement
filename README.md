@@ -14,7 +14,7 @@ GUI coming soon.
 
 #### NOTE: Web-based bot [InstaBot-Py 0.4.7](https://github.com/instabot-py/instabot.py) has been changed to mobile-based [Instabot](https://github.com/instagrambot/instabot). Release [0.1W](https://github.com/Ewlbo/Instagagement/releases/tag/0.1W) is the old version with InstaBot-Py 0.4.7 while release [0.2](https://github.com/Ewlbo/Instagagement/releases/tag/0.2) is the new release with Instabot.
 
-#### LATEST DEVELOPMENT: Added commenting feature
+#### LATEST DEVELOPMENT: Added commenting feature. Be aware - it copies other comments and then adds a phrase. If someone has made bad comment, there is a chance it will copy it. Some profanity filter will be put in place soon.
 
 ## Features
 
