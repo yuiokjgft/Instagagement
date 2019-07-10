@@ -14,14 +14,14 @@ GUI coming soon.
 
 #### NOTE: Web-based bot [InstaBot-Py 0.4.7](https://github.com/instabot-py/instabot.py) has been changed to mobile-based [Instabot](https://github.com/instagrambot/instabot). Release [0.1W](https://github.com/Ewlbo/Instagagement/releases/tag/0.1W) is the old version with InstaBot-Py 0.4.7 while release [0.1M](https://github.com/Ewlbo/Instagagement/releases/tag/0.1M) is the new release with Instabot.
 
-#### LATEST DEVELOPMENT: Testing groups with comments
+#### LATEST DEVELOPMENT: Added commenting feature
 
 ## Features
 
-- Finds latest posts from profile you specify, gets links from the posts, joins Telegram group, finds all the links to engage with, engages, posts yours. That simple. Currently only supports likes.
+- Finds latest posts from profile on which you want to get likes on, gets links from the posts, joins Telegram group, finds all the links to engage with, engages, posts yours. That simple. Supports likes and comments.
 - Intended for 24/7 use with limited hours during the day (e.g. 6.00 to 18.00).
-- Supports basic Telegram engagement groups - post amount based (e.g. Dx10) and 24h groups. Currently 25 groups are available and can be seen in 'group_template.json' (choosable during quickstart), more can be easily added. Request any missing.
-- Optional: like latest posts from feed\
+- Supports basic Telegram engagement groups - post amount based (e.g. Dx10) and 24h groups. Currently 41 groups are available and can be seen in 'group_template.json' (choosable during quickstart), more can be easily added. Request any missing.
+- Optional: like latest posts from feed
 - Optional: send errors/updates to your telegram
 
 ## Requirements
