@@ -1,5 +1,6 @@
 {
-    "BoostGram Dx10": {
+    "BoostGram Dx10 Likes": {
+        "comment" : 0,
         "blocked" : 0,
         "group_id": "BoostGramDx10Like",
         "group_type": "fixed",
@@ -20,7 +21,96 @@
         },
         "username_required": 1
     },
-    "BoostGram Dx20": {
+    "BoostGram Dx5 Likes + Comments": {
+        "comment" : 1,
+        "blocked" : 0,
+        "group_id": "BoostGramDx5",
+        "group_type": "fixed",
+        "joined": 0,
+        "like_count": 5,
+        "link_last": {
+            "link_id": 0,
+            "link_posted": 0,
+            "link_time": 0
+        },
+        "max_links": 1,
+        "private": 0,
+        "restrictions": {
+            "followers": 0,
+            "other": 0,
+            "post_amount": 5,
+            "time_interval": 0
+        },
+        "username_required": 1
+    },
+    "BoostGram Dx8 Likes + Comments": {
+        "comment" : 1,
+        "blocked" : 0,
+        "group_id": "BoostGramDx8",
+        "group_type": "fixed",
+        "joined": 0,
+        "like_count": 8,
+        "link_last": {
+            "link_id": 0,
+            "link_posted": 0,
+            "link_time": 0
+        },
+        "max_links": 1,
+        "private": 0,
+        "restrictions": {
+            "followers": 0,
+            "other": 0,
+            "post_amount": 8,
+            "time_interval": 0
+        },
+        "username_required": 1
+    },
+    "BoostGram Dx10 Likes + Comments": {
+        "comment" : 1,
+        "blocked" : 0,
+        "group_id": "BoostGramDx10",
+        "group_type": "fixed",
+        "joined": 0,
+        "like_count": 10,
+        "link_last": {
+            "link_id": 0,
+            "link_posted": 0,
+            "link_time": 0
+        },
+        "max_links": 1,
+        "private": 0,
+        "restrictions": {
+            "followers": 0,
+            "other": 0,
+            "post_amount": 10,
+            "time_interval": 0
+        },
+        "username_required": 1
+    },
+    "BoostGram Dx15 Likes + Comments": {
+        "comment" : 1,
+        "blocked" : 0,
+        "group_id": "BoostGramDx15",
+        "group_type": "fixed",
+        "joined": 0,
+        "like_count": 15,
+        "link_last": {
+            "link_id": 0,
+            "link_posted": 0,
+            "link_time": 0
+        },
+        "max_links": 1,
+        "private": 0,
+        "restrictions": {
+            "followers": 0,
+            "other": 0,
+            "post_amount": 15,
+            "time_interval": 0
+        },
+        "username_required": 1
+    },
+    "BoostGram Dx20 Likes": {
+        "comment" : 0,
         "blocked" : 0,
         "group_id": "BoostGramDx20",
         "group_type": "fixed",
@@ -41,7 +131,8 @@
         },
         "username_required": 1
     },
-    "BoostGram Dx30": {
+    "BoostGram Dx30 Likes": {
+        "comment" : 0,
         "blocked" : 0,
         "group_id": "BoostGramDx30",
         "group_type": "fixed",
@@ -62,7 +153,8 @@
         },
         "username_required": 1
     },
-    "Den DX20": {
+    "Den DX20 Likes": {
+        "comment" : 0,
         "blocked" : 0,
         "group_id": "DenDX20Likes",
         "group_type": "fixed",
@@ -83,7 +175,8 @@
         },
         "username_required": 1
     },
-    "Den DX50": {
+    "Den DX50 Likes": {
+        "comment" : 0,
         "blocked" : 0,
         "group_id": "DenDX50Likes",
         "group_type": "fixed",
@@ -104,7 +197,8 @@
         },
         "username_required": 0
     },
-    "Dx30 Engagement Group": {
+    "Dx30 Engagement Group Likes": {
+        "comment" : 0,
         "blocked" : 0,
         "group_id": "EdplEFKn1M8iONjBGRz9xA",
         "group_type": "fixed",
@@ -126,6 +220,7 @@
         "username_required": 1
     },
     "GainSpace | MASS Likes Dx5": {
+        "comment" : 0,
         "blocked" : 0,
         "group_id": "igmasslikes",
         "group_type": "fixed",
@@ -146,7 +241,8 @@
         },
         "username_required": 1
     },
-    "InstaPro Dx20": {
+    "InstaPro Dx20 Likes": {
+        "comment" : 0,
         "blocked" : 0,
         "group_id": "instapro20onlylikke",
         "group_type": "fixed",
@@ -167,7 +263,8 @@
         },
         "username_required": 1
     },
-    "Nest DX20": {
+    "Nest DX20 Likes": {
+        "comment" : 0,
         "blocked" : 0,
         "group_id": "NestDX20Likes",
         "group_type": "fixed",
@@ -189,6 +286,7 @@
         "username_required": 0
     },
     "Select group": {
+        "comment" : "n/a",
         "blocked" : "n/a",
         "group_id": "n/a",
         "group_type": "n/a",
@@ -209,7 +307,8 @@
         },
         "username_required": "n/a"
     },
-    "Wizard Dx30": {
+    "Wizard Dx30 Likes": {
+        "comment" : 0,
         "blocked" : 0,
         "group_id": "WizardDx30",
         "group_type": "fixed",
@@ -230,7 +329,8 @@
         },
         "username_required": 1
     },
-    "Wolf 10K 24h": {
+    "Wolf | 10K 24h Likes": {
+        "comment" : 0,
         "blocked" : 0,
         "group_id": "Fx4rwkg0O5LMxmDOnybBQw",
         "group_type": "24h",
@@ -251,7 +351,8 @@
         },
         "username_required": 0
     },
-    "Wolf 15K 24h": {
+    "Wolf | 15K 24h Likes": {
+        "comment" : 0,
         "blocked" : 0,
         "group_id": "Fx4rwk4jmykZjdL27YZdSQ",
         "group_type": "24h",
@@ -272,7 +373,8 @@
         },
         "username_required": 0
     },
-    "Wolf 5K 24h": {
+    "Wolf | 5K 24h Likes": {
+        "comment" : 0,
         "blocked" : 0,
         "group_id": "Fx4rwlIWBDtJIada1UdZqQ",
         "group_type": "24h",
@@ -293,7 +395,8 @@
         },
         "username_required": 0
     },
-    "Wolf Amber 24h": {
+    "Wolf | Amber 24h Likes": {
+        "comment" : 0,
         "blocked" : 0,
         "group_id": "Fx4rwkspmKhvndR_h6M6JQ",
         "group_type": "24h",
@@ -314,7 +417,8 @@
         },
         "username_required": 0
     },
-    "Wolf Emerald 24h": {
+    "Wolf | Emerald 24h Likes": {
+        "comment" : 0,
         "blocked" : 0,
         "group_id": "Fx4rwlM4eXuZA2Zjxk6v7w",
         "group_type": "24h",
@@ -335,7 +439,8 @@
         },
         "username_required": 0
     },
-    "Wolf Onyx 24h": {
+    "Wolf | Onyx 24h Likes": {
+        "comment" : 0,
         "blocked" : 0,
         "group_id": "Fx4rwj_zwv2ED0T5X6Pgfw",
         "group_type": "24h",
@@ -356,7 +461,8 @@
         },
         "username_required": 0
     },
-    "Wolf Quartz 24h": {
+    "Wolf | Quartz 24h Likes": {
+        "comment" : 0,
         "blocked" : 0,
         "group_id": "Fx4rwkT2qgxbyt0szQk5YA",
         "group_type": "24h",
@@ -377,7 +483,8 @@
         },
         "username_required": 0
     },
-    "Wolf Ruby 24h": {
+    "Wolf | Ruby 24h Likes": {
+        "comment" : 0,
         "blocked" : 0,
         "group_id": "Fx4rwkjfFsMn6si42mK8Fw",
         "group_type": "24h",
@@ -398,7 +505,8 @@
         },
         "username_required": 0
     },
-    "Wolf Saphire 24h": {
+    "Wolf | Saphire 24h Likes": {
+        "comment" : 0,
         "blocked" : 0,
         "group_id": "Fx4rwlDFRg32ICK8NbsYkQ",
         "group_type": "24h",
@@ -420,6 +528,7 @@
         "username_required": 0
     },
     "Wolf | 1K Powerlikes Dx10": {
+        "comment" : 0,
         "blocked" : 0,
         "group_id": "Fx4rwlC_-N3DsgBLVM3P1g",
         "group_type": "fixed",
@@ -441,6 +550,7 @@
         "username_required": 0
     },
     "Wolf | 3K Turbo Likes Dx50": {
+        "comment" : 0,
         "blocked" : 0,
         "group_id": "Fx4rwkp0qCY9GYPRAOnoUg",
         "group_type": "fixed",
@@ -461,7 +571,74 @@
         },
         "username_required": 0
     },
+    "Wolf | 8K Turbo Likes Dx50": {
+        "comment" : 0,
+        "blocked" : 0,
+        "group_id": "Fx4rwkUDmjxjEkP9c5TP1g",
+        "group_type": "fixed",
+        "joined": 0,
+        "like_count": 50,
+        "link_last": {
+            "link_id": 0,
+            "link_posted": 0,
+            "link_time": 0
+        },
+        "max_links": 1,
+        "private": 1,
+        "restrictions": {
+            "followers": 8000,
+            "other": 0,
+            "post_amount": 50,
+            "time_interval": 0
+        },
+        "username_required": 0
+    },
+    "Wolf | 15K Turbo Likes Dx50": {
+        "comment" : 0,
+        "blocked" : 0,
+        "group_id": "Fx4rwkcH5MVmXR5hrqHYaQ",
+        "group_type": "fixed",
+        "joined": 0,
+        "like_count": 50,
+        "link_last": {
+            "link_id": 0,
+            "link_posted": 0,
+            "link_time": 0
+        },
+        "max_links": 1,
+        "private": 1,
+        "restrictions": {
+            "followers": 15000,
+            "other": 0,
+            "post_amount": 50,
+            "time_interval": 0
+        },
+        "username_required": 0
+    },
+    "Wolf | 25K Turbo Likes Dx50": {
+        "comment" : 0,
+        "blocked" : 0,
+        "group_id": "Fx4rwkXlkdHCP03k3TaApg",
+        "group_type": "fixed",
+        "joined": 0,
+        "like_count": 50,
+        "link_last": {
+            "link_id": 0,
+            "link_posted": 0,
+            "link_time": 0
+        },
+        "max_links": 1,
+        "private": 1,
+        "restrictions": {
+            "followers": 25000,
+            "other": 0,
+            "post_amount": 50,
+            "time_interval": 0
+        },
+        "username_required": 0
+    },
     "Wolf | 5K Powerlikes Dx10": {
+        "comment" : 0,
         "blocked" : 0,
         "group_id": "Fx4rwkvaUKuKD2owZAlS_g",
         "group_type": "fixed",
@@ -482,28 +659,206 @@
         },
         "username_required": 0
     },
-    "Boost Up Powerlikes Dx20": {
+    "Wolf | 10K Powerlikes Dx10": {
+        "comment" : 0,
         "blocked" : 0,
-        "group_id": "boostuppowerlikes",
+        "group_id": "Fx4rwkRxtftVu4ow5TXFgQ",
         "group_type": "fixed",
         "joined": 0,
-        "like_count": 20,
+        "like_count": 10,
         "link_last": {
             "link_id": 0,
             "link_posted": 0,
             "link_time": 0
         },
         "max_links": 1,
-        "private": 0,
+        "private": 1,
         "restrictions": {
-            "followers": 0,
+            "followers": 10000,
             "other": 0,
-            "post_amount": 20,
+            "post_amount": 10,
             "time_interval": 0
         },
-        "username_required": 1
+        "username_required": 0
+    },
+    "Wolf | 30K Powerlikes Dx10": {
+        "comment" : 0,
+        "blocked" : 0,
+        "group_id": "Fx4rwkManhbkSKlEvBaeSw",
+        "group_type": "fixed",
+        "joined": 0,
+        "like_count": 10,
+        "link_last": {
+            "link_id": 0,
+            "link_posted": 0,
+            "link_time": 0
+        },
+        "max_links": 1,
+        "private": 1,
+        "restrictions": {
+            "followers": 30000,
+            "other": 0,
+            "post_amount": 10,
+            "time_interval": 0
+        },
+        "username_required": 0
+    },
+    "Wolf | 50K Powerlikes Dx10": {
+        "comment" : 0,
+        "blocked" : 0,
+        "group_id": "Fx4rwk7EXkDC_3fT0XwqMg",
+        "group_type": "fixed",
+        "joined": 0,
+        "like_count": 10,
+        "link_last": {
+            "link_id": 0,
+            "link_posted": 0,
+            "link_time": 0
+        },
+        "max_links": 1,
+        "private": 1,
+        "restrictions": {
+            "followers": 50000,
+            "other": 0,
+            "post_amount": 10,
+            "time_interval": 0
+        },
+        "username_required": 0
+    },
+    "Wolf | 1K Viral Dx5 Likes + Comments": {
+        "comment" : 1,
+        "blocked" : 0,
+        "group_id": "FP5eBUd-jVJhhCZWqHEf8Q",
+        "group_type": "fixed",
+        "joined": 0,
+        "like_count": 5,
+        "link_last": {
+            "link_id": 0,
+            "link_posted": 0,
+            "link_time": 0
+        },
+        "max_links": 1,
+        "private": 1,
+        "restrictions": {
+            "followers": 1000,
+            "other": 0,
+            "post_amount": 5,
+            "time_interval": 0
+        },
+        "username_required": 0
+    },
+    "Wolf | 5K Viral Dx5 Likes + Comments": {
+        "comment" : 1,
+        "blocked" : 0,
+        "group_id": "FP5eBUNUzMzhMYBeutpfzw",
+        "group_type": "fixed",
+        "joined": 0,
+        "like_count": 5,
+        "link_last": {
+            "link_id": 0,
+            "link_posted": 0,
+            "link_time": 0
+        },
+        "max_links": 1,
+        "private": 1,
+        "restrictions": {
+            "followers": 5000,
+            "other": 0,
+            "post_amount": 5,
+            "time_interval": 0
+        },
+        "username_required": 0
+    },
+    "Wolf | 10K Viral Dx5 Likes + Comments": {
+        "comment" : 1,
+        "blocked" : 0,
+        "group_id": "FP5eBUGVHA3Tvox6vmJLbQ",
+        "group_type": "fixed",
+        "joined": 0,
+        "like_count": 5,
+        "link_last": {
+            "link_id": 0,
+            "link_posted": 0,
+            "link_time": 0
+        },
+        "max_links": 1,
+        "private": 1,
+        "restrictions": {
+            "followers": 10000,
+            "other": 0,
+            "post_amount": 5,
+            "time_interval": 0
+        },
+        "username_required": 0
+    },
+    "Wolf | 30K Viral Dx5 Likes + Comments": {
+        "comment" : 1,
+        "blocked" : 0,
+        "group_id": "FP5eBUiYSpxZaXpeej06gA",
+        "group_type": "fixed",
+        "joined": 0,
+        "like_count": 5,
+        "link_last": {
+            "link_id": 0,
+            "link_posted": 0,
+            "link_time": 0
+        },
+        "max_links": 1,
+        "private": 1,
+        "restrictions": {
+            "followers": 30000,
+            "other": 0,
+            "post_amount": 5,
+            "time_interval": 0
+        },
+        "username_required": 0
+    },
+    "Wolf | 50K Viral Dx5 Likes + Comments": {
+        "comment" : 1,
+        "blocked" : 0,
+        "group_id": "FP5eBUR9nX94_TLQQ5tkYg",
+        "group_type": "fixed",
+        "joined": 0,
+        "like_count": 5,
+        "link_last": {
+            "link_id": 0,
+            "link_posted": 0,
+            "link_time": 0
+        },
+        "max_links": 1,
+        "private": 1,
+        "restrictions": {
+            "followers": 50000,
+            "other": 0,
+            "post_amount": 5,
+            "time_interval": 0
+        },
+        "username_required": 0
+    },
+    "Wolf | 100K Viral Dx5 Likes + Comments": {
+        "comment" : 1,
+        "blocked" : 0,
+        "group_id": "FP5eBUcKfPdBJs0gRrE1dg",
+        "group_type": "fixed",
+        "joined": 0,
+        "like_count": 5,
+        "link_last": {
+            "link_id": 0,
+            "link_posted": 0,
+            "link_time": 0
+        },
+        "max_links": 1,
+        "private": 1,
+        "restrictions": {
+            "followers": 100000,
+            "other": 0,
+            "post_amount": 5,
+            "time_interval": 0
+        },
+        "username_required": 0
     },
     "Fast likes Dx9": {
+        "comment" : 0,
         "blocked" : 0,
         "group_id": "fastlikespod",
         "group_type": "fixed",
@@ -525,6 +880,7 @@
         "username_required": 0
     },
     "GainSpace | MASS Likes Dx20": {
+        "comment" : 0,
         "blocked" : 0,
         "group_id": "goldx20likes",
         "group_type": "fixed",
@@ -545,32 +901,70 @@
         },
         "username_required": 1
     },
-
+    "GainSpace | Cloud Dx5 Comments": {
+        "comment" : 1,
+        "blocked" : 0,
+        "group_id": "cloudcommentsdx5",
+        "group_type": "fixed",
+        "joined": 0,
+        "like_count": 5,
+        "link_last": {
+            "link_id": 0,
+            "link_posted": 0,
+            "link_time": 0
+        },
+        "max_links": 1,
+        "private": 0,
+        "restrictions": {
+            "followers": 0,
+            "other": 0,
+            "post_amount": 5,
+            "time_interval": 0
+        },
+        "username_required": 1
+    },
 
     "available_groups" : {
-        "1" : "Dx30 Engagement Group",
+        "1" : "Dx30 Engagement Group Likes",
         "2" : "GainSpace | MASS Likes Dx5",
         "3" : "GainSpace | MASS Likes Dx20",
-        "4" : "BoostGram Dx10",
-        "5" : "BoostGram Dx20",
-        "6" : "BoostGram Dx30",
-        "7" : "InstaPro Dx20",
-        "8" : "Wizard Dx30",
-        "9" : "Wolf Onyx 24h",
-        "10" : "Wolf Saphire 24h",
-        "11" : "Wolf Emerald 24h",
-        "12" : "Wolf Ruby 24h",
-        "13" : "Wolf Amber 24h",
-        "14" : "Wolf Quartz 24h",
-        "15" : "Wolf 5K 24h",
-        "16" : "Wolf 10K 24h",
-        "17" : "Wolf 15K 24h",
-        "18" : "Wolf | 5K Powerlikes Dx10",
-        "19" : "Wolf | 1K Powerlikes Dx10",
-        "20" : "Wolf | 3K Turbo Likes Dx50",
-        "21" : "Nest DX20",
-        "22" : "Den DX20",
-        "23" : "Den DX50",
-        "24" : "Fast likes Dx9"
+        "4" : "BoostGram Dx10 Likes",
+        "5" : "BoostGram Dx20 Likes",
+        "6" : "BoostGram Dx30 Likes",
+        "7" : "InstaPro Dx20 Likes",
+        "8" : "Wizard Dx30 Likes",
+        "9" : "BoostGram Dx5 Likes + Comments",
+        "10" : "BoostGram Dx8 Likes + Comments",
+        "11" : "BoostGram Dx10 Likes + Comments",
+        "12" : "BoostGram Dx15 Likes + Comments",
+        "13" : "GainSpace | Cloud Dx5 Comments",
+        "14" : "Wolf | Onyx 24h Likes",
+        "15" : "Wolf | Saphire 24h Likes",
+        "16" : "Wolf | Emerald 24h Likes",
+        "17" : "Wolf | Ruby 24h Likes",
+        "18" : "Wolf | Amber 24h Likes",
+        "19" : "Wolf | Quartz 24h Likes",
+        "20" : "Wolf | 5K 24h Likes",
+        "21" : "Wolf | 10K 24h Likes",
+        "22" : "Wolf | 15K 24h Likes",
+        "23" : "Wolf | 1K Powerlikes Dx10",
+        "24" : "Wolf | 5K Powerlikes Dx10",
+        "25" : "Wolf | 10K Powerlikes Dx10",
+        "26" : "Wolf | 30K Powerlikes Dx10",
+        "27" : "Wolf | 50K Powerlikes Dx10",
+        "28" : "Wolf | 3K Turbo Likes Dx50",
+        "29" : "Wolf | 8K Turbo Likes Dx50",
+        "30" : "Wolf | 15K Turbo Likes Dx50",
+        "31" : "Wolf | 25K Turbo Likes Dx50",
+        "32" : "Wolf | 1K Viral Dx5 Likes + Comments",
+        "33" : "Wolf | 5K Viral Dx5 Likes + Comments",
+        "34" : "Wolf | 10K Viral Dx5 Likes + Comments",
+        "35" : "Wolf | 30K Viral Dx5 Likes + Comments",
+        "36" : "Wolf | 50K Viral Dx5 Likes + Comments",
+        "37" : "Wolf | 100K Viral Dx5 Likes + Comments",
+        "38" : "Nest DX20 Likes",
+        "39" : "Den DX20 Likes",
+        "40" : "Den DX50 Likes",
+        "41" : "Fast likes Dx9"
     }
 }
