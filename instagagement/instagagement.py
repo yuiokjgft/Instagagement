@@ -40,6 +40,9 @@ selected_group = ''
 # Instagram
 instabot = []
 
+targeted_links = ['', '', '']
+
+
 def init(preset_):
 	global config, group_list, liked_all, preset
 	preset = preset_
@@ -136,9 +139,18 @@ def login():
 	return [user_followers, user_following, user_media]
 
 # Get json from URL and get Media ID
-def get_media_id(media_url):
-	# Instagram api returning all the information about post
-	url = 'https://api.instagram.com/oembed/?callback=&url=https://www.instagram.com/p/' + media_url
+def get_media_id(media_url, mode):
+	url = ''
+
+	# Full link
+	if mode == 0:
+		url = 'https://api.instagram.com/oembed/?callback=&url=' + media_url 
+
+	# Only shortcode of link
+	if mode == 1:
+		# Instagram api returning all the information about post
+		url = 'https://api.instagram.com/oembed/?callback=&url=https://www.instagram.com/p/' + media_url
+
 	response = requests.get(url)
 	# If instagram responds with OK ([200]) - media exists
 	http_r = str(response)
@@ -432,7 +444,7 @@ def engage_with_posts():
 	printProgressBar(0, len(post_array), prefix = 'Progress:', suffix = '[' + str(likes_given+1) + '/' + str(len(post_array)) + '] ', bar_length = 25)
 	# Like all posts in array
 	for post in post_array:
-		post_id = get_media_id(post)
+		post_id = get_media_id(post, 1)
 		current_post = post
 		# Check if already liked
 		if str(liked_all).find(str(post)) is -1:
@@ -530,6 +542,10 @@ def post_link():
 		print('Tried getting posts; AttributeError; Instabot.py')
 		return -1
 	
+	# Check if link is added manually
+	for i in range(0, len(targeted_links)):
+		if len(targeted_links[i]) > 1:
+			user_links[i] = get_post_id(targeted_links[i])
 
 	# Get the array ready
 	post_message = ""
@@ -540,7 +556,7 @@ def post_link():
 	else:
 		g_type = 'D24h'
 	# Check how many links to post
-	if group_list[selected_group]['max_links'] is 1 or str(user_links[1]).find(insta_string) is -1:
+	if group_list[selected_group]['max_links'] == 1 or len(user_links[1]) <= 1:
 		# Check if the group requires username
 		if group_list[selected_group]['username_required'] is 1:
 			post_message = g_type + " @" + config['ig_username'] + " " + 'https://instagram.com/p/' + user_links[0] + '/'
@@ -849,7 +865,7 @@ def like_feed():
 				if instabot.last_json['feed_items'][i]['media_or_ad']['id'].split('_')[1] != user_id:
 					# Check if already liked
 					if str(get_liked()).find(str(post)) is -1:
-						instabot.like(get_media_id(post))
+						instabot.like(get_media_id(post, 1))
 						add_liked.append(post)
 						time.sleep(config['delay'])
 						instabot.get_timeline_feed()
