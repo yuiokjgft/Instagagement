@@ -12,13 +12,14 @@ This also runs on Raspberry Pi (requires Python 3.6 or higher; [here is a tutori
 
 GUI coming soon.
 
-#### NOTE: Web-based bot [InstaBot-Py 0.4.7](https://github.com/instabot-py/instabot.py) has been changed to mobile-based [Instabot](https://github.com/instagrambot/instabot). Release [0.1W](https://github.com/Ewlbo/Instagagement/releases/tag/0.1W) is the old version with InstaBot-Py 0.4.7 while release [0.2](https://github.com/Ewlbo/Instagagement/releases/tag/0.2) is the new release with Instabot.
+#### LATEST DEV.: Added [profanity-check](https://github.com/vzhou842/profanity-check) for commenting. Install it with 'pip install profanity-check'
 
-#### LATEST DEVELOPMENT: Added commenting feature. Be aware - it copies other comments and then adds a phrase. If someone has made bad comment, there is a chance it will copy it. Some profanity filter will be put in place soon.
+#### NOTE: Web-based bot [InstaBot-Py 0.4.7](https://github.com/instabot-py/instabot.py) has been changed to mobile-based [Instabot](https://github.com/instagrambot/instabot). Release [0.1W](https://github.com/Ewlbo/Instagagement/releases/tag/0.1W) is the old version with InstaBot-Py 0.4.7 while release [0.2](https://github.com/Ewlbo/Instagagement/releases/tag/0.2) is the new release with Instabot.
 
 ## Features
 
 - Finds latest posts from profile on which you want to get likes on, gets links from the posts, joins Telegram group, finds all the links to engage with, engages, posts yours. That simple. Supports likes and comments.
+- As for commenting - it acquires other comments and chooses the one with least predicted [profanity](https://github.com/vzhou842/profanity-check), then adds random phrase and posts it
 - Intended for 24/7 use with limited hours during the day (e.g. 6.00 to 18.00).
 - Supports basic Telegram engagement groups - post amount based (e.g. Dx10) and 24h groups. Currently 41 groups are available and can be seen in 'group_template.json' (choosable during quickstart), more can be easily added. Request any missing.
 - Optional: like latest posts from feed
@@ -30,6 +31,7 @@ GUI coming soon.
 - Telegram account with created [application](https://my.telegram.org/apps) from which API hash and ID will be used
 - [Instabot](https://github.com/instagrambot/instabot) for handling likes and finding user feed last links (finds the links from specified profile which are needed in Telegram groups for posting)
 - [Telethon](https://github.com/LonamiWebs/Telethon) for handling Telegram
+- [Profanity check](https://github.com/vzhou842/profanity-check) for commenting
 
 ## Installation
 
@@ -44,6 +46,7 @@ Proper package will be made soon.
 ```elm
 pip install instabot
 pip install telethon
+pip install profanity-check
 (cd to where you extracted Instagagement e.g. cd ~/Desktop/Instagagement)
 python quickstart.py
 python run.py
@@ -54,6 +57,7 @@ python run.py
 ```elm
 pip install instabot
 pip install telethon
+pip install profanity-check
 cd ~/Desktop
 git clone https://github.com/Ewlbo/Instagagement/
 cd Instagagement
