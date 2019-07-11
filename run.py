@@ -4,6 +4,16 @@ from datetime import datetime
 from datetime import timedelta
 from telethon import errors
 import requests
+from argparse import ArgumentParser
+
+parser = ArgumentParser()
+parser.add_argument("-c", "--config", dest="config", help="Bot preset - chooses config file (usually Instagram username)")
+parser.add_argument("-l", "--links", dest="links",
+					help="Choose links to which you want likes/comments on e.g. -l https://www.instagram.com/p/link1/, https://www.instagram.com/p/link2/ ; 'random' for picking random links")
+parser.add_argument("-t", "--target", dest="target", help="Username on which you want to receive engagement")
+parser.add_argument("-d", "--debug", dest="debug", help="Disable [0] (default) or enable [1] debug messages", default=0)
+parser.add_argument("-f", "--feed", dest="feed", help="Disable [0] (default) or enable [1] feed like")
+args = parser.parse_args()
 
 # Settings
 group_waittime = 20 	# Seconds between groups
@@ -25,7 +35,10 @@ print("                     `---'     `---'                         ")
 print()
 
 # Get the name of preset
-preset = input('Enter preset name or instagram username: ')
+if args.config == None:
+	preset = input('Enter preset name or instagram username: ')
+else:
+	preset = args.config
 print()
 
 def update_config():
@@ -37,14 +50,24 @@ def update_config():
 # Process config
 update_config()
 
+if args.feed == None:
+	feed_like = int(config['like_feed'])
+else:
+	feed_like = int(args.feed)
+
+if args.target == None:
+	target_user = config['like_profile']
+else:
+	target_user = args.target
+
 # Initialize and login
-instagagement.init(preset)
+instagagement.init(preset, args)
 user_info = instagagement.login()
 print()
 print('Followers: ' + str(user_info[0]))
 print('Following: ' + str(user_info[1]))
 print('Media count: ' + str(user_info[2]))
-print('Getting likes for: ' + config['like_profile'])
+print('Getting likes for: ' + target_user)
 print()
 
 # Get Telegram group list
@@ -74,7 +97,7 @@ while 1:
 					instagagement.disconnect_client()
 					like_end = datetime.now()
 				# Like feed
-				if config['like_feed'] == 1:
+				if feed_like == 1:
 					instagagement.like_feed()
 					like_end = datetime.now()
 					print()
