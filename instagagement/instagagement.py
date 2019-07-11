@@ -10,6 +10,8 @@ from telethon import TelegramClient, events, sync, errors, functions, types
 from telethon.tl.functions.channels import JoinChannelRequest,LeaveChannelRequest
 from telethon.tl.functions.messages import ImportChatInviteRequest
 from telethon.tl.functions.users import GetFullUserRequest
+# Profanity predictor for commenting
+from profanity_check import predict_prob
 
 # Settings
 group_template = 'group_template.json'
@@ -24,8 +26,8 @@ log_en = 1					# Logs data to .json
 # For commenting
 add_phrase = ['Keep posting!', 'Love it!', 'Keep it up!']
 banned_phrases = ['check', 'Check', 'me', 'bio', 'follow', 'Follow', 'like', 'Like', 'profile', 'sale', 
-					'discount', 'off', 'youtube', 'DM', 'hot', '#', '@', 'cheap']
-min_comment_length = 10
+					'discount', 'off', 'youtube', 'DM', 'hot', '#', '@', 'cheap', 'click', 'Click']
+min_comment_length = 5
 
 # Variables
 first_array_full = False
@@ -39,13 +41,16 @@ selected_group = ''
 
 # Instagram
 instabot = []
-
 targeted_links = ['', '', '']
 
-
-def init(preset_):
-	global config, group_list, liked_all, preset
+def init(preset_, args):
+	global config, group_list, liked_all, preset, debug, targeted_links, target_user
 	preset = preset_
+
+	# Parse arguments
+	debug = int(args.debug)
+	if args.links != None:
+		targeted_links = args.links.split(',')
 
 	# Print time after every print message
 	if debug == 1:
@@ -57,6 +62,11 @@ def init(preset_):
 
 	# Load config
 	update_config()
+
+	if args.target == None:
+		target_user = config['like_profile']
+	else:
+		target_user = args.target
 
 	# Load groups
 	try:
@@ -109,7 +119,7 @@ def get_last_posts():
 	# Stores links in user_links in range from 0 to 11 (12 posts)
 	user_links = []
 
-	instabot.search_username(config['like_profile']) 
+	instabot.search_username(target_user) 
 	instabot.get_user_feed(instabot.last_json["user"]["pk"])
 	for i in range(0, len(instabot.last_json['items'])):
 		user_links.append(instabot.last_json['items'][i]['code'])
@@ -503,8 +513,24 @@ def engage_with_posts():
 					# Remove duplicates (if any)
 					good_comments = list(set(good_comments))
 					if len(good_comments) >= 1:
-						random_comment = int(random.randint(0, len(good_comments)-1))
-						comment = instabot.last_json['comments'][good_comments[random_comment]]['text'] + '! ' + add_phrase[random.randint(0, len(add_phrase)-1)]
+						#random_comment = int(random.randint(0, len(good_comments)-1))
+						#comment = instabot.last_json['comments'][good_comments[random_comment]]['text'] + '! ' + add_phrase[random.randint(0, len(add_phrase)-1)]
+						# Filter comments
+						profanity = {}
+						comment_list = []
+						smallest = 1
+						temp = 1
+						good_comments = list(set(good_comments))
+						for i in good_comments:
+							comment = instabot.last_json['comments'][i]['text']
+							comment_list.append(comment)
+							prediction = str(predict_prob([comment])[0])
+							profanity[prediction] = comment
+							smallest = prediction
+							if float(smallest) > float(temp):
+								smallest = temp
+							temp = smallest
+						comment = profanity[smallest] + '! ' + add_phrase[random.randint(0, len(add_phrase)-1)]
 						result = instabot.comment(post_id, comment)
 						if 'feedback_required' in str(result):
 							send_error('Could not comment, this feature might be blocked temporary; reduce commenting groups')
@@ -542,10 +568,16 @@ def post_link():
 		print('Tried getting posts; AttributeError; Instabot.py')
 		return -1
 	
-	# Check if link is added manually
-	for i in range(0, len(targeted_links)):
-		if len(targeted_links[i]) > 1:
-			user_links[i] = get_post_id(targeted_links[i])
+	if 'random' in targeted_links:
+		temp = user_links
+		for i in range(0, len(user_links)-1):
+			temp[i] = user_links[random.randint(0, len(user_links)-1)]
+		user_links = temp
+	else:
+		# Check if link is added manually
+		for i in range(0, len(targeted_links)):
+			if len(targeted_links[i]) > 1:
+				user_links[i] = get_post_id(targeted_links[i])
 
 	# Get the array ready
 	post_message = ""
@@ -889,8 +921,10 @@ def send_error(error_message):
 	except:
 		pass
 	if len(str(config['telegram_username'])) >= 4:
+		time.sleep(5)
 		if client_started == False:
 			start_client()
+			time.sleep(5)
 		client.send_message(config['telegram_username'], "[" + config['ig_username'] + "] program error ocurred: \n\n" + error_message)
 
 # Print iterations progress
