@@ -26,8 +26,8 @@ Argument list:
 | -c --config | Bot preset - chooses config file (usually Instagram username) | --config username                                                                               |
 | -l --links  | Choose links to which you want likes/comments on              | --links https://www.instagram.com/p/link1/, https://www.instagram.com/p/link2/ ; --links random |
 | -t --target | Username on which you want to receive engagement              | --target username                                                                               |
-| -f --feed   | Disable [0] (default) or enable [1] feed like                 | None                                                                                            |
-| -d --debug  | Disable [0] (default) or enable [1] debug messages            | None                                                                                            |
+| -f --feed   | Disable [0] (default) or enable [1] feed like                 | --feed 1                                                                                            |
+| -d --debug  | Disable [0] (default) or enable [1] debug messages            | --debug 1                                                                                            |
 
 ## Requirements
 
