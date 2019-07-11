@@ -19,6 +19,16 @@ GUI coming soon.
 - Optional: like latest posts from feed
 - Optional: send errors/updates to your telegram
 
+Argument list:
+
+|   Argument  |                          Description                          |                                             Example                                             |
+|:-----------:|:-------------------------------------------------------------:|:-----------------------------------------------------------------------------------------------:|
+| -c --config | Bot preset - chooses config file (usually Instagram username) | --config username                                                                               |
+| -l --links  | Choose links to which you want likes/comments on              | --links https://www.instagram.com/p/link1/, https://www.instagram.com/p/link2/ ; --links random |
+| -t --target | Username on which you want to receive engagement              | --target username                                                                               |
+| -f --feed   | Disable [0] (default) or enable [1] feed like                 | None                                                                                            |
+| -d --debug  | Disable [0] (default) or enable [1] debug messages            | None                                                                                            |
+
 ## Requirements
 
 - [Python](https://www.python.org/downloads/) 3.6 or higher
