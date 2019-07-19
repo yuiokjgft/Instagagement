@@ -436,7 +436,7 @@ def check_new_messages():
 
 # Likes posts from array
 def engage_with_posts():
-	global group_list, instabot, current_post, profanity_imported
+	global group_list, instabot, current_post, profanity_imported, predict_prob
 	add_liked = []
 
 	liked_all = get_liked()
