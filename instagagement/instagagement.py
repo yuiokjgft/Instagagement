@@ -10,8 +10,6 @@ from telethon import TelegramClient, events, sync, errors, functions, types
 from telethon.tl.functions.channels import JoinChannelRequest,LeaveChannelRequest
 from telethon.tl.functions.messages import ImportChatInviteRequest
 from telethon.tl.functions.users import GetFullUserRequest
-# Profanity predictor for commenting
-from profanity_check import predict_prob
 
 # Settings
 group_template = 'group_template.json'
@@ -33,6 +31,7 @@ min_comment_length = 5
 first_array_full = False
 new_message = False
 client_started = False
+profanity_imported = False
 compare_array = []
 first_array = []
 final_array = []
@@ -437,7 +436,7 @@ def check_new_messages():
 
 # Likes posts from array
 def engage_with_posts():
-	global group_list, instabot, current_post
+	global group_list, instabot, current_post, profanity_imported
 	add_liked = []
 
 	liked_all = get_liked()
@@ -479,6 +478,11 @@ def engage_with_posts():
 			printProgressBar(likes_given, len(post_array), prefix = 'Progress:', suffix = '[' + str(likes_given) + '/' + str(len(post_array)) + '] ' + post, bar_length = 25)
 		# Post a comment
 		if group_list[selected_group]['comment'] == 1 and post_id != -1:
+			if profanity_imported == False:
+				# Profanity predictor for commenting
+				from profanity_check import predict_prob
+				profanity_imported = True
+
 			bad_comments = []
 			good_comments = []
 			comment = ' '
