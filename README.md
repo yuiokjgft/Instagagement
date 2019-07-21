@@ -8,7 +8,7 @@ GUI coming soon.
 
 #### LATEST DEV.: Added [profanity-check](https://github.com/vzhou842/profanity-check) for commenting. Install it with 'pip install profanity-check' (optional, only when using commenting groups)
 
-#### NOTE: Web-based bot [InstaBot-Py 0.4.7](https://github.com/instabot-py/instabot.py) has been changed to mobile-based [Instabot](https://github.com/instagrambot/instabot). Release [0.1W](https://github.com/Ewlbo/Instagagement/releases/tag/0.1W) is the old version with InstaBot-Py 0.4.7 while release [0.2](https://github.com/Ewlbo/Instagagement/releases/tag/0.2) is the new release with Instabot.
+#### NOTE: Web-based bot [InstaBot-Py 0.4.7](https://github.com/instabot-py/instabot.py) has been changed to mobile-based [Instabot](https://github.com/instagrambot/instabot). Release [0.1W](https://github.com/Ewlbo/Instagagement/releases/tag/0.1W) is the old version with InstaBot-Py 0.4.7 while release [v0.4](https://github.com/Ewlbo/Instagagement/releases/tag/v0.4) is the new release with Instabot.
 
 ## Features
 
