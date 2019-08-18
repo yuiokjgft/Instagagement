@@ -34,7 +34,7 @@ sudo python3.7 -m pip install --upgrade pip
 sudo python3.7 -m pip install telethon
 sudo python3.7 -m pip install instabot-py==0.4.7
 
-git clone https://github.com/Ewlbo/Instagagement/
+git clone https://github.com/thehelvijs/Instagagement/
 cd Instagagement
 sudo python3.7 quickstart.py
 ```
