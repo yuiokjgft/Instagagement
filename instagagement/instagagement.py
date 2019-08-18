@@ -84,7 +84,7 @@ def init(preset_, args):
 			with open(str(config['telegram_api_id']) + '_groups.json', 'w+') as make_groups:
 				json.dump(groups, make_groups, indent=4, separators=(',', ': '), sort_keys=True)
 		except FileNotFoundError:
-			print('File ' + group_template + ' does not exist, get it from GitHub/Ewlbo')
+			print('File ' + group_template + ' does not exist, get it from GitHub/thehelvijs')
 
 	# Load likes
 	try:
@@ -145,7 +145,7 @@ def login():
 	user_media = instabot.last_json['user']['media_count']
 	user_id = instabot.user_id
 
-	return [user_followers, user_following, user_media]
+	return [user_followers, user_following, user_media, client, instabot]
 
 # Get json from URL and get Media ID
 def get_media_id(media_url, mode):
