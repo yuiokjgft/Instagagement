@@ -499,54 +499,57 @@ def engage_with_posts():
 				comments_disabled = False
 
 			if comments_disabled == False:
-				# Find unwanted comments
-				for i in range(0, len(instabot.last_json['comments'])):
-					if int(instabot.last_json['comments'][i]['user_id']) == int(user_id):
-						already_commented = True
-					# Get all comments here
-					good_comments.append(i)
-					comment = instabot.last_json['comments'][i]['text']
-					for phrase in banned_phrases:
-						if phrase in comment or len(comment) < min_comment_length or instabot.last_json['comments'][i]['type'] != 0:
-							bad_comments.append(int(i))
-							break
-				if already_commented == False:
-					# Remove unwanted comments from found comments
-					for i in range(0, len(bad_comments)):
-						good_comments = list(filter(lambda a: a != bad_comments[i], good_comments))
-					# Remove duplicates (if any)
-					good_comments = list(set(good_comments))
-					if len(good_comments) >= 1:
-						#random_comment = int(random.randint(0, len(good_comments)-1))
-						#comment = instabot.last_json['comments'][good_comments[random_comment]]['text'] + '! ' + add_phrase[random.randint(0, len(add_phrase)-1)]
-						# Filter comments
-						profanity = {}
-						comment_list = []
-						smallest = 1
-						temp = 1
+				try:
+					# Find unwanted comments
+					for i in range(0, len(instabot.last_json['comments'])):
+						if int(instabot.last_json['comments'][i]['user_id']) == int(user_id):
+							already_commented = True
+						# Get all comments here
+						good_comments.append(i)
+						comment = instabot.last_json['comments'][i]['text']
+						for phrase in banned_phrases:
+							if phrase in comment or len(comment) < min_comment_length or instabot.last_json['comments'][i]['type'] != 0:
+								bad_comments.append(int(i))
+								break
+					if already_commented == False:
+						# Remove unwanted comments from found comments
+						for i in range(0, len(bad_comments)):
+							good_comments = list(filter(lambda a: a != bad_comments[i], good_comments))
+						# Remove duplicates (if any)
 						good_comments = list(set(good_comments))
-						for i in good_comments:
-							comment = instabot.last_json['comments'][i]['text']
-							comment_list.append(comment)
-							prediction = str(predict_prob([comment])[0])
-							profanity[prediction] = comment
-							smallest = prediction
-							if float(smallest) > float(temp):
-								smallest = temp
-							temp = smallest
-						comment = profanity[smallest] + '! ' + add_phrase[random.randint(0, len(add_phrase)-1)]
-						result = instabot.comment(post_id, comment)
-						if 'feedback_required' in str(result):
-							send_error('Could not comment, this feature might be blocked temporary; reduce commenting groups')
-							sys.exit()
-						# This is to check if comments are good enough and to find phrases to ban
-						if log_en == 1:
-							log_data(comment)
-					else:
-						result = instabot.comment(post_id, add_phrase[random.randint(0, len(add_phrase)-1)])
-						if 'feedback_required' in str(result):
-							send_error('Could not comment, this feature might be blocked temporary; reduce commenting groups')
-							sys.exit()
+						if len(good_comments) >= 1:
+							#random_comment = int(random.randint(0, len(good_comments)-1))
+							#comment = instabot.last_json['comments'][good_comments[random_comment]]['text'] + '! ' + add_phrase[random.randint(0, len(add_phrase)-1)]
+							# Filter comments
+							profanity = {}
+							comment_list = []
+							smallest = 1
+							temp = 1
+							good_comments = list(set(good_comments))
+							for i in good_comments:
+								comment = instabot.last_json['comments'][i]['text']
+								comment_list.append(comment)
+								prediction = str(predict_prob([comment])[0])
+								profanity[prediction] = comment
+								smallest = prediction
+								if float(smallest) > float(temp):
+									smallest = temp
+								temp = smallest
+							comment = profanity[smallest] + '! ' + add_phrase[random.randint(0, len(add_phrase)-1)]
+							result = instabot.comment(post_id, comment)
+							if 'feedback_required' in str(result):
+								send_error('Could not comment, this feature might be blocked temporary; reduce commenting groups')
+								sys.exit()
+							# This is to check if comments are good enough and to find phrases to ban
+							if log_en == 1:
+								log_data(comment)
+						else:
+							result = instabot.comment(post_id, add_phrase[random.randint(0, len(add_phrase)-1)])
+							if 'feedback_required' in str(result):
+								send_error('Could not comment, this feature might be blocked temporary; reduce commenting groups')
+								sys.exit()
+				except:
+					print('Wrong media (maybe deleted or wrong link)')
 			else:
 				# Still try to comment
 				result = instabot.comment(post_id, add_phrase[random.randint(0, len(add_phrase)-1)])
