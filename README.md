@@ -2,13 +2,13 @@
 
 Python program that automates [Telegram engagement groups](https://medium.com/@violet.emily.xoxo/inside-instagram-pods-the-secret-trick-to-increase-your-engagement-55b0d9c3cee9) for Instagram such as Wolf Global by combining Instagram bot ([Instabot](https://github.com/instagrambot/instabot)) and Telegram API ([Telethon](https://github.com/LonamiWebs/Telethon)).
 
-This also runs on Raspberry Pi (requires Python 3.6 or higher; [here is a tutorial](https://github.com/Ewlbo/Instagagement/blob/master/RASPBERRY.md)).
+This also runs on Raspberry Pi (requires Python 3.6 or higher; [here is a tutorial](https://github.com/thehelvijs/Instagagement/blob/master/RASPBERRY.md)).
 
 GUI coming soon.
 
 #### LATEST DEV.: Added [profanity-check](https://github.com/vzhou842/profanity-check) for commenting. Install it with 'pip install profanity-check' (optional, only when using commenting groups)
 
-#### NOTE: Web-based bot [InstaBot-Py 0.4.7](https://github.com/instabot-py/instabot.py) has been changed to mobile-based [Instabot](https://github.com/instagrambot/instabot). Release [0.1W](https://github.com/Ewlbo/Instagagement/releases/tag/0.1W) is the old version with InstaBot-Py 0.4.7 while release [v0.4](https://github.com/Ewlbo/Instagagement/releases/tag/v0.4) is the new release with Instabot.
+#### NOTE: Web-based bot [InstaBot-Py 0.4.7](https://github.com/instabot-py/instabot.py) has been changed to mobile-based [Instabot](https://github.com/instagrambot/instabot). Release [0.1W](https://github.com/thehelvijs/Instagagement/releases/tag/0.1W) is the old version with InstaBot-Py 0.4.7 while release [v0.4](https://github.com/thehelvijs/Instagagement/releases/tag/v0.4) is the new release with Instabot.
 
 ## Features
 
@@ -63,7 +63,7 @@ pip install instabot
 pip install telethon
 pip install profanity-check
 cd ~/Desktop
-git clone https://github.com/Ewlbo/Instagagement/
+git clone https://github.com/thehelvijs/Instagagement/
 cd Instagagement
 python quickstart.py
 python run.py
